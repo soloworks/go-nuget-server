@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service xml:base="https://qsysassets.myget.org/F/qsc-managed-plugins/" xmlns="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom">
+    <workspace>
+        <atom:title>Default</atom:title>
+        <collection href="Packages">
+            <atom:title>Packages</atom:title>
+        </collection>
+        <collection href="Screenshots">
+            <atom:title>Screenshots</atom:title>
+        </collection>
+    </workspace>
+</service>
