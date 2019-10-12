@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xml:base="http://localhost/plugins/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <id>http://localhost/plugins/Packages</id>
+    <title type="text">Packages</title>
+    <updated>2019-10-06T19:27:04Z</updated>
+    <link rel="self" title="Packages" href="Packages" />
+    <entry>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')</id>
+        <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+        <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')" />
+        <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')/Screenshots" />
+        <title type="text">Atlona AT-JUNO-451</title>
+        <summary type="text">Control plugin for the Atlona AT-JUNO-451 4K HDR Four-Input HDMI Switcher</summary>
+        <updated>2018-07-27T23:10:35Z</updated>
+        <author>
+            <name>QSC</name>
+        </author>
+        <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')/$value" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.0.0" />
+        <m:properties>
+            <d:Id>Atlona_AT-JUNO-451</d:Id>
+            <d:Version>1.0.0.0</d:Version>
+            <d:NormalizedVersion></d:NormalizedVersion>
+            <d:Copyright m:null="true" />
+            <d:Created m:type="Edm.DateTime">2018-07-27T23:10:35.5459543</d:Created>
+            <d:Dependencies></d:Dependencies>
+            <d:Description>![Image](http://content/AtlonaLogo.png =400x87)  
+-----------------------------
+Control plugin for the Atlona AT-JUNO-451 4K HDR Four-Input HDMI Switcher
+-----------------------------
+
+**SUMMARY** - A plugin for controlling the 4x1 HDMI switcher.
+
+![Image](http://content/juno451productimage.jpg =600x163)
+
+![Image](http://content/RoutingTab.png =366x421)
+
+![Image](http://content/NetworkTab.png =366x477)</d:Description>
+            <d:DownloadCount m:type="Edm.Int32">653</d:DownloadCount>
+            <d:GalleryDetailsUrl>https://qsysassets.myget.org/feed/qsc-managed-plugins/package/nuget/Atlona_AT-JUNO-451/1.0.0.0</d:GalleryDetailsUrl>
+            <d:IconUrl>http://content/atlonaicon.gif</d:IconUrl>
+            <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+            <d:IsAbsoluteLatestVersion m:type="Edm.Boolean">true</d:IsAbsoluteLatestVersion>
+            <d:LastEdited m:type="Edm.DateTime">2018-07-27T23:10:35.5459543</d:LastEdited>
+            <d:Published m:type="Edm.DateTime">2018-07-27T23:10:35.5459543</d:Published>
+            <d:LicenseUrl m:null="true" />
+            <d:LicenseNames m:null="true" />
+            <d:LicenseReportUrl m:null="true" />
+            <d:PackageHash>bUyK2A/B+S3itBdBzLphg9RtrwG5QcJC7xZRt8KYd8Xz/p8ZKt4rPcirKnHIizYxjXHCwpHq2rmnYsqoHMSnLw==</d:PackageHash>
+            <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+            <d:PackageSize m:type="Edm.Int64">116251</d:PackageSize>
+            <d:ProjectUrl>https://atlona.com/product/at-juno-451/</d:ProjectUrl>
+            <d:ReleaseNotes m:null="true" />
+            <d:ReportAbuseUrl>http://localhost</d:ReportAbuseUrl>
+            <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+            <d:Tags>Video Switcher</d:Tags>
+            <d:Title>Atlona AT-JUNO-451</d:Title>
+            <d:VersionDownloadCount m:type="Edm.Int32">28</d:VersionDownloadCount>
+            <d:IsPrerelease m:type="Edm.Boolean">false</d:IsPrerelease>
+            <d:MinClientVersion m:null="true" />
+            <d:Language>en-US</d:Language>
+        </m:properties>
+    </entry>
+</feed>

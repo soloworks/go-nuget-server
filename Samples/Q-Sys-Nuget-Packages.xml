@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xml:base="https://qsysassets.myget.org/F/qsc-managed-plugins/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-    <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages</id>
+<feed xml:base="http://localhost/plugins/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <id>http://localhost/plugins/Packages</id>
     <title type="text">Packages</title>
     <updated>2019-10-06T19:27:04Z</updated>
     <link rel="self" title="Packages" href="Packages" />
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')/Screenshots" />
@@ -16,7 +16,7 @@
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-JUNO-451</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -62,7 +62,7 @@ Control plugin for the Atlona AT-JUNO-451 4K HDR Four-Input HDMI Switcher
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.1')/Screenshots" />
@@ -73,7 +73,7 @@ Control plugin for the Atlona AT-JUNO-451 4K HDR Four-Input HDMI Switcher
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-JUNO-451</d:Id>
             <d:Version>1.0.0.1</d:Version>
@@ -121,7 +121,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.1.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.0.1.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.1.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.1.1')/Screenshots" />
@@ -132,7 +132,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.0.1.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.1.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-JUNO-451/1.0.1.1" />
         <m:properties>
             <d:Id>Atlona_AT-JUNO-451</d:Id>
             <d:Version>1.0.1.1</d:Version>
@@ -180,7 +180,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.1.1.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-JUNO-451',Version='1.1.1.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.1.1.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.1.1.1')/Screenshots" />
@@ -191,7 +191,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-JUNO-451',Version='1.1.1.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-JUNO-451/1.1.1.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-JUNO-451/1.1.1.1" />
         <m:properties>
             <d:Id>Atlona_AT-JUNO-451</d:Id>
             <d:Version>1.1.1.1</d:Version>
@@ -239,7 +239,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.0')/Screenshots" />
@@ -250,7 +250,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.0.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-601</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -296,7 +296,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.1')/Screenshots" />
@@ -307,7 +307,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.0.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.0.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.0.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-601</d:Id>
             <d:Version>1.0.0.1</d:Version>
@@ -353,7 +353,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.1.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.1.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.1.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.1.0.1')/Screenshots" />
@@ -364,7 +364,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.1.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.1.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.1.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-601</d:Id>
             <d:Version>1.1.0.1</d:Version>
@@ -410,7 +410,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.2.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.2.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.2.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.2.0.1')/Screenshots" />
@@ -421,7 +421,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.2.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.2.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.2.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-601</d:Id>
             <d:Version>1.2.0.1</d:Version>
@@ -467,7 +467,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.3.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.3.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.3.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.3.0.1')/Screenshots" />
@@ -478,7 +478,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-601',Version='1.3.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.3.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-601/1.3.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-601</d:Id>
             <d:Version>1.3.0.1</d:Version>
@@ -524,7 +524,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.0.0.0')/Screenshots" />
@@ -535,7 +535,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.0.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-612ED</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -579,7 +579,7 @@ Control plugin for the Atlona AT-UHD-CLSO-612ED Video Switcher
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.0')/Screenshots" />
@@ -590,7 +590,7 @@ Control plugin for the Atlona AT-UHD-CLSO-612ED Video Switcher
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.1.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-612ED</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -634,7 +634,7 @@ Control plugin for the Atlona AT-UHD-CLSO-612ED Video Switcher
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.1')/Screenshots" />
@@ -645,7 +645,7 @@ Control plugin for the Atlona AT-UHD-CLSO-612ED Video Switcher
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.1.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.1.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.1.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-612ED</d:Id>
             <d:Version>1.1.0.1</d:Version>
@@ -691,7 +691,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.2.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.2.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.2.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.2.0.1')/Screenshots" />
@@ -702,7 +702,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.2.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.2.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.2.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-612ED</d:Id>
             <d:Version>1.2.0.1</d:Version>
@@ -748,7 +748,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.3.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.3.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.3.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.3.0.1')/Screenshots" />
@@ -759,7 +759,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-612ED',Version='1.3.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.3.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-612ED/1.3.0.1" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-612ED</d:Id>
             <d:Version>1.3.0.1</d:Version>
@@ -805,7 +805,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.0.0.0')/Screenshots" />
@@ -816,7 +816,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-824/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-824/1.0.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-824</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -862,7 +862,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.2.0.0')/Screenshots" />
@@ -873,7 +873,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-824/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-824/1.2.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-824</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -919,7 +919,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.3.0.0')/Screenshots" />
@@ -930,7 +930,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-824',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-824/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-824/1.3.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-824</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -976,7 +976,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.0.0.0')/Screenshots" />
@@ -987,7 +987,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-840/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-840/1.0.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-840</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -1033,7 +1033,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.2.0.0')/Screenshots" />
@@ -1044,7 +1044,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-840/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-840/1.2.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-840</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -1090,7 +1090,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.3.0.0')/Screenshots" />
@@ -1101,7 +1101,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Atlona_AT-UHD-CLSO-840',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Atlona_AT-UHD-CLSO-840/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Atlona_AT-UHD-CLSO-840/1.3.0.0" />
         <m:properties>
             <d:Id>Atlona_AT-UHD-CLSO-840</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -1147,7 +1147,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Axon_C1',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Axon_C1',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Axon_C1',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Axon_C1',Version='1.1.0.0')/Screenshots" />
@@ -1158,7 +1158,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Axon_C1',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Axon_C1/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Axon_C1/1.1.0.0" />
         <m:properties>
             <d:Id>AtteroTech_Axon_C1</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -1204,7 +1204,7 @@ Click [here](http://content/AxonC1.pdf) for help once the package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.0')/Screenshots" />
@@ -1215,7 +1215,7 @@ Click [here](http://content/AxonC1.pdf) for help once the package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Axon_C1/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Axon_C1/1.3.0.0" />
         <m:properties>
             <d:Id>AtteroTech_Axon_C1</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -1269,7 +1269,7 @@ v1.3.0.0 (21 June 2019)
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.1')/Screenshots" />
@@ -1280,7 +1280,7 @@ v1.3.0.0 (21 June 2019)
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Axon_C1',Version='1.3.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Axon_C1/1.3.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Axon_C1/1.3.0.1" />
         <m:properties>
             <d:Id>AtteroTech_Axon_C1</d:Id>
             <d:Version>1.3.0.1</d:Version>
@@ -1338,7 +1338,7 @@ v1.3.0.0 (21 June 2019)
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_AxonA4FLEX',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_AxonA4FLEX',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_AxonA4FLEX',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_AxonA4FLEX',Version='1.0.0.0')/Screenshots" />
@@ -1349,7 +1349,7 @@ v1.3.0.0 (21 June 2019)
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_AxonA4FLEX',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_AxonA4FLEX/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_AxonA4FLEX/1.0.0.0" />
         <m:properties>
             <d:Id>AtteroTech_AxonA4FLEX</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -1401,7 +1401,7 @@ v1.0.0.0 (22 July 2019)
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.0')/Screenshots" />
@@ -1412,7 +1412,7 @@ v1.0.0.0 (22 July 2019)
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D16Mio/1.0.3.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D16Mio/1.0.3.0" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D16Mio</d:Id>
             <d:Version>1.0.3.0</d:Version>
@@ -1456,7 +1456,7 @@ Control plugin for Attero Tech Synapse D16Mio
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.1')/Screenshots" />
@@ -1467,7 +1467,7 @@ Control plugin for Attero Tech Synapse D16Mio
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.0.3.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D16Mio/1.0.3.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D16Mio/1.0.3.1" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D16Mio</d:Id>
             <d:Version>1.0.3.1</d:Version>
@@ -1513,7 +1513,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.1.0.0')/Screenshots" />
@@ -1524,7 +1524,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D16Mio',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D16Mio/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D16Mio/1.1.0.0" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D16Mio</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -1576,7 +1576,7 @@ Click [here](http://content/SynapseD16MioPluginManual.htm) for help once the pac
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.0')/Screenshots" />
@@ -1587,7 +1587,7 @@ Click [here](http://content/SynapseD16MioPluginManual.htm) for help once the pac
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D32i/1.0.2.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D32i/1.0.2.0" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D32i</d:Id>
             <d:Version>1.0.2.0</d:Version>
@@ -1631,7 +1631,7 @@ Control plugin for Attero Tech Synapse D32i
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.1')/Screenshots" />
@@ -1642,7 +1642,7 @@ Control plugin for Attero Tech Synapse D32i
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32i',Version='1.0.2.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D32i/1.0.2.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D32i/1.0.2.1" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D32i</d:Id>
             <d:Version>1.0.2.1</d:Version>
@@ -1688,7 +1688,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.0')/Screenshots" />
@@ -1699,7 +1699,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D32o/1.0.3.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D32o/1.0.3.0" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D32o</d:Id>
             <d:Version>1.0.3.0</d:Version>
@@ -1743,7 +1743,7 @@ Control plugin for Attero Tech Synapse D32o
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.1')/Screenshots" />
@@ -1754,7 +1754,7 @@ Control plugin for Attero Tech Synapse D32o
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Synapse_D32o',Version='1.0.3.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Synapse_D32o/1.0.3.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Synapse_D32o/1.0.3.1" />
         <m:properties>
             <d:Id>AtteroTech_Synapse_D32o</d:Id>
             <d:Version>1.0.3.1</d:Version>
@@ -1800,7 +1800,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unA6IO',Version='1.0.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unA6IO',Version='1.0.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO',Version='1.0.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unA6IO',Version='1.0.1.0')/Screenshots" />
@@ -1811,7 +1811,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO',Version='1.0.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unA6IO/1.0.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unA6IO/1.0.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unA6IO</d:Id>
             <d:Version>1.0.1.0</d:Version>
@@ -1858,7 +1858,7 @@ up to 6 channels of AES67 audio to an existing AES67-based networked audio syste
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unA6IO',Version='1.1.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unA6IO',Version='1.1.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO',Version='1.1.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unA6IO',Version='1.1.1.0')/Screenshots" />
@@ -1869,7 +1869,7 @@ up to 6 channels of AES67 audio to an existing AES67-based networked audio syste
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO',Version='1.1.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unA6IO/1.1.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unA6IO/1.1.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unA6IO</d:Id>
             <d:Version>1.1.1.0</d:Version>
@@ -1914,7 +1914,7 @@ up to 6 channels of AES67 audio to an existing AES67-based networked audio syste
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unA6IO_BT',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unA6IO_BT',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO_BT',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unA6IO_BT',Version='1.0.0.0')/Screenshots" />
@@ -1925,7 +1925,7 @@ up to 6 channels of AES67 audio to an existing AES67-based networked audio syste
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO_BT',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unA6IO_BT/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unA6IO_BT/1.0.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unA6IO_BT</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -1971,7 +1971,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unA6IO_BT',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unA6IO_BT',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO_BT',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unA6IO_BT',Version='1.1.0.0')/Screenshots" />
@@ -1982,7 +1982,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unA6IO_BT',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unA6IO_BT/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unA6IO_BT/1.1.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unA6IO_BT</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -2026,7 +2026,7 @@ Control plugin for Attero Tech unA6IO BT
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unAIO2x2',Version='1.0.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unAIO2x2',Version='1.0.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAIO2x2',Version='1.0.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unAIO2x2',Version='1.0.1.0')/Screenshots" />
@@ -2037,7 +2037,7 @@ Control plugin for Attero Tech unA6IO BT
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAIO2x2',Version='1.0.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unAIO2x2/1.0.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unAIO2x2/1.0.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unAIO2x2</d:Id>
             <d:Version>1.0.1.0</d:Version>
@@ -2084,7 +2084,7 @@ existing networked audio system.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unAIO2x2',Version='1.1.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unAIO2x2',Version='1.1.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAIO2x2',Version='1.1.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unAIO2x2',Version='1.1.1.0')/Screenshots" />
@@ -2095,7 +2095,7 @@ existing networked audio system.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAIO2x2',Version='1.1.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unAIO2x2/1.1.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unAIO2x2/1.1.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unAIO2x2</d:Id>
             <d:Version>1.1.1.0</d:Version>
@@ -2140,7 +2140,7 @@ existing networked audio system.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unAX2IO',Version='1.0.4.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unAX2IO',Version='1.0.4.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX2IO',Version='1.0.4.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unAX2IO',Version='1.0.4.0')/Screenshots" />
@@ -2151,7 +2151,7 @@ existing networked audio system.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX2IO',Version='1.0.4.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unAX2IO/1.0.4.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unAX2IO/1.0.4.0" />
         <m:properties>
             <d:Id>AtteroTech_unAX2IO</d:Id>
             <d:Version>1.0.4.0</d:Version>
@@ -2197,7 +2197,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unAX2IO',Version='1.1.4.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unAX2IO',Version='1.1.4.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX2IO',Version='1.1.4.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unAX2IO',Version='1.1.4.0')/Screenshots" />
@@ -2208,7 +2208,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX2IO',Version='1.1.4.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unAX2IO/1.1.4.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unAX2IO/1.1.4.0" />
         <m:properties>
             <d:Id>AtteroTech_unAX2IO</d:Id>
             <d:Version>1.1.4.0</d:Version>
@@ -2252,7 +2252,7 @@ Control plugin for Attero Tech unAX2IO
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unAX4I',Version='1.0.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unAX4I',Version='1.0.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX4I',Version='1.0.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unAX4I',Version='1.0.1.0')/Screenshots" />
@@ -2263,7 +2263,7 @@ Control plugin for Attero Tech unAX2IO
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX4I',Version='1.0.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unAX4I/1.0.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unAX4I/1.0.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unAX4I</d:Id>
             <d:Version>1.0.1.0</d:Version>
@@ -2310,7 +2310,7 @@ Phoenix connector
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unAX4I',Version='1.1.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unAX4I',Version='1.1.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX4I',Version='1.1.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unAX4I',Version='1.1.1.0')/Screenshots" />
@@ -2321,7 +2321,7 @@ Phoenix connector
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unAX4I',Version='1.1.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unAX4I/1.1.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unAX4I/1.1.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unAX4I</d:Id>
             <d:Version>1.1.1.0</d:Version>
@@ -2366,7 +2366,7 @@ Phoenix connector
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unBT2A',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unBT2A',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unBT2A',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unBT2A',Version='1.1.0.0')/Screenshots" />
@@ -2377,7 +2377,7 @@ Phoenix connector
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unBT2A',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unBT2A/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unBT2A/1.1.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unBT2A</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -2423,7 +2423,7 @@ Click [here](http://content/BT2A.pdf) for help once the package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD3IO',Version='1.0.3.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD3IO',Version='1.0.3.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD3IO',Version='1.0.3.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD3IO',Version='1.0.3.0')/Screenshots" />
@@ -2434,7 +2434,7 @@ Click [here](http://content/BT2A.pdf) for help once the package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD3IO',Version='1.0.3.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD3IO/1.0.3.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD3IO/1.0.3.0" />
         <m:properties>
             <d:Id>AtteroTech_unD3IO</d:Id>
             <d:Version>1.0.3.0</d:Version>
@@ -2480,7 +2480,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD3IO',Version='1.1.3.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD3IO',Version='1.1.3.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD3IO',Version='1.1.3.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD3IO',Version='1.1.3.0')/Screenshots" />
@@ -2491,7 +2491,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD3IO',Version='1.1.3.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD3IO/1.1.3.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD3IO/1.1.3.0" />
         <m:properties>
             <d:Id>AtteroTech_unD3IO</d:Id>
             <d:Version>1.1.3.0</d:Version>
@@ -2535,7 +2535,7 @@ Control plugin for Attero Tech unD3IO
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD3IO',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD3IO',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD3IO',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD3IO',Version='1.2.0.0')/Screenshots" />
@@ -2546,7 +2546,7 @@ Control plugin for Attero Tech unD3IO
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD3IO',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD3IO/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD3IO/1.2.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD3IO</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -2592,7 +2592,7 @@ Click [here](http://content/unD3IO.pdf) for help once the package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD4IL',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD4IL',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD4IL',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD4IL',Version='1.0.0.0')/Screenshots" />
@@ -2603,7 +2603,7 @@ Click [here](http://content/unD3IO.pdf) for help once the package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD4IL',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD4IL/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD4IL/1.0.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD4IL</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -2647,7 +2647,7 @@ Control plugin for Attero Tech unD4IL
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD4IL',Version='1.0.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD4IL',Version='1.0.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD4IL',Version='1.0.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD4IL',Version='1.0.0.1')/Screenshots" />
@@ -2658,7 +2658,7 @@ Control plugin for Attero Tech unD4IL
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD4IL',Version='1.0.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD4IL/1.0.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD4IL/1.0.0.1" />
         <m:properties>
             <d:Id>AtteroTech_unD4IL</d:Id>
             <d:Version>1.0.0.1</d:Version>
@@ -2704,7 +2704,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD4IL',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD4IL',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD4IL',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD4IL',Version='1.1.0.0')/Screenshots" />
@@ -2715,7 +2715,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD4IL',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD4IL/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD4IL/1.1.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD4IL</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -2767,7 +2767,7 @@ Click [here](http://content/unD4ILPluginManual.htm) for help once the package is
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD6IO',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD6IO',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD6IO',Version='1.1.0.0')/Screenshots" />
@@ -2778,7 +2778,7 @@ Click [here](http://content/unD4ILPluginManual.htm) for help once the package is
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD6IO/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD6IO/1.1.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD6IO</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -2824,7 +2824,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD6IO',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD6IO',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD6IO',Version='1.2.0.0')/Screenshots" />
@@ -2835,7 +2835,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD6IO/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD6IO/1.2.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD6IO</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -2878,7 +2878,7 @@ Control plugin for Attero Tech unD6IO
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD6IO',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD6IO',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD6IO',Version='1.3.0.0')/Screenshots" />
@@ -2889,7 +2889,7 @@ Control plugin for Attero Tech unD6IO
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD6IO/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD6IO/1.3.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD6IO</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -2934,7 +2934,7 @@ Click [here](http://content/unD6IO.pdf) for help once the package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD6IO_BT',Version='1.1.4.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD6IO_BT',Version='1.1.4.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.1.4.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.1.4.0')/Screenshots" />
@@ -2945,7 +2945,7 @@ Click [here](http://content/unD6IO.pdf) for help once the package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.1.4.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD6IO_BT/1.1.4.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD6IO_BT/1.1.4.0" />
         <m:properties>
             <d:Id>AtteroTech_unD6IO_BT</d:Id>
             <d:Version>1.1.4.0</d:Version>
@@ -2991,7 +2991,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD6IO_BT',Version='1.2.4.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD6IO_BT',Version='1.2.4.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.2.4.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.2.4.0')/Screenshots" />
@@ -3002,7 +3002,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.2.4.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD6IO_BT/1.2.4.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD6IO_BT/1.2.4.0" />
         <m:properties>
             <d:Id>AtteroTech_unD6IO_BT</d:Id>
             <d:Version>1.2.4.0</d:Version>
@@ -3046,7 +3046,7 @@ Control plugin for Attero Tech unD6IO BT
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unD6IO_BT',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unD6IO_BT',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.3.0.0')/Screenshots" />
@@ -3057,7 +3057,7 @@ Control plugin for Attero Tech unD6IO BT
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unD6IO_BT',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unD6IO_BT/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unD6IO_BT/1.3.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unD6IO_BT</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -3103,7 +3103,7 @@ Click [here](http://content/unD6IOBT.pdf) for help once the package is installed
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDIO2x2',Version='1.1.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDIO2x2',Version='1.1.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.1.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.1.1.0')/Screenshots" />
@@ -3114,7 +3114,7 @@ Click [here](http://content/unD6IOBT.pdf) for help once the package is installed
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.1.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDIO2x2/1.1.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDIO2x2/1.1.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unDIO2x2</d:Id>
             <d:Version>1.1.1.0</d:Version>
@@ -3160,7 +3160,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDIO2x2',Version='1.2.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDIO2x2',Version='1.2.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.2.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.2.1.0')/Screenshots" />
@@ -3171,7 +3171,7 @@ Click [here](http://content/pluginhelp.htm) for help once package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.2.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDIO2x2/1.2.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDIO2x2/1.2.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unDIO2x2</d:Id>
             <d:Version>1.2.1.0</d:Version>
@@ -3215,7 +3215,7 @@ Control plugin for Attero Tech unDIO2x2+
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDIO2x2',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDIO2x2',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.3.0.0')/Screenshots" />
@@ -3226,7 +3226,7 @@ Control plugin for Attero Tech unDIO2x2+
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDIO2x2',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDIO2x2/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDIO2x2/1.3.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unDIO2x2</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -3272,7 +3272,7 @@ Click [here](http://content/unDIO2x2+.pdf) for help once the package is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDX2IO',Version='1.1.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDX2IO',Version='1.1.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX2IO',Version='1.1.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDX2IO',Version='1.1.1.0')/Screenshots" />
@@ -3283,7 +3283,7 @@ Click [here](http://content/unDIO2x2+.pdf) for help once the package is installe
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX2IO',Version='1.1.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDX2IO/1.1.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDX2IO/1.1.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unDX2IO</d:Id>
             <d:Version>1.1.1.0</d:Version>
@@ -3327,7 +3327,7 @@ Control plugin for Attero Tech unDX2IO+
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDX2IO',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDX2IO',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX2IO',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDX2IO',Version='1.3.0.0')/Screenshots" />
@@ -3338,7 +3338,7 @@ Control plugin for Attero Tech unDX2IO+
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX2IO',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDX2IO/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDX2IO/1.3.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unDX2IO</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -3384,7 +3384,7 @@ Click [here](http://content/unDX2IO+.pdf) for help once the package is installed
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDX4I',Version='1.1.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDX4I',Version='1.1.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX4I',Version='1.1.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDX4I',Version='1.1.1.0')/Screenshots" />
@@ -3395,7 +3395,7 @@ Click [here](http://content/unDX2IO+.pdf) for help once the package is installed
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX4I',Version='1.1.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDX4I/1.1.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDX4I/1.1.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unDX4I</d:Id>
             <d:Version>1.1.1.0</d:Version>
@@ -3442,7 +3442,7 @@ in-wall Phoenix connector
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDX4I',Version='1.2.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDX4I',Version='1.2.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX4I',Version='1.2.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDX4I',Version='1.2.1.0')/Screenshots" />
@@ -3453,7 +3453,7 @@ in-wall Phoenix connector
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX4I',Version='1.2.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDX4I/1.2.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDX4I/1.2.1.0" />
         <m:properties>
             <d:Id>AtteroTech_unDX4I</d:Id>
             <d:Version>1.2.1.0</d:Version>
@@ -3498,7 +3498,7 @@ in-wall Phoenix connector
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unDX4I',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unDX4I',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX4I',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unDX4I',Version='1.3.0.0')/Screenshots" />
@@ -3509,7 +3509,7 @@ in-wall Phoenix connector
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unDX4I',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unDX4I/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unDX4I/1.3.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unDX4I</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -3556,7 +3556,7 @@ Click [here](http://content/unDX4I.pdf) for help once the package is installed.
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unHX2D',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unHX2D',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unHX2D',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unHX2D',Version='1.0.0.0')/Screenshots" />
@@ -3567,7 +3567,7 @@ Click [here](http://content/unDX4I.pdf) for help once the package is installed.
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unHX2D',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unHX2D/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unHX2D/1.0.0.0" />
         <m:properties>
             <d:Id>AtteroTech_unHX2D</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -3611,7 +3611,7 @@ Control plugin for Attero Tech unHX2D
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_unHX2D',Version='1.0.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_unHX2D',Version='1.0.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_unHX2D',Version='1.0.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_unHX2D',Version='1.0.0.1')/Screenshots" />
@@ -3622,7 +3622,7 @@ Control plugin for Attero Tech unHX2D
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_unHX2D',Version='1.0.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_unHX2D/1.0.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_unHX2D/1.0.0.1" />
         <m:properties>
             <d:Id>AtteroTech_unHX2D</d:Id>
             <d:Version>1.0.0.1</d:Version>
@@ -3668,7 +3668,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Zip4',Version='1.0.2.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Zip4',Version='1.0.2.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.0.2.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Zip4',Version='1.0.2.0')/Screenshots" />
@@ -3679,7 +3679,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.0.2.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Zip4/1.0.2.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Zip4/1.0.2.0" />
         <m:properties>
             <d:Id>AtteroTech_Zip4</d:Id>
             <d:Version>1.0.2.0</d:Version>
@@ -3723,7 +3723,7 @@ Control plugin for Attero Tech Zip4
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Zip4',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Zip4',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.0')/Screenshots" />
@@ -3734,7 +3734,7 @@ Control plugin for Attero Tech Zip4
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Zip4/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Zip4/1.2.0.0" />
         <m:properties>
             <d:Id>AtteroTech_Zip4</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -3780,7 +3780,7 @@ Click [here](http://content/Zip4_Plugin_Manual.docx) for help once the plugin is
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Zip4',Version='1.2.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Zip4',Version='1.2.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.1')/Screenshots" />
@@ -3791,7 +3791,7 @@ Click [here](http://content/Zip4_Plugin_Manual.docx) for help once the plugin is
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Zip4/1.2.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Zip4/1.2.0.1" />
         <m:properties>
             <d:Id>AtteroTech_Zip4</d:Id>
             <d:Version>1.2.0.1</d:Version>
@@ -3837,7 +3837,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AtteroTech_Zip4',Version='1.2.0.2')</id>
+        <id>http://localhost/plugins/Packages(Id='AtteroTech_Zip4',Version='1.2.0.2')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.2')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.2')/Screenshots" />
@@ -3848,7 +3848,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Attero Tech</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AtteroTech_Zip4',Version='1.2.0.2')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AtteroTech_Zip4/1.2.0.2" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AtteroTech_Zip4/1.2.0.2" />
         <m:properties>
             <d:Id>AtteroTech_Zip4</d:Id>
             <d:Version>1.2.0.2</d:Version>
@@ -3894,7 +3894,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AudioScience_Iyo',Version='1.0.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='AudioScience_Iyo',Version='1.0.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='1.0.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AudioScience_Iyo',Version='1.0.0.1')/Screenshots" />
@@ -3905,7 +3905,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>AudioScience</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='1.0.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AudioScience_Iyo/1.0.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AudioScience_Iyo/1.0.0.1" />
         <m:properties>
             <d:Id>AudioScience_Iyo</d:Id>
             <d:Version>1.0.0.1</d:Version>
@@ -3951,7 +3951,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AudioScience_Iyo',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AudioScience_Iyo',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AudioScience_Iyo',Version='1.1.0.0')/Screenshots" />
@@ -3962,7 +3962,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
             <name>AudioScience</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AudioScience_Iyo/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AudioScience_Iyo/1.1.0.0" />
         <m:properties>
             <d:Id>AudioScience_Iyo</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -4020,7 +4020,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AudioScience_Iyo',Version='2.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AudioScience_Iyo',Version='2.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='2.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AudioScience_Iyo',Version='2.0.0.0')/Screenshots" />
@@ -4031,7 +4031,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
             <name>AudioScience</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='2.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AudioScience_Iyo/2.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AudioScience_Iyo/2.0.0.0" />
         <m:properties>
             <d:Id>AudioScience_Iyo</d:Id>
             <d:Version>2.0.0.0</d:Version>
@@ -4095,7 +4095,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AudioScience_Iyo',Version='2.0.2.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AudioScience_Iyo',Version='2.0.2.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='2.0.2.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AudioScience_Iyo',Version='2.0.2.0')/Screenshots" />
@@ -4106,7 +4106,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
             <name>AudioScience</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='2.0.2.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AudioScience_Iyo/2.0.2.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AudioScience_Iyo/2.0.2.0" />
         <m:properties>
             <d:Id>AudioScience_Iyo</d:Id>
             <d:Version>2.0.2.0</d:Version>
@@ -4179,7 +4179,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AudioScience_Iyo',Version='2.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AudioScience_Iyo',Version='2.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='2.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AudioScience_Iyo',Version='2.1.0.0')/Screenshots" />
@@ -4190,7 +4190,7 @@ Click [here](http://content/pluginhelp.pdf) for help once the package is install
             <name>AudioScience</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='2.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AudioScience_Iyo/2.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AudioScience_Iyo/2.1.0.0" />
         <m:properties>
             <d:Id>AudioScience_Iyo</d:Id>
             <d:Version>2.1.0.0</d:Version>
@@ -4267,7 +4267,7 @@ v1.0.0 (December 2018)
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='AudioScience_Iyo',Version='3.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='AudioScience_Iyo',Version='3.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='3.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='AudioScience_Iyo',Version='3.0.0.0')/Screenshots" />
@@ -4278,7 +4278,7 @@ v1.0.0 (December 2018)
             <name>AudioScience</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='AudioScience_Iyo',Version='3.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/AudioScience_Iyo/3.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/AudioScience_Iyo/3.0.0.0" />
         <m:properties>
             <d:Id>AudioScience_Iyo</d:Id>
             <d:Version>3.0.0.0</d:Version>
@@ -4361,7 +4361,7 @@ v1.0.0 (December 2018)
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Audix_Dante4',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Audix_Dante4',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Audix_Dante4',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Audix_Dante4',Version='1.0.0.0')/Screenshots" />
@@ -4372,7 +4372,7 @@ v1.0.0 (December 2018)
             <name>Audix Microphones</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Audix_Dante4',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Audix_Dante4/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Audix_Dante4/1.0.0.0" />
         <m:properties>
             <d:Id>Audix_Dante4</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -4416,7 +4416,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Audix_Dante4',Version='1.0.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Audix_Dante4',Version='1.0.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Audix_Dante4',Version='1.0.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Audix_Dante4',Version='1.0.0.1')/Screenshots" />
@@ -4427,7 +4427,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>Audix Microphones</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Audix_Dante4',Version='1.0.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Audix_Dante4/1.0.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Audix_Dante4/1.0.0.1" />
         <m:properties>
             <d:Id>Audix_Dante4</d:Id>
             <d:Version>1.0.0.1</d:Version>
@@ -4471,7 +4471,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Audix_DN4-DN43',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Audix_DN4-DN43',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Audix_DN4-DN43',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Audix_DN4-DN43',Version='1.2.0.0')/Screenshots" />
@@ -4482,7 +4482,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>Audix Corporation</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Audix_DN4-DN43',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Audix_DN4-DN43/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Audix_DN4-DN43/1.2.0.0" />
         <m:properties>
             <d:Id>Audix_DN4-DN43</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -4530,7 +4530,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Clockaudio_CDT100',Version='2.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Clockaudio_CDT100',Version='2.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Clockaudio_CDT100',Version='2.0.0.0')/Screenshots" />
@@ -4541,7 +4541,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Clockaudio_CDT100/2.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Clockaudio_CDT100/2.0.0.0" />
         <m:properties>
             <d:Id>Clockaudio_CDT100</d:Id>
             <d:Version>2.0.0.0</d:Version>
@@ -4590,7 +4590,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Clockaudio_CDT100',Version='2.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Clockaudio_CDT100',Version='2.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Clockaudio_CDT100',Version='2.1.0.0')/Screenshots" />
@@ -4601,7 +4601,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Clockaudio_CDT100/2.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Clockaudio_CDT100/2.1.0.0" />
         <m:properties>
             <d:Id>Clockaudio_CDT100</d:Id>
             <d:Version>2.1.0.0</d:Version>
@@ -4649,7 +4649,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Clockaudio_CDT100',Version='2.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Clockaudio_CDT100',Version='2.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Clockaudio_CDT100',Version='2.2.0.0')/Screenshots" />
@@ -4660,7 +4660,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Clockaudio_CDT100/2.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Clockaudio_CDT100/2.2.0.0" />
         <m:properties>
             <d:Id>Clockaudio_CDT100</d:Id>
             <d:Version>2.2.0.0</d:Version>
@@ -4712,7 +4712,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Clockaudio_CDT100',Version='2.2.1.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Clockaudio_CDT100',Version='2.2.1.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.2.1.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Clockaudio_CDT100',Version='2.2.1.0')/Screenshots" />
@@ -4723,7 +4723,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Clockaudio_CDT100',Version='2.2.1.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Clockaudio_CDT100/2.2.1.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Clockaudio_CDT100/2.2.1.0" />
         <m:properties>
             <d:Id>Clockaudio_CDT100</d:Id>
             <d:Version>2.2.1.0</d:Version>
@@ -4789,7 +4789,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Dataprobe_iPIO',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Dataprobe_iPIO',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Dataprobe_iPIO',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Dataprobe_iPIO',Version='1.2.0.0')/Screenshots" />
@@ -4800,7 +4800,7 @@ Click [here](http://content/pluginhelp.htm) for Help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Dataprobe_iPIO',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Dataprobe_iPIO/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Dataprobe_iPIO/1.2.0.0" />
         <m:properties>
             <d:Id>Dataprobe_iPIO</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -4844,7 +4844,7 @@ Control plugin for all Dataprobe iPIO models
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Dataprobe_iPIO',Version='1.2.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='Dataprobe_iPIO',Version='1.2.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Dataprobe_iPIO',Version='1.2.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Dataprobe_iPIO',Version='1.2.0.1')/Screenshots" />
@@ -4855,7 +4855,7 @@ Control plugin for all Dataprobe iPIO models
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Dataprobe_iPIO',Version='1.2.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Dataprobe_iPIO/1.2.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Dataprobe_iPIO/1.2.0.1" />
         <m:properties>
             <d:Id>Dataprobe_iPIO</d:Id>
             <d:Version>1.2.0.1</d:Version>
@@ -4901,7 +4901,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='Dataprobe_iPIO',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='Dataprobe_iPIO',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='Dataprobe_iPIO',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Dataprobe_iPIO',Version='1.3.0.0')/Screenshots" />
@@ -4912,7 +4912,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='Dataprobe_iPIO',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/Dataprobe_iPIO/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/Dataprobe_iPIO/1.3.0.0" />
         <m:properties>
             <d:Id>Dataprobe_iPIO</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -4962,7 +4962,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='DataprobeiBootPoE',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='DataprobeiBootPoE',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='DataprobeiBootPoE',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='DataprobeiBootPoE',Version='1.0.0.0')/Screenshots" />
@@ -4973,7 +4973,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='DataprobeiBootPoE',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/DataprobeiBootPoE/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/DataprobeiBootPoE/1.0.0.0" />
         <m:properties>
             <d:Id>DataprobeiBootPoE</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -5019,7 +5019,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='1.1.0.0')/Screenshots" />
@@ -5030,7 +5030,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/1.1.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -5078,7 +5078,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='1.1.0.1')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='1.1.0.1')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.1.0.1')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='1.1.0.1')/Screenshots" />
@@ -5089,7 +5089,7 @@ Click [here](http://content/pluginhelp.htm) for help once the plugin is installe
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.1.0.1')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/1.1.0.1" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/1.1.0.1" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>1.1.0.1</d:Version>
@@ -5137,7 +5137,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='1.2.0.0')/Screenshots" />
@@ -5148,7 +5148,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/1.2.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -5201,7 +5201,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='1.3.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='1.3.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.3.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='1.3.0.0')/Screenshots" />
@@ -5212,7 +5212,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.3.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/1.3.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/1.3.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>1.3.0.0</d:Version>
@@ -5268,7 +5268,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='1.4.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='1.4.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.4.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='1.4.0.0')/Screenshots" />
@@ -5279,7 +5279,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='1.4.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/1.4.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/1.4.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>1.4.0.0</d:Version>
@@ -5335,7 +5335,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='2.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='2.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='2.1.0.0')/Screenshots" />
@@ -5346,7 +5346,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/2.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/2.1.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>2.1.0.0</d:Version>
@@ -5404,7 +5404,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='2.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='2.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='2.2.0.0')/Screenshots" />
@@ -5415,7 +5415,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/2.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/2.2.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>2.2.0.0</d:Version>
@@ -5475,7 +5475,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='2.4.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='2.4.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.4.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='2.4.0.0')/Screenshots" />
@@ -5486,7 +5486,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.4.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/2.4.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/2.4.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>2.4.0.0</d:Version>
@@ -5563,7 +5563,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_ControlTower',Version='2.5.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_ControlTower',Version='2.5.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.5.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_ControlTower',Version='2.5.0.0')/Screenshots" />
@@ -5574,7 +5574,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_ControlTower',Version='2.5.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_ControlTower/2.5.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_ControlTower/2.5.0.0" />
         <m:properties>
             <d:Id>GlobalCache_ControlTower</d:Id>
             <d:Version>2.5.0.0</d:Version>
@@ -5656,7 +5656,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_GC100',Version='1.0.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_GC100',Version='1.0.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_GC100',Version='1.0.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_GC100',Version='1.0.0.0')/Screenshots" />
@@ -5667,7 +5667,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_GC100',Version='1.0.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_GC100/1.0.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_GC100/1.0.0.0" />
         <m:properties>
             <d:Id>GlobalCache_GC100</d:Id>
             <d:Version>1.0.0.0</d:Version>
@@ -5715,7 +5715,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_GC100',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_GC100',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_GC100',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_GC100',Version='1.1.0.0')/Screenshots" />
@@ -5726,7 +5726,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_GC100',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_GC100/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_GC100/1.1.0.0" />
         <m:properties>
             <d:Id>GlobalCache_GC100</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -5777,7 +5777,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_iTach_CC',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_iTach_CC',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_CC',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_iTach_CC',Version='1.1.0.0')/Screenshots" />
@@ -5788,7 +5788,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_CC',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_iTach_CC/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_iTach_CC/1.1.0.0" />
         <m:properties>
             <d:Id>GlobalCache_iTach_CC</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -5837,7 +5837,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_iTach_CC',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_iTach_CC',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_CC',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_iTach_CC',Version='1.2.0.0')/Screenshots" />
@@ -5848,7 +5848,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_CC',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_iTach_CC/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_iTach_CC/1.2.0.0" />
         <m:properties>
             <d:Id>GlobalCache_iTach_CC</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -5901,7 +5901,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_iTach_IR',Version='1.1.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_iTach_IR',Version='1.1.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_IR',Version='1.1.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_iTach_IR',Version='1.1.0.0')/Screenshots" />
@@ -5912,7 +5912,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_IR',Version='1.1.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_iTach_IR/1.1.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_iTach_IR/1.1.0.0" />
         <m:properties>
             <d:Id>GlobalCache_iTach_IR</d:Id>
             <d:Version>1.1.0.0</d:Version>
@@ -5962,7 +5962,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
         </m:properties>
     </entry>
     <entry>
-        <id>https://qsysassets.myget.org/F/qsc-managed-plugins/Packages(Id='GlobalCache_iTach_IR',Version='1.2.0.0')</id>
+        <id>http://localhost/plugins/Packages(Id='GlobalCache_iTach_IR',Version='1.2.0.0')</id>
         <category term="MyGet.V2FeedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
         <link rel="edit" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_IR',Version='1.2.0.0')" />
         <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='GlobalCache_iTach_IR',Version='1.2.0.0')/Screenshots" />
@@ -5973,7 +5973,7 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <name>QSC</name>
         </author>
         <link rel="edit-media" title="V2FeedPackage" href="Packages(Id='GlobalCache_iTach_IR',Version='1.2.0.0')/$value" />
-        <content type="binary/octet-stream" src="https://qsysassets.myget.org/F/qsc-managed-plugins/api/v2/package/GlobalCache_iTach_IR/1.2.0.0" />
+        <content type="binary/octet-stream" src="http://localhost/plugins/api/v2/package/GlobalCache_iTach_IR/1.2.0.0" />
         <m:properties>
             <d:Id>GlobalCache_iTach_IR</d:Id>
             <d:Version>1.2.0.0</d:Version>
@@ -6026,5 +6026,5 @@ Click [here](http://content/pluginhelp.htm) for help once the package is install
             <d:Language>en-US</d:Language>
         </m:properties>
     </entry>
-    <link rel="next" href="https://qsysassets.myget.org/F/qsc-managed-plugins/Packages?$skiptoken='GlobalCache_iTach_IR','1.2.0.0'" />
+    <!--<link rel="next" href="http://localhost/plugins/Packages?$skiptoken='GlobalCache_iTach_IR','1.2.0.0'" />-->
 </feed>
