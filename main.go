@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -34,16 +35,15 @@ func main() {
 		log.Println("Routing: " + r.URL.String())
 		switch {
 		case r.URL.String() == `/plugins/`:
-			pathRoot(w, r)
-
+			serveRoot(w, r)
 		case strings.HasPrefix(r.URL.String(), `/plugins/Packages`):
-			pathPackages(w, r)
-
-		case strings.HasPrefix(r.URL.String(), `/plugins/xPackages`):
-			log.Println("Serving static file")
-			w.Header().Set("Content-Type", "application/atom+xml;type=feed;charset=utf-8")
-			http.ServeFile(w, r, "./Samples/Q-Sys-Nuget-PackagesSingle2.xml")
-			//http.ServeFile(w, r, "./Samples/Q-Sys-Nuget-Packages.xml")
+			serveFeed(w, r)
+		case strings.HasPrefix(r.URL.String(), `/plugins/api/v2/package`):
+			servePackage(w, r)
+		case strings.HasPrefix(r.URL.String(), `/F/plugins/api/v2/browse`):
+			// Get file path and split to match local
+			f := strings.TrimLeft(r.URL.String(), `/F/plugins/api/v2/browse`)
+			http.ServeFile(w, r, filepath.Join(repo.path, `browse`, f))
 		}
 	})
 
@@ -52,7 +52,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
-func pathRoot(w http.ResponseWriter, r *http.Request) {
+func serveRoot(w http.ResponseWriter, r *http.Request) {
 
 	// Debug Tracking
 	log.Println("Serving Root")
@@ -67,7 +67,7 @@ func pathRoot(w http.ResponseWriter, r *http.Request) {
 	w.Write(ns.ToBytes())
 }
 
-func pathPackages(w http.ResponseWriter, r *http.Request) {
+func serveFeed(w http.ResponseWriter, r *http.Request) {
 
 	// Debug Tracking
 	log.Println("Serving Packages")
@@ -86,8 +86,7 @@ func pathPackages(w http.ResponseWriter, r *http.Request) {
 			params = r.URL.Path[i+1 : i+j]
 		}
 	}
-	println("baseURL::" + baseURL)
-	println("parms::" + params)
+	log.Println(params)
 
 	// Create a new Service Struct
 	nf := NewNugetFeed(baseURL)
@@ -103,6 +102,25 @@ func pathPackages(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 
 }
+
+func servePackage(w http.ResponseWriter, r *http.Request) {
+	// get the last two parts of the URL
+	x := strings.Split(strings.TrimLeft(r.URL.String(), `/plugins/api/v2/package`), `/`)
+
+	// Loop through packages to find the one we need
+	for f, p := range repo.entry {
+		if p.Properties.ID == x[0] && p.Properties.Version == x[1] {
+			// Set header to fix filename on client side
+			w.Header().Set("Cache-Control", "max-age=3600")
+			w.Header().Set("Content-Disposition", `filename=`+f)
+			w.Header().Set("Content-Type", "binary/octet-stream")
+			// Serve up the file
+			http.ServeFile(w, r, filepath.Join(repo.path, f))
+		}
+	}
+}
+
+func serveContent(w http.ResponseWriter, r *http.Request) {}
 
 func zuluTime(t time.Time) string {
 	return fmt.Sprintf("%04d-%02d-%02dT%02d:%02d:%02dZ", t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), t.Second())

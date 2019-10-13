@@ -275,8 +275,7 @@ func NewNugetFeedEntry(baseURL string, nsf NuspecFile) *NugetFeedEntry {
 	if e.Properties.Copyright.Value == "" {
 		e.Properties.Copyright.Null = true
 	}
-	//e.Properties.Description = nsf.Metadata.Description
-	e.Properties.Description = "A Small Description"
+	e.Properties.Description = nsf.Metadata.Description
 	e.Properties.GalleryDetailsURL = ""
 	e.Properties.IconURL = nsf.Metadata.IconURL
 	e.Properties.IsLatestVersion.Value = true

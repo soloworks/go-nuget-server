@@ -58,14 +58,7 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 		log.Fatal(err)
 	}
 
-	// Create a content folder entry if not already present
-	cd := filepath.Join(r.path, `content`, f.Name())
-	if _, err := os.Stat(cd); os.IsNotExist(err) {
-		log.Println("Creating: " + cd)
-		os.MkdirAll(cd, os.ModePerm)
-	}
-
-	// Read files in zip
+	// Find and Process the .nuspec file
 	for _, zipFile := range zipReader.File {
 		// If this is the root .nuspec file read it into a NewspecFile structure
 		if filepath.Dir(zipFile.Name) == "." && filepath.Ext(zipFile.Name) == ".nuspec" {
@@ -95,30 +88,53 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 			r.entry[f.Name()].Properties.PackageHashAlgorithm = `SHA512`
 			r.entry[f.Name()].Properties.PackageSize.Value = len(content)
 			r.entry[f.Name()].Properties.PackageSize.Type = "Edm.Int64"
+		}
+	}
 
-		} else if filepath.Dir(zipFile.Name) == "content" {
-			cf := filepath.Join(cd, filepath.Base(zipFile.Name))
-			if _, err := os.Stat(cf); os.IsNotExist(err) {
-				log.Println("Extracting: " + cf)
+	// Create a content folder entry if not already present
+	cd := filepath.Join(r.path, `browse`, r.entry[f.Name()].Properties.ID, r.entry[f.Name()].Properties.Version)
+	if _, err := os.Stat(cd); os.IsNotExist(err) {
+		log.Println("Creating: " + cd)
+		os.MkdirAll(cd, os.ModePerm)
+	}
+
+	// Process the content files
+	for _, zipFile := range zipReader.File {
+		if _, err := os.Stat(zipFile.Name); os.IsNotExist(err) {
+			// Create directory for file if not present
+			fd := filepath.Join(cd, filepath.Dir(zipFile.Name))
+			if _, err := os.Stat(fd); os.IsNotExist(err) {
+				log.Println("Creating: " + fd)
+				os.MkdirAll(fd, os.ModePerm)
+			}
+
+			// Set the file path
+			fp := filepath.Join(fd, filepath.Base((zipFile.Name)))
+			if _, err := os.Stat(fp); os.IsNotExist(err) {
+
+				// Log Out Status
+				log.Println("Extracting: " + fp)
+
+				// Open file to be extracted
 				r, err := zipFile.Open()
 				if err != nil {
 					log.Fatal(err)
 				}
-				outFile, err := os.Create(cf)
+
+				// Create the file
+				outFile, err := os.Create(fp)
 				if err != nil {
 					log.Fatal(err)
 				}
-				// handle err
 				defer outFile.Close()
+				// Dump bytes into file
 				_, err = io.Copy(outFile, r)
 				if err != nil {
 					log.Fatal(err)
 				}
 			}
-
 		}
 	}
-
 }
 
 func (r *nugetRepo) RemovePackage(f os.FileInfo) {
