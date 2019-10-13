@@ -42,5 +42,3 @@ Contents of Q-Sys-Nuget-Packages.xml (47KB)
 ```
 
 ## Acknowledgements
-
-[A Previous Nuget Fight](https://github.com/politician/nugetd)

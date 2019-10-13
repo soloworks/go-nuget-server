@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/xml"
 	"time"
+
+	nuspec "github.com/soloworks/go-nuspec"
 )
 
 // NugetServiceCollection used by NugetService
@@ -236,7 +238,7 @@ type NugetPackage struct {
 }
 
 // NewNugetPackage returns a populated skeleton for a Nuget Packages Entry
-func NewNugetPackage(baseURL string, nsf NuspecFile, f string) *NugetPackage {
+func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	// Create new entry
 	e := NugetPackage{}
 	// Set Filename
@@ -344,34 +346,4 @@ func (nf *NugetPackage) ToBytes() []byte {
 	b.Write(output)
 	return b.Bytes()
 
-}
-
-// NuspecFile Represents a .nuspec XML file found in the root of the .nupck files
-type NuspecFile struct {
-	Package struct {
-		Xmlns string `xml:"xmlns"`
-	} `xml:"package"`
-	Metadata struct {
-		ID                       string `xml:"id"`
-		Version                  string `xml:"version"`
-		Title                    string `xml:"title"`
-		Authors                  string `xml:"authors"`
-		Owners                   string `xml:"owners"`
-		ProjectURL               string `xml:"projectUrl"`
-		LicenseURL               string `xml:"licenseUrl"`
-		IconURL                  string `xml:"iconUrl"`
-		RequireLicenseAcceptance string `xml:"requireLicenseAcceptance"`
-		Description              string `xml:"description"`
-		ReleaseNotes             string `xml:"releaseNotes"`
-		Copyright                string `xml:"copyright"`
-		Summary                  string `xml:"summary"`
-		Language                 string `xml:"language"`
-		Tags                     string `xml:"tags"`
-	} `xml:"metadata"`
-}
-
-// NewNuspecFile returns a populated skeleton for a Nuget Packages request (/Packages)
-func NewNuspecFile() *NuspecFile {
-	nsf := NuspecFile{}
-	return &nsf
 }

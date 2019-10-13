@@ -5,13 +5,14 @@ import (
 	"bytes"
 	"crypto/sha512"
 	"encoding/hex"
-	"encoding/xml"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"sort"
+
+	nuspec "github.com/soloworks/go-nuspec"
 )
 
 type nugetRepo struct {
@@ -69,8 +70,7 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 				log.Fatal(err)
 			}
 			// Read into NuspecFile structure
-			var nsf NuspecFile
-			err = xml.Unmarshal(b, &nsf)
+			nsf, err := nuspec.FromBytes(b)
 
 			// Read Entry into memory
 			p = NewNugetPackage(baseURL, nsf, f.Name())

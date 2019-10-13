@@ -186,4 +186,4 @@ func serveContent(w http.ResponseWriter, r *http.Request) {}
 
 func zuluTime(t time.Time) string {
 	return fmt.Sprintf("%04d-%02d-%02dT%02d:%02d:%02dZ", t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), t.Second())
-}
+} 
