@@ -15,30 +15,18 @@ import (
 )
 
 type nugetRepo struct {
-	path     string
-	packages []*NugetPackage
+	packagePath string
+	packages    []*NugetPackage
 }
 
 func initRepo(repoPath string) *nugetRepo {
 	// Create a new repo structure
 	r := nugetRepo{}
 	// Set the Repo Path
-	r.path = repoPath
-	// Read in all files in directory
-	files, err := ioutil.ReadDir(r.path)
-	if err != nil {
-		log.Fatal(err)
-	}
+	r.packagePath = repoPath
 
-	// Loop through all files
-	for _, f := range files {
-		// Check if file is a NuPkg
-		if filepath.Ext(f.Name()) == ".nupkg" {
-			r.AddPackage(f)
-		}
-	}
-
-	log.Printf("%d Packages Found", len(r.packages))
+	// Refresh Packages
+	r.RefeshPackages()
 
 	// Return repo
 	return &r
@@ -46,8 +34,15 @@ func initRepo(repoPath string) *nugetRepo {
 
 func (r *nugetRepo) AddPackage(f os.FileInfo) {
 
+	// Check if this file is already stored
+	for _, p := range r.packages {
+		if p.Filename == filepath.Base(f.Name()) {
+			return
+		}
+	}
+
 	// Open and read in the file (Is a Zip file under the hood)
-	content, err := ioutil.ReadFile(filepath.Join(r.path, f.Name()))
+	content, err := ioutil.ReadFile(filepath.Join(r.packagePath, f.Name()))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -101,7 +96,7 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 	}
 
 	// Create a content folder entry if not already present
-	cd := filepath.Join(r.path, `browse`, p.Properties.ID, p.Properties.Version)
+	cd := filepath.Join(r.packagePath, `browse`, p.Properties.ID, p.Properties.Version)
 	if _, err := os.Stat(cd); os.IsNotExist(err) {
 		log.Println("Creating: " + cd)
 		os.MkdirAll(cd, os.ModePerm)
@@ -146,9 +141,32 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 	}
 }
 
-func (r *nugetRepo) RemovePackage(f os.FileInfo) {
+func (r *nugetRepo) RemovePackage(fn string) {
 	// Remove the Package from the Map
-	//delete(r.packages, f.Name())
+	for i, p := range r.packages {
+		if p.Filename == fn {
+			r.packages = append(r.packages[:i], r.packages[i+1:]...)
+		}
+	}
 	// Delete the contents directory
-	os.RemoveAll(filepath.Join(r.path, `content`, f.Name()))
+	os.RemoveAll(filepath.Join(r.packagePath, `content`, fn))
+}
+
+func (r *nugetRepo) RefeshPackages() {
+
+	// Read in all files in directory
+	files, err := ioutil.ReadDir(r.packagePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Loop through all files
+	for _, f := range files {
+		// Check if file is a NuPkg
+		if filepath.Ext(f.Name()) == ".nupkg" {
+			r.AddPackage(f)
+		}
+	}
+
+	log.Printf("%d Packages Found", len(r.packages))
 }

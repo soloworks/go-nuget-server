@@ -36,6 +36,8 @@ func main() {
 		switch {
 		case r.URL.String() == `/plugins/`:
 			serveRoot(w, r)
+		case strings.HasPrefix(r.URL.String(), `/plugins/Refresh`):
+			repo.RefeshPackages()
 		case strings.HasPrefix(r.URL.String(), `/plugins/Packages`):
 			serveFeed(w, r)
 		case strings.HasPrefix(r.URL.String(), `/plugins/api/v2/package`):
@@ -44,7 +46,7 @@ func main() {
 			log.Println("Serving File")
 			// Get file path and split to match local
 			f := strings.TrimLeft(r.URL.String(), `/F/plugins/api/v2/browse`)
-			http.ServeFile(w, r, filepath.Join(repo.path, `browse`, f))
+			http.ServeFile(w, r, filepath.Join(repo.packagePath, `browse`, f))
 		}
 	})
 
@@ -175,7 +177,7 @@ func servePackage(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Disposition", `filename=`+p.Filename)
 			w.Header().Set("Content-Type", "binary/octet-stream")
 			// Serve up the file
-			http.ServeFile(w, r, filepath.Join(repo.path, p.Filename))
+			http.ServeFile(w, r, filepath.Join(repo.packagePath, p.Filename))
 		}
 	}
 }

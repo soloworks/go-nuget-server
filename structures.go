@@ -128,10 +128,11 @@ type NugetPackageLink struct {
 
 // NugetPackage is a single entry in a Nuget Feed
 type NugetPackage struct {
-	Filename string
-	XMLName  xml.Name `xml:"entry"`
-	ID       string   `xml:"id"`
-	Category struct {
+	Filename   string
+	StillThere bool
+	XMLName    xml.Name `xml:"entry"`
+	ID         string   `xml:"id"`
+	Category   struct {
 		Term   string `xml:"term,attr"`
 		Scheme string `xml:"scheme,attr"`
 	} `xml:"category"`
