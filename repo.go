@@ -11,18 +11,17 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 )
 
 type nugetRepo struct {
-	path  string
-	entry map[string]*NugetFeedEntry
+	path     string
+	packages []*NugetPackage
 }
 
 func initRepo(repoPath string) *nugetRepo {
 	// Create a new repo structure
 	r := nugetRepo{}
-	// Init the package map
-	r.entry = make(map[string]*NugetFeedEntry)
 	// Set the Repo Path
 	r.path = repoPath
 	// Read in all files in directory
@@ -39,7 +38,7 @@ func initRepo(repoPath string) *nugetRepo {
 		}
 	}
 
-	log.Printf("%d Packages Found", len(r.entry))
+	log.Printf("%d Packages Found", len(r.packages))
 
 	// Return repo
 	return &r
@@ -57,6 +56,9 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// NugetPackage Object
+	var p *NugetPackage
 
 	// Find and Process the .nuspec file
 	for _, zipFile := range zipReader.File {
@@ -76,23 +78,30 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 			err = xml.Unmarshal(b, &nsf)
 
 			// Read Entry into memory
-			r.entry[f.Name()] = NewNugetFeedEntry(baseURL, nsf)
+			p = NewNugetPackage(baseURL, nsf, f.Name())
+
 			// Set Updated to match file
-			r.entry[f.Name()].Properties.Created.Value = zuluTime(f.ModTime())
-			r.entry[f.Name()].Properties.LastEdited.Value = zuluTime(f.ModTime())
-			r.entry[f.Name()].Properties.Published.Value = zuluTime(f.ModTime())
-			r.entry[f.Name()].Updated = zuluTime(f.ModTime())
+			p.Properties.Created.Value = zuluTime(f.ModTime())
+			p.Properties.LastEdited.Value = zuluTime(f.ModTime())
+			p.Properties.Published.Value = zuluTime(f.ModTime())
+			p.Updated = zuluTime(f.ModTime())
 			// Get and Set file hash
 			h := sha512.Sum512(content)
-			r.entry[f.Name()].Properties.PackageHash = hex.EncodeToString(h[:])
-			r.entry[f.Name()].Properties.PackageHashAlgorithm = `SHA512`
-			r.entry[f.Name()].Properties.PackageSize.Value = len(content)
-			r.entry[f.Name()].Properties.PackageSize.Type = "Edm.Int64"
+			p.Properties.PackageHash = hex.EncodeToString(h[:])
+			p.Properties.PackageHashAlgorithm = `SHA512`
+			p.Properties.PackageSize.Value = len(content)
+			p.Properties.PackageSize.Type = "Edm.Int64"
+			// Insert this into the array in order
+			index := sort.Search(len(r.packages), func(i int) bool { return r.packages[i].Filename > p.Filename })
+			x := NugetPackage{}
+			r.packages = append(r.packages, &x)
+			copy(r.packages[index+1:], r.packages[index:])
+			r.packages[index] = p
 		}
 	}
 
 	// Create a content folder entry if not already present
-	cd := filepath.Join(r.path, `browse`, r.entry[f.Name()].Properties.ID, r.entry[f.Name()].Properties.Version)
+	cd := filepath.Join(r.path, `browse`, p.Properties.ID, p.Properties.Version)
 	if _, err := os.Stat(cd); os.IsNotExist(err) {
 		log.Println("Creating: " + cd)
 		os.MkdirAll(cd, os.ModePerm)
@@ -139,7 +148,7 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 
 func (r *nugetRepo) RemovePackage(f os.FileInfo) {
 	// Remove the Package from the Map
-	delete(r.entry, f.Name())
+	//delete(r.packages, f.Name())
 	// Delete the contents directory
 	os.RemoveAll(filepath.Join(r.path, `content`, f.Name()))
 }

@@ -70,7 +70,7 @@ type NugetFeed struct {
 		Title string `xml:"title,attr"`
 		Href  string `xml:"href,attr"`
 	} `xml:"link"`
-	Entry []NugetFeedEntry
+	Packages []*NugetPackage
 }
 
 // NewNugetFeed returns a populated skeleton for a Nuget Packages request (/Packages)
@@ -118,23 +118,24 @@ func (nf *NugetFeed) ToBytes() []byte {
 
 }
 
-// NugetFeedEntryLink is used in NugetFeedEntry
-type NugetFeedEntryLink struct {
+// NugetPackageLink is used in NugetPackage
+type NugetPackageLink struct {
 	Rel   string `xml:"rel,attr"`
 	Title string `xml:"title,attr"`
 	Type  string `xml:"type,attr,omitempty"`
 	Href  string `xml:"href,attr"`
 }
 
-// NugetFeedEntry is a single entry in a Nuget Feed
-type NugetFeedEntry struct {
+// NugetPackage is a single entry in a Nuget Feed
+type NugetPackage struct {
+	Filename string
 	XMLName  xml.Name `xml:"entry"`
 	ID       string   `xml:"id"`
 	Category struct {
 		Term   string `xml:"term,attr"`
 		Scheme string `xml:"scheme,attr"`
 	} `xml:"category"`
-	Link  []NugetFeedEntryLink `xml:"link"`
+	Link  []NugetPackageLink `xml:"link"`
 	Title struct {
 		Text string `xml:",chardata"`
 		Type string `xml:"type,attr"`
@@ -233,25 +234,27 @@ type NugetFeedEntry struct {
 	} `xml:"m:properties"`
 }
 
-// NewNugetFeedEntry returns a populated skeleton for a Nuget Packages Entry
-func NewNugetFeedEntry(baseURL string, nsf NuspecFile) *NugetFeedEntry {
+// NewNugetPackage returns a populated skeleton for a Nuget Packages Entry
+func NewNugetPackage(baseURL string, nsf NuspecFile, f string) *NugetPackage {
 	// Create new entry
-	e := NugetFeedEntry{}
+	e := NugetPackage{}
+	// Set Filename
+	e.Filename = f
 	// Set Defaults
 	e.Category.Term = `MyGet.V2FeedPackage`
 	e.Category.Scheme = `http://schemas.microsoft.com/ado/2007/08/dataservices/scheme`
-	e.Link = append(e.Link, NugetFeedEntryLink{
+	e.Link = append(e.Link, NugetPackageLink{
 		Rel:   "edit",
 		Title: "V2FeedPackage",
 		Href:  "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')`,
 	})
-	e.Link = append(e.Link, NugetFeedEntryLink{
+	e.Link = append(e.Link, NugetPackageLink{
 		Rel:   "http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots",
 		Type:  "application/atom+xml;type=feed",
 		Title: "Screenshots",
 		Href:  "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')/Screenshots`,
 	})
-	e.Link = append(e.Link, NugetFeedEntryLink{
+	e.Link = append(e.Link, NugetPackageLink{
 		Rel:   "edit-media",
 		Title: "V2FeedPackage",
 		Href:  "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')/$value`,
@@ -314,6 +317,32 @@ func NewNugetFeedEntry(baseURL string, nsf NuspecFile) *NugetFeedEntry {
 
 	// Return skeleton
 	return &e
+}
+
+// ToBytes exports structure as byte array
+func (nf *NugetPackage) ToBytes() []byte {
+	var b bytes.Buffer
+	// Unmarshal into XML
+	output, err := xml.MarshalIndent(nf, "  ", "    ")
+	if err != nil {
+
+	}
+	// Break XML Encoding to match Nuget server output
+	output = bytes.ReplaceAll(output, []byte("&#39;"), []byte("'"))
+	// Self-Close any empty XML elements (NuGet client is broken and requires this on some)
+	// This assumes Indented Marshalling above, non Indented will break XML
+	// Break XML Encoding to match Nuget server output
+	for bytes.Contains(output, []byte(`></`)) {
+		i := bytes.Index(output, []byte(`></`))
+		j := bytes.Index(output[i+1:], []byte(`>`))
+		output = append(output[:i], append([]byte(` /`), output[i+j+1:]...)...)
+	}
+
+	// Write the XML Header
+	b.WriteString(xml.Header)
+	b.Write(output)
+	return b.Bytes()
+
 }
 
 // NuspecFile Represents a .nuspec XML file found in the root of the .nupck files
