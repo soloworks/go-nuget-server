@@ -184,6 +184,9 @@ func servePackage(w http.ResponseWriter, r *http.Request) {
 
 func serveContent(w http.ResponseWriter, r *http.Request) {}
 
+var zuluTimeLayout = "2006-01-02T15:04:05Z"
+
 func zuluTime(t time.Time) string {
+	//return t.Format(zuluTimeLayout)
 	return fmt.Sprintf("%04d-%02d-%02dT%02d:%02d:%02dZ", t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), t.Second())
-} 
+}
