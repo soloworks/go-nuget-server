@@ -1,0 +1,9 @@
+{
+    "tls-active": false,
+    "root-url": "/",
+    "root-dir": ".",
+    "api-keys": {
+        "read-only":["abc-def"],
+        "read-write":["123-456"]
+    }
+}

@@ -249,46 +249,46 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	e.Link = append(e.Link, NugetPackageLink{
 		Rel:   "edit",
 		Title: "V2FeedPackage",
-		Href:  "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')`,
+		Href:  "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`,
 	})
 	e.Link = append(e.Link, NugetPackageLink{
 		Rel:   "http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots",
 		Type:  "application/atom+xml;type=feed",
 		Title: "Screenshots",
-		Href:  "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')/Screenshots`,
+		Href:  "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')/Screenshots`,
 	})
 	e.Link = append(e.Link, NugetPackageLink{
 		Rel:   "edit-media",
 		Title: "V2FeedPackage",
-		Href:  "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')/$value`,
+		Href:  "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')/$value`,
 	})
 
 	// Match and set main values
-	e.ID = baseURL + "Packages(Id='" + nsf.Metadata.ID + `',Version='` + nsf.Metadata.Version + `')`
-	e.Title.Text = nsf.Metadata.Title
+	e.ID = baseURL + "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`
+	e.Title.Text = nsf.Meta.Title
 	e.Title.Type = "Text"
-	e.Summary.Text = nsf.Metadata.Summary
+	e.Summary.Text = nsf.Meta.Summary
 	e.Summary.Type = "Text"
-	e.Author.Name = nsf.Metadata.Authors
+	e.Author.Name = nsf.Meta.Authors
 	e.Content.Type = "binary/octet-stream"
-	e.Content.Src = baseURL + `api/v2/package/` + nsf.Metadata.Title + `/` + nsf.Metadata.Version
+	e.Content.Src = baseURL + `api/v2/package/` + nsf.Meta.Title + `/` + nsf.Meta.Version
 
 	// Match and set property values
-	e.Properties.ID = nsf.Metadata.ID
-	e.Properties.Version = nsf.Metadata.Version
-	e.Properties.VersionNorm = nsf.Metadata.Version
-	e.Properties.Copyright.Value = nsf.Metadata.Copyright
+	e.Properties.ID = nsf.Meta.ID
+	e.Properties.Version = nsf.Meta.Version
+	e.Properties.VersionNorm = nsf.Meta.Version
+	e.Properties.Copyright.Value = nsf.Meta.Copyright
 	if e.Properties.Copyright.Value == "" {
 		e.Properties.Copyright.Null = true
 	}
-	e.Properties.Description = nsf.Metadata.Description
+	e.Properties.Description = nsf.Meta.Description
 	e.Properties.GalleryDetailsURL = ""
-	e.Properties.IconURL = nsf.Metadata.IconURL
+	e.Properties.IconURL = nsf.Meta.IconURL
 	e.Properties.IsLatestVersion.Value = true
 	e.Properties.IsLatestVersion.Type = "Edm.Boolean"
 	e.Properties.IsAbsoluteLatestVersion.Value = true
 	e.Properties.IsAbsoluteLatestVersion.Type = "Edm.Boolean"
-	e.Properties.ProjectURL = nsf.Metadata.ProjectURL
+	e.Properties.ProjectURL = nsf.Meta.ProjectURL
 	if e.Properties.ReleaseNotes.Value == "" {
 		e.Properties.ReleaseNotes.Null = true
 	}
@@ -302,8 +302,8 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 		e.Properties.LicenseReportURL.Null = true
 	}
 	e.Properties.ReportAbuseURL = "http://localhost/"
-	e.Properties.Tags = nsf.Metadata.Tags
-	e.Properties.Title = nsf.Metadata.Title
+	e.Properties.Tags = nsf.Meta.Tags
+	e.Properties.Title = nsf.Meta.Title
 	e.Properties.Language = "en-US"
 	if e.Properties.MinClientVersion.Value == "" {
 		e.Properties.MinClientVersion.Null = true

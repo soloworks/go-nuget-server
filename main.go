@@ -1,27 +1,49 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
 )
 
-var isTLS bool = false
 var repo *nugetRepo
-var baseURL string
+var c *Config
 
 func init() {
-	ArgbaseURL := "localhost/plugins/"
-	// Set BaseURL
-	switch isTLS {
-	case true:
-		baseURL = `https://` + ArgbaseURL
-	case false:
-		baseURL = `http://` + ArgbaseURL
+
+	// Create a new server structure
+	c = &Config{
+		RootDIR: ".", // Default to current working directory
+		RootURL: "/", // Default to host root
+	}
+
+	// Set the server file system root from Environemnt Variable: NUGET_SERVER_ROOT
+	if r := os.Getenv("NUGET_SERVER_ROOT"); r != "" {
+		c.RootDIR = r
+	}
+	// read file
+	cf := filepath.Join(c.RootDIR, "nuget-server-config.json")
+	log.Println("loading config: " + cf)
+	data, err := ioutil.ReadFile(cf)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Load in the config file from the file system
+	err = json.Unmarshal(data, &c)
+	if err != nil {
+		log.Fatal("Error with json:", err)
+	}
+
+	// Warn if API Keys not present
+	if len(c.APIKeys.ReadOnly) == 0 && len(c.APIKeys.ReadWrite) == 0 {
+		log.Println("WARNING: No API Keys defined, server running in free access mode")
 	}
 }
 
@@ -32,21 +54,42 @@ func main() {
 
 	// Handling Routing
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Routing: " + r.URL.String())
-		switch {
-		case r.URL.String() == `/plugins/`:
-			serveRoot(w, r)
-		case strings.HasPrefix(r.URL.String(), `/plugins/Refresh`):
-			repo.RefeshPackages()
-		case strings.HasPrefix(r.URL.String(), `/plugins/Packages`):
-			serveFeed(w, r)
-		case strings.HasPrefix(r.URL.String(), `/plugins/api/v2/package`):
-			servePackage(w, r)
-		case strings.HasPrefix(r.URL.String(), `/F/plugins/api/v2/browse`):
-			log.Println("Serving File")
-			// Get file path and split to match local
-			f := strings.TrimLeft(r.URL.String(), `/F/plugins/api/v2/browse`)
-			http.ServeFile(w, r, filepath.Join(repo.packagePath, `browse`, f))
+		// Local Variables
+		var apiKey string
+		// Process Headers
+		for name, headers := range r.Header {
+			// Find and store APIKey for this request
+			if strings.ToLower(name) == "x-nuget-apikey" {
+				apiKey = headers[0]
+			}
+		}
+		println(apiKey)
+		switch r.Method {
+		case http.MethodGet:
+			log.Println("Routing GET: " + r.URL.String())
+			switch {
+			case r.URL.String() == `/plugins/`:
+				serveRoot(w, r)
+			case strings.HasPrefix(r.URL.String(), `/plugins/Refresh`):
+				repo.RefeshPackages()
+			case strings.HasPrefix(r.URL.String(), `/plugins/Packages`):
+				serveFeed(w, r)
+			case strings.HasPrefix(r.URL.String(), `/plugins/api/v2/package`):
+				servePackage(w, r)
+			case strings.HasPrefix(r.URL.String(), `/F/plugins/api/v2/browse`):
+				log.Println("Serving File")
+				// Get file path and split to match local
+				f := strings.TrimLeft(r.URL.String(), `/F/plugins/api/v2/browse`)
+				http.ServeFile(w, r, filepath.Join(repo.packagePath, `browse`, f))
+			}
+		case http.MethodPost:
+			log.Println("Routing POST: " + r.URL.String())
+		case http.MethodPut:
+			log.Println("Routing PUT: " + r.URL.String())
+			if !c.checkCanWrite(apiKey) {
+				w.WriteHeader(http.StatusForbidden)
+				return
+			}
 		}
 	})
 
@@ -141,7 +184,7 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create a new Service Struct
-		nf := NewNugetFeed(baseURL)
+		nf := NewNugetFeed(c.baseURL(r))
 		// Loop through packages
 		for _, p := range repo.packages {
 			if s[0] != "" {

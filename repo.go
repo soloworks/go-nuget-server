@@ -73,7 +73,8 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 			nsf, err := nuspec.FromBytes(b)
 
 			// Read Entry into memory
-			p = NewNugetPackage(baseURL, nsf, f.Name())
+			p = NewNugetPackage("", nsf, f.Name())
+			//p = NewNugetPackage(c.baseURL(r), nsf, f.Name())
 
 			// Set Updated to match file
 			p.Properties.Created.Value = zuluTime(f.ModTime())
