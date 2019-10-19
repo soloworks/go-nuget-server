@@ -35,13 +35,6 @@ func initRepo(repoPath string) *nugetRepo {
 
 func (r *nugetRepo) AddPackage(f os.FileInfo) {
 
-	// Check if this file is already stored
-	for _, p := range r.packages {
-		if p.Filename == filepath.Base(f.Name()) {
-			return
-		}
-	}
-
 	// Open and read in the file (Is a Zip file under the hood)
 	content, err := ioutil.ReadFile(filepath.Join(r.packagePath, f.Name()))
 	if err != nil {
@@ -77,10 +70,10 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 			//p = NewNugetPackage(c.baseURL(r), nsf, f.Name())
 
 			// Set Updated to match file
-			p.Properties.Created.Value = zuluTime(f.ModTime())
-			p.Properties.LastEdited.Value = zuluTime(f.ModTime())
-			p.Properties.Published.Value = zuluTime(f.ModTime())
-			p.Updated = zuluTime(f.ModTime())
+			p.Properties.Created.Value = f.ModTime().Format(zuluTimeLayout)
+			p.Properties.LastEdited.Value = f.ModTime().Format(zuluTimeLayout)
+			p.Properties.Published.Value = f.ModTime().Format(zuluTimeLayout)
+			p.Updated = f.ModTime().Format(zuluTimeLayout)
 			// Get and Set file hash
 			h := sha512.Sum512(content)
 			p.Properties.PackageHash = hex.EncodeToString(h[:])

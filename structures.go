@@ -87,7 +87,7 @@ func NewNugetFeed(baseURL string) *NugetFeed {
 	nf.ID = baseURL + `Packages`
 	nf.Title.Text = "Packages"
 	nf.Title.Type = "text"
-	nf.Updated = zuluTime(time.Now())
+	nf.Updated = time.Now().Format(zuluTimeLayout)
 	nf.Link.Rel = "self"
 	nf.Link.Title = "Packages"
 	nf.Link.Href = "Packages"

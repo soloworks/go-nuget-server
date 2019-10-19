@@ -1,25 +1,34 @@
 package main
 
 import (
+	"archive/zip"
+	"bytes"
 	"encoding/json"
-	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
+	"mime"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
+
+	nuspec "github.com/soloworks/go-nuspec"
 )
 
+// Global Variables
 var repo *nugetRepo
-var c *Config
+var c *config
+
+// Global Constants
+const zuluTimeLayout = "2006-01-02T15:04:05Z"
 
 func init() {
 
 	// Create a new server structure
-	c = &Config{
+	c = &config{
 		RootDIR: ".", // Default to current working directory
 		RootURL: "/", // Default to host root
 	}
@@ -28,6 +37,7 @@ func init() {
 	if r := os.Getenv("NUGET_SERVER_ROOT"); r != "" {
 		c.RootDIR = r
 	}
+
 	// read file
 	cf := filepath.Join(c.RootDIR, "nuget-server-config.json")
 	log.Println("loading config: " + cf)
@@ -35,15 +45,22 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	// Load in the config file from the file system
 	err = json.Unmarshal(data, &c)
 	if err != nil {
 		log.Fatal("Error with json:", err)
 	}
 
+	// TODO: Remove any empty APIKeys
+
 	// Warn if API Keys not present
 	if len(c.APIKeys.ReadOnly) == 0 && len(c.APIKeys.ReadWrite) == 0 {
-		log.Println("WARNING: No API Keys defined, server running in free access mode")
+		log.Println("WARNING: No API Keys defined, server running in development mode")
+		log.Println("WARNING: Anyone can read or write to the server")
+	} else if len(c.APIKeys.ReadOnly) == 0 {
+		log.Println("WARNING: No read-only API Keys defined")
+		log.Println("WARNING: Anyone can read from the server")
 	}
 }
 
@@ -58,6 +75,7 @@ func main() {
 		var apiKey string
 		// Process Headers
 		for name, headers := range r.Header {
+			println("Header::", name, "::", headers[0])
 			// Find and store APIKey for this request
 			if strings.ToLower(name) == "x-nuget-apikey" {
 				apiKey = headers[0]
@@ -86,10 +104,13 @@ func main() {
 			log.Println("Routing POST: " + r.URL.String())
 		case http.MethodPut:
 			log.Println("Routing PUT: " + r.URL.String())
-			if !c.checkCanWrite(apiKey) {
+			// Verify API Key allows writing
+			if !c.verifyUserCanWrite(apiKey) {
 				w.WriteHeader(http.StatusForbidden)
 				return
 			}
+			// Process Request
+			putPackage(w, r)
 		}
 	})
 
@@ -225,11 +246,130 @@ func servePackage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func serveContent(w http.ResponseWriter, r *http.Request) {}
+func putPackage(w http.ResponseWriter, r *http.Request) {
 
-var zuluTimeLayout = "2006-01-02T15:04:05Z"
+	// Parse mime type
+	mediaType, params, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if err != nil {
+		log.Fatal(err)
+	}
 
-func zuluTime(t time.Time) string {
-	//return t.Format(zuluTimeLayout)
-	return fmt.Sprintf("%04d-%02d-%02dT%02d:%02d:%02dZ", t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), t.Second())
+	// Setup byte array to hold zip body
+	var body []byte
+
+	// Detect and Decode based on mime type
+	if strings.HasPrefix(mediaType, "multipart/form-data") {
+		mr := multipart.NewReader(r.Body, params["boundary"])
+		for {
+			p, err := mr.NextPart()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				log.Println(err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+			body, err = ioutil.ReadAll(p)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+		}
+	}
+
+	// Bail if length is zero
+	if len(body) == 0 {
+		w.WriteHeader(http.StatusNoContent)
+		return
+	}
+	println(len(body))
+
+	// Try and open the attachment as a zip file
+	zipReader, err := zip.NewReader(bytes.NewReader(body), int64(len(body)))
+	if err != nil {
+		println(err.Error())
+		w.WriteHeader(http.StatusUnsupportedMediaType)
+		return
+	}
+
+	var nsf *nuspec.File
+
+	// Find and Process the .nuspec file
+	for _, zipFile := range zipReader.File {
+		// If this is the root .nuspec file read it into a NewspecFile structure
+		if filepath.Dir(zipFile.Name) == "." && filepath.Ext(zipFile.Name) == ".nuspec" {
+			// Marshall XML into Structure
+			rc, err := zipFile.Open()
+			if err != nil {
+				println(err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+			// Read into NuspecFile structure
+			nsf, err = nuspec.FromReader(rc)
+		}
+	}
+
+	// Test for folder, if present bail, if not make it
+	packagePath := filepath.Join(c.RootDIR, strings.ToLower(nsf.Meta.ID), nsf.Meta.Version)
+	if _, err := os.Stat(packagePath); !os.IsNotExist(err) {
+		// Path already exists
+		w.WriteHeader(http.StatusConflict)
+		return
+	}
+	err = os.MkdirAll(packagePath, os.ModePerm)
+	if err != nil {
+		println(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	log.Println("Creating Directory: ", packagePath)
+
+	// Extract contents to folder
+	// Process the content files
+	for _, zipFile := range zipReader.File {
+		if _, err := os.Stat(zipFile.Name); os.IsNotExist(err) {
+			// Create directory for file if not present
+			fd := filepath.Join(packagePath, filepath.Dir(zipFile.Name))
+			if _, err := os.Stat(fd); os.IsNotExist(err) {
+				log.Println("Creating Directory: " + fd)
+				err = os.MkdirAll(fd, os.ModePerm)
+				if err != nil {
+					println(err.Error())
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				}
+			}
+
+			// Set the file path
+			fp := filepath.Join(fd, filepath.Base((zipFile.Name)))
+			if _, err := os.Stat(fp); os.IsNotExist(err) {
+
+				// Log Out Status
+				log.Println("Extracting: " + fp)
+
+				// Open file to be extracted
+				r, err := zipFile.Open()
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				// Create the file
+				outFile, err := os.Create(fp)
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer outFile.Close()
+				// Dump bytes into file
+				_, err = io.Copy(outFile, r)
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
+		}
+	}
+
+	// Write package to folder
+
 }
