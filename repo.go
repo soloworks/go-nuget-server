@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"crypto/sha512"
 	"encoding/hex"
-	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -16,34 +15,98 @@ import (
 )
 
 type nugetRepo struct {
-	packagePath string
-	packages    []*NugetPackage
+	rootDIR  string
+	packages []*NugetPackage
 }
 
-func initRepo(repoPath string) *nugetRepo {
+func initRepo(rootDIR string) (*nugetRepo, error) {
 	// Create a new repo structure
 	r := nugetRepo{}
-	// Set the Repo Path
-	r.packagePath = repoPath
 
-	// Refresh Packages
-	r.RefeshPackages()
+	// Set the Repo Path
+	r.rootDIR = rootDIR
+
+	// Create the package folder if requried
+	if _, err := os.Stat(r.rootDIR); os.IsNotExist(err) {
+		// Path already exists
+		log.Println("Creating Directory: ", r.rootDIR)
+		err := os.MkdirAll(r.rootDIR, os.ModePerm)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// Refr esh Packages
+	err := r.RefeshPackages()
+	if err != nil {
+		return nil, err
+	}
 
 	// Return repo
-	return &r
+	return &r, nil
 }
 
-func (r *nugetRepo) AddPackage(f os.FileInfo) {
+func (r *nugetRepo) RefeshPackages() error {
+
+	// Read in all files in directory root
+	IDs, err := ioutil.ReadDir(r.rootDIR)
+	if err != nil {
+		return err
+	}
+
+	// Loop through all directories (first level is lowercase IDs)
+	for _, ID := range IDs {
+		// Check if this is a directory
+		if ID.IsDir() {
+			// Search files in directory (second level is versions)
+			Vers, err := ioutil.ReadDir(filepath.Join(r.rootDIR, ID.Name()))
+			if err != nil {
+				return err
+			}
+			for _, Ver := range Vers {
+				// Check if this is a directory
+				if Ver.IsDir() {
+					// Create full filepath
+					fp := filepath.Join(r.rootDIR, ID.Name(), Ver.Name(), ID.Name()+"."+Ver.Name()+".nupkg")
+					log.Println("Reading: ", fp)
+					if _, err := os.Stat(fp); os.IsNotExist(err) {
+						log.Println("Not a nupkg directory")
+						break
+					}
+					err = r.LoadPackage(fp)
+					if err != nil {
+						log.Println("Error: Cannot load package")
+						log.Println(err)
+						break
+					}
+					println("Read: ", fp)
+				}
+			}
+		}
+	}
+
+	log.Printf("%d Packages Found", len(r.packages))
+
+	return nil
+}
+
+func (r *nugetRepo) LoadPackage(fp string) error {
 
 	// Open and read in the file (Is a Zip file under the hood)
-	content, err := ioutil.ReadFile(filepath.Join(r.packagePath, f.Name()))
+	content, err := ioutil.ReadFile(fp)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+
+	f, err := os.Stat(fp)
+	if err != nil {
+		return err
+	}
+
 	// Set up a zipReader
 	zipReader, err := zip.NewReader(bytes.NewReader(content), int64(len(content)))
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	// NugetPackage Object
@@ -56,18 +119,17 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 			// Marshall XML into Structure
 			rc, err := zipFile.Open()
 			if err != nil {
-				log.Fatal(err)
+				return err
 			}
 			b, err := ioutil.ReadAll(rc)
 			if err != nil {
-				log.Fatal(err)
+				return err
 			}
 			// Read into NuspecFile structure
 			nsf, err := nuspec.FromBytes(b)
 
 			// Read Entry into memory
-			p = NewNugetPackage("", nsf, f.Name())
-			//p = NewNugetPackage(c.baseURL(r), nsf, f.Name())
+			p = NewNugetPackage(c.HostURL, nsf, f.Name())
 
 			// Set Updated to match file
 			p.Properties.Created.Value = f.ModTime().Format(zuluTimeLayout)
@@ -81,7 +143,7 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 			p.Properties.PackageSize.Value = len(content)
 			p.Properties.PackageSize.Type = "Edm.Int64"
 			// Insert this into the array in order
-			index := sort.Search(len(r.packages), func(i int) bool { return r.packages[i].Filename > p.Filename })
+			index := sort.Search(len(r.packages), func(i int) bool { return r.packages[i].filename > p.filename })
 			x := NugetPackage{}
 			r.packages = append(r.packages, &x)
 			copy(r.packages[index+1:], r.packages[index:])
@@ -89,78 +151,16 @@ func (r *nugetRepo) AddPackage(f os.FileInfo) {
 		}
 	}
 
-	// Create a content folder entry if not already present
-	cd := filepath.Join(r.packagePath, `browse`, p.Properties.ID, p.Properties.Version)
-	if _, err := os.Stat(cd); os.IsNotExist(err) {
-		log.Println("Creating: " + cd)
-		os.MkdirAll(cd, os.ModePerm)
-	}
-
-	// Process the content files
-	for _, zipFile := range zipReader.File {
-		if _, err := os.Stat(zipFile.Name); os.IsNotExist(err) {
-			// Create directory for file if not present
-			fd := filepath.Join(cd, filepath.Dir(zipFile.Name))
-			if _, err := os.Stat(fd); os.IsNotExist(err) {
-				log.Println("Creating: " + fd)
-				os.MkdirAll(fd, os.ModePerm)
-			}
-
-			// Set the file path
-			fp := filepath.Join(fd, filepath.Base((zipFile.Name)))
-			if _, err := os.Stat(fp); os.IsNotExist(err) {
-
-				// Log Out Status
-				log.Println("Extracting: " + fp)
-
-				// Open file to be extracted
-				r, err := zipFile.Open()
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				// Create the file
-				outFile, err := os.Create(fp)
-				if err != nil {
-					log.Fatal(err)
-				}
-				defer outFile.Close()
-				// Dump bytes into file
-				_, err = io.Copy(outFile, r)
-				if err != nil {
-					log.Fatal(err)
-				}
-			}
-		}
-	}
+	return nil
 }
 
 func (r *nugetRepo) RemovePackage(fn string) {
 	// Remove the Package from the Map
 	for i, p := range r.packages {
-		if p.Filename == fn {
+		if p.filename == fn {
 			r.packages = append(r.packages[:i], r.packages[i+1:]...)
 		}
 	}
 	// Delete the contents directory
-	os.RemoveAll(filepath.Join(r.packagePath, `content`, fn))
-}
-
-func (r *nugetRepo) RefeshPackages() {
-
-	// Read in all files in directory
-	files, err := ioutil.ReadDir(r.packagePath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Loop through all files
-	for _, f := range files {
-		// Check if file is a NuPkg
-		if filepath.Ext(f.Name()) == ".nupkg" {
-			r.AddPackage(f)
-		}
-	}
-
-	log.Printf("%d Packages Found", len(r.packages))
+	os.RemoveAll(filepath.Join(r.rootDIR, `content`, fn))
 }

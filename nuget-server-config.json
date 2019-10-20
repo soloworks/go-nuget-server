@@ -1,7 +1,6 @@
 {
-    "tls-active": false,
-    "root-url": "/",
-    "root-dir": "./FileStore",
+    "host-url": "http://localhost/solo-works-plugins/",
+    "package-directory": "./FileStore",
     "api-keys": {
         "read-only":["abc-def"],
         "read-write":["123-456"]

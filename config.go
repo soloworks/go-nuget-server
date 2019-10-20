@@ -1,30 +1,15 @@
 package main
 
-import (
-	"net/http"
-	"strings"
-)
+import "net/url"
 
 type config struct {
-	TLS     bool   `json:"tls-active"`
-	RootURL string `json:"root-url"`
-	RootDIR string `json:"root-dir"`
+	HostURL string `json:"host-url"`
+	RepoDIR string `json:"package-directory"`
 	APIKeys struct {
 		ReadOnly  []string `json:"read-only"`
 		ReadWrite []string `json:"read-write"`
 	} `json:"api-keys"`
-}
-
-func (c *config) baseURL(r *http.Request) string {
-	var sb strings.Builder
-	sb.WriteString("http")
-	if c.TLS {
-		sb.WriteString("s")
-	}
-	sb.WriteString("//")
-	sb.WriteString(r.URL.Hostname())
-	sb.WriteString(c.RootURL)
-	return sb.String()
+	URL *url.URL
 }
 
 func (c *config) verifyUserOpenMode() bool {

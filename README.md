@@ -7,6 +7,9 @@ A minimal Nuget HTTP(s) server written in Go, primarily developed to serve the Q
 
 ## Process
 
+Useful post about file structure:
+https://stackoverflow.com/questions/9642183/how-to-create-a-nuget-package-by-hand-without-nuget-exe-or-nuget-explorer
+
 On startup, Q-Sys Designer sends two queries to the plugin host Url:
 
 ```

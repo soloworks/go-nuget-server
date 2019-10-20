@@ -10,6 +10,7 @@ import (
 	"mime"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -28,20 +29,11 @@ const zuluTimeLayout = "2006-01-02T15:04:05Z"
 func init() {
 
 	// Create a new server structure
-	c = &config{
-		RootDIR: ".", // Default to current working directory
-		RootURL: "/", // Default to host root
-	}
-
-	// Set the server file system root from Environemnt Variable: NUGET_SERVER_ROOT
-	if r := os.Getenv("NUGET_SERVER_ROOT"); r != "" {
-		c.RootDIR = r
-	}
+	c = &config{}
 
 	// read file
-	cf := filepath.Join(c.RootDIR, "nuget-server-config.json")
-	log.Println("loading config: " + cf)
-	data, err := ioutil.ReadFile(cf)
+	log.Println("loading config: " + "nuget-server-config.json")
+	data, err := ioutil.ReadFile("nuget-server-config.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,6 +46,10 @@ func init() {
 
 	// TODO: Remove any empty APIKeys
 
+	// Set URL
+	u, err := url.Parse(c.HostURL)
+	c.URL = u
+
 	// Warn if API Keys not present
 	if len(c.APIKeys.ReadOnly) == 0 && len(c.APIKeys.ReadWrite) == 0 {
 		log.Println("WARNING: No API Keys defined, server running in development mode")
@@ -62,12 +58,15 @@ func init() {
 		log.Println("WARNING: No read-only API Keys defined")
 		log.Println("WARNING: Anyone can read from the server")
 	}
+
+	// Init the file repo
+	repo, err = initRepo(c.RepoDIR)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func main() {
-
-	// Init the file repo
-	repo = initRepo(`./Packages`)
 
 	// Handling Routing
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -75,43 +74,61 @@ func main() {
 		var apiKey string
 		// Process Headers
 		for name, headers := range r.Header {
-			println("Header::", name, "::", headers[0])
+			//println("Header::", name, "::", headers[0])
 			// Find and store APIKey for this request
 			if strings.ToLower(name) == "x-nuget-apikey" {
 				apiKey = headers[0]
 			}
 		}
-		println(apiKey)
+
+		log.Println("Routing:", r.Method, r.URL.String())
+
+		// Swicth on Method
 		switch r.Method {
 		case http.MethodGet:
 			log.Println("Routing GET: " + r.URL.String())
 			switch {
-			case r.URL.String() == `/plugins/`:
+			case r.URL.String() == c.URL.Path:
 				serveRoot(w, r)
-			case strings.HasPrefix(r.URL.String(), `/plugins/Refresh`):
+			case strings.HasPrefix(r.URL.String(), c.URL.Path+`Refresh`):
 				repo.RefeshPackages()
-			case strings.HasPrefix(r.URL.String(), `/plugins/Packages`):
+			case strings.HasPrefix(r.URL.String(), c.URL.Path+`Packages`):
 				serveFeed(w, r)
-			case strings.HasPrefix(r.URL.String(), `/plugins/api/v2/package`):
+			case strings.HasPrefix(r.URL.String(), c.URL.Path+`nupkg`):
 				servePackage(w, r)
-			case strings.HasPrefix(r.URL.String(), `/F/plugins/api/v2/browse`):
-				log.Println("Serving File")
+			case strings.HasPrefix(r.URL.String(), c.URL.Path+`files`):
 				// Get file path and split to match local
-				f := strings.TrimLeft(r.URL.String(), `/F/plugins/api/v2/browse`)
-				http.ServeFile(w, r, filepath.Join(repo.packagePath, `browse`, f))
+				http.ServeFile(w, r, filepath.Join(repo.rootDIR, r.URL.String()[len(c.URL.Path+`files`):]))
+			default:
+				w.WriteHeader(http.StatusNotFound)
 			}
 		case http.MethodPost:
-			log.Println("Routing POST: " + r.URL.String())
+			log.Println("Routing POST:", r.URL.String())
 		case http.MethodPut:
-			log.Println("Routing PUT: " + r.URL.String())
+			log.Println("Routing PUT:", r.URL.String())
+
 			// Verify API Key allows writing
 			if !c.verifyUserCanWrite(apiKey) {
 				w.WriteHeader(http.StatusForbidden)
 				return
 			}
-			// Process Request
-			putPackage(w, r)
+
+			// Directory
+			url := c.URL.Path
+			print("url::", url)
+			if url == "/" {
+				url = "/api/v2/package/"
+			}
+			switch {
+			case r.URL.String() == url:
+				// Process Request
+				putPackage(w, r)
+			default:
+				// Return 404
+				w.WriteHeader(http.StatusNotFound)
+			}
 		}
+
 	})
 
 	// Log and start server
@@ -132,37 +149,6 @@ func serveRoot(w http.ResponseWriter, r *http.Request) {
 
 	// Output Xml
 	w.Write(ns.ToBytes())
-}
-
-type packageParams struct {
-	ID      string
-	Version string
-}
-
-func newPackageParams(p string) *packageParams {
-	pp := packageParams{}
-
-	for strings.Contains(p, `=`) {
-		i := strings.Index(p, `=`)
-		k := strings.TrimSpace(p[:i])
-		p = p[i:]
-		i = strings.Index(p, `'`)
-		j := strings.Index(p[i+1:], `'`)
-		v := strings.TrimSpace(p[i+1 : j+i+1])
-		p = strings.TrimSpace(p[j+i+2:])
-		if strings.HasPrefix(p, ",") {
-			p = p[1:]
-		}
-		switch k {
-		case `Id`:
-			pp.ID = v
-		case `Version`:
-			pp.Version = v
-		}
-		//output = append(output[:i], append([]byte(` /`), output[i+j+1:]...)...)
-	}
-
-	return &pp
 }
 
 func serveFeed(w http.ResponseWriter, r *http.Request) {
@@ -205,7 +191,7 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create a new Service Struct
-		nf := NewNugetFeed(c.baseURL(r))
+		nf := NewNugetFeed(c.URL.String())
 		// Loop through packages
 		for _, p := range repo.packages {
 			if s[0] != "" {
@@ -228,25 +214,29 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 }
 
 func servePackage(w http.ResponseWriter, r *http.Request) {
-	// Debug Tracking
-	log.Println("Serving Package")
 	// get the last two parts of the URL
-	x := strings.Split(strings.TrimLeft(r.URL.String(), `/plugins/api/v2/package`), `/`)
+	x := strings.Split(r.URL.String(), `/`)
+	// construct filename of desired package
+	filename := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
+	// Debug Tracking
+	log.Println("Serving Package", filename)
 
 	// Loop through packages to find the one we need
 	for _, p := range repo.packages {
-		if p.Properties.ID == x[0] && p.Properties.Version == x[1] {
+		if p.Properties.ID == x[len(x)-2] && p.Properties.Version == x[len(x)-1] {
 			// Set header to fix filename on client side
 			w.Header().Set("Cache-Control", "max-age=3600")
-			w.Header().Set("Content-Disposition", `filename=`+p.Filename)
+			w.Header().Set("Content-Disposition", `filename=`+p.filename)
 			w.Header().Set("Content-Type", "binary/octet-stream")
 			// Serve up the file
-			http.ServeFile(w, r, filepath.Join(repo.packagePath, p.Filename))
+			http.ServeFile(w, r, filepath.Join(repo.rootDIR, p.Properties.ID, p.Properties.Version, p.filename))
 		}
 	}
 }
 
 func putPackage(w http.ResponseWriter, r *http.Request) {
+
+	log.Println("Puitting Package into Store")
 
 	// Parse mime type
 	mediaType, params, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
@@ -283,7 +273,6 @@ func putPackage(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
 		return
 	}
-	println(len(body))
 
 	// Try and open the attachment as a zip file
 	zipReader, err := zip.NewReader(bytes.NewReader(body), int64(len(body)))
@@ -312,7 +301,7 @@ func putPackage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Test for folder, if present bail, if not make it
-	packagePath := filepath.Join(c.RootDIR, strings.ToLower(nsf.Meta.ID), nsf.Meta.Version)
+	packagePath := filepath.Join(c.RepoDIR, strings.ToLower(nsf.Meta.ID), nsf.Meta.Version)
 	if _, err := os.Stat(packagePath); !os.IsNotExist(err) {
 		// Path already exists
 		w.WriteHeader(http.StatusConflict)
@@ -327,13 +316,11 @@ func putPackage(w http.ResponseWriter, r *http.Request) {
 	log.Println("Creating Directory: ", packagePath)
 
 	// Extract contents to folder
-	// Process the content files
 	for _, zipFile := range zipReader.File {
 		if _, err := os.Stat(zipFile.Name); os.IsNotExist(err) {
 			// Create directory for file if not present
 			fd := filepath.Join(packagePath, filepath.Dir(zipFile.Name))
 			if _, err := os.Stat(fd); os.IsNotExist(err) {
-				log.Println("Creating Directory: " + fd)
 				err = os.MkdirAll(fd, os.ModePerm)
 				if err != nil {
 					println(err.Error())
@@ -345,9 +332,6 @@ func putPackage(w http.ResponseWriter, r *http.Request) {
 			// Set the file path
 			fp := filepath.Join(fd, filepath.Base((zipFile.Name)))
 			if _, err := os.Stat(fp); os.IsNotExist(err) {
-
-				// Log Out Status
-				log.Println("Extracting: " + fp)
 
 				// Open file to be extracted
 				r, err := zipFile.Open()
@@ -370,6 +354,12 @@ func putPackage(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Write package to folder
+	// Dump the .nupkg file in the same directory
+	err = ioutil.WriteFile(filepath.Join(packagePath, strings.ToLower(nsf.Meta.ID)+"."+nsf.Meta.Version+".nupkg"), body, os.ModePerm)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
+	log.Println("Package Saved: ", packagePath)
 }
