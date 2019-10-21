@@ -280,7 +280,7 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	e.Summary.Type = "Text"
 	e.Author.Name = nsf.Meta.Authors
 	e.Content.Type = "binary/octet-stream"
-	e.Content.Src = c.HostURL + `nupkg/` + nsf.Meta.ID + `/` + nsf.Meta.Version + ``
+	e.Content.Src = cfg.HostURL + `nupkg/` + nsf.Meta.ID + `/` + nsf.Meta.Version + ``
 
 	// Match and set property values
 	e.Properties.ID = nsf.Meta.ID
@@ -291,7 +291,7 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 		e.Properties.Copyright.Null = true
 	}
 	e.Properties.Description = nsf.Meta.Description
-	e.Properties.GalleryDetailsURL = c.HostURL + `feed/` + nsf.Meta.Title + `/` + nsf.Meta.Version + ``
+	e.Properties.GalleryDetailsURL = cfg.HostURL + `feed/` + nsf.Meta.Title + `/` + nsf.Meta.Version + ``
 	e.Properties.IconURL = nsf.Meta.IconURL
 	e.Properties.IsLatestVersion.Value = true
 	e.Properties.IsLatestVersion.Type = "Edm.Boolean"
@@ -328,7 +328,7 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	e.Properties.VersionDownloadCount.Type = "Edm.Int32"
 
 	// Replace http://content/ with full links
-	pkgURL := c.HostURL + "files/" + strings.ToLower(e.Properties.ID) + `/` + e.Properties.Version + `/content/`
+	pkgURL := cfg.HostURL + "files/" + strings.ToLower(e.Properties.ID) + `/` + e.Properties.Version + `/content/`
 	e.Properties.IconURL = strings.ReplaceAll(e.Properties.IconURL, "http://content/", pkgURL)
 	e.Properties.Description = strings.ReplaceAll(e.Properties.Description, "http://content/", pkgURL)
 

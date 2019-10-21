@@ -129,7 +129,7 @@ func (r *nugetRepo) LoadPackage(fp string) error {
 			nsf, err := nuspec.FromBytes(b)
 
 			// Read Entry into memory
-			p = NewNugetPackage(c.HostURL, nsf, f.Name())
+			p = NewNugetPackage(cfg.HostURL, nsf, f.Name())
 
 			// Set Updated to match file
 			p.Properties.Created.Value = f.ModTime().Format(zuluTimeLayout)

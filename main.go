@@ -13,15 +13,15 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 
+	"github.com/gin-gonic/gin"
 	nuspec "github.com/soloworks/go-nuspec"
 )
 
 // Global Variables
 var repo *nugetRepo
-var c *config
+var cfg *config
 
 // Global Constants
 const zuluTimeLayout = "2006-01-02T15:04:05Z"
@@ -29,7 +29,7 @@ const zuluTimeLayout = "2006-01-02T15:04:05Z"
 func init() {
 
 	// Create a new server structure
-	c = &config{}
+	cfg = &config{}
 
 	// read file
 	log.Println("loading config: " + "nuget-server-config.json")
@@ -39,7 +39,7 @@ func init() {
 	}
 
 	// Load in the config file from the file system
-	err = json.Unmarshal(data, &c)
+	err = json.Unmarshal(data, &cfg)
 	if err != nil {
 		log.Fatal("Error with json:", err)
 	}
@@ -47,126 +47,102 @@ func init() {
 	// TODO: Remove any empty APIKeys
 
 	// Set URL
-	u, err := url.Parse(c.HostURL)
-	c.URL = u
+	u, err := url.Parse(cfg.HostURL)
+	cfg.URL = u
 
 	// Warn if API Keys not present
-	if len(c.APIKeys.ReadOnly) == 0 && len(c.APIKeys.ReadWrite) == 0 {
+	if len(cfg.APIKeys.ReadOnly) == 0 && len(cfg.APIKeys.ReadWrite) == 0 {
 		log.Println("WARNING: No API Keys defined, server running in development mode")
 		log.Println("WARNING: Anyone can read or write to the server")
-	} else if len(c.APIKeys.ReadOnly) == 0 {
+	} else if len(cfg.APIKeys.ReadOnly) == 0 {
 		log.Println("WARNING: No read-only API Keys defined")
 		log.Println("WARNING: Anyone can read from the server")
 	}
 
 	// Init the file repo
-	repo, err = initRepo(c.RepoDIR)
+	repo, err = initRepo(cfg.RepoDIR)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func main() {
-
-	// Handling Routing
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+func canRead() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		log.Println("Checking Read")
 		// Local Variables
-		var apiKey string
+		apiKey := c.GetHeader("x-nuget-apikey")
+		log.Println("apiKey:", apiKey)
 		// Process Headers
-		for name, headers := range r.Header {
-			//println("Header::", name, "::", headers[0])
-			// Find and store APIKey for this request
-			if strings.ToLower(name) == "x-nuget-apikey" {
-				apiKey = headers[0]
-			}
+		if cfg.verifyUserCanRead(apiKey) {
+			c.Next()
 		}
-
-		log.Println("Routing:", r.Method, r.URL.String())
-
-		// Swicth on Method
-		switch r.Method {
-		case http.MethodGet:
-			log.Println("Routing GET: " + r.URL.String())
-			switch {
-			case r.URL.String() == c.URL.Path:
-				serveRoot(w, r)
-			case strings.HasPrefix(r.URL.String(), c.URL.Path+`Refresh`):
-				repo.RefeshPackages()
-			case strings.HasPrefix(r.URL.String(), c.URL.Path+`Packages`):
-				serveFeed(w, r)
-			case strings.HasPrefix(r.URL.String(), c.URL.Path+`nupkg`):
-				servePackage(w, r)
-			case strings.HasPrefix(r.URL.String(), c.URL.Path+`files`):
-				// Get file path and split to match local
-				http.ServeFile(w, r, filepath.Join(repo.rootDIR, r.URL.String()[len(c.URL.Path+`files`):]))
-			default:
-				w.WriteHeader(http.StatusNotFound)
-			}
-		case http.MethodPost:
-			log.Println("Routing POST:", r.URL.String())
-		case http.MethodPut:
-			log.Println("Routing PUT:", r.URL.String())
-
-			// Verify API Key allows writing
-			if !c.verifyUserCanWrite(apiKey) {
-				w.WriteHeader(http.StatusForbidden)
-				return
-			}
-
-			// Directory
-			url := c.URL.Path
-			print("url::", url)
-			if url == "/" {
-				url = "/api/v2/package/"
-			}
-			switch {
-			case r.URL.String() == url:
-				// Process Request
-				putPackage(w, r)
-			default:
-				// Return 404
-				w.WriteHeader(http.StatusNotFound)
-			}
-		}
-
-	})
-
-	// Log and start server
-	log.Println("Serving on http://localhost:80")
-	log.Fatal(http.ListenAndServe(":80", nil))
+	}
 }
 
-func serveRoot(w http.ResponseWriter, r *http.Request) {
+func canWrite() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		log.Println("Checking Write")
+		// Local Variables
+		apiKey := c.GetHeader("x-nuget-apikey")
+		// Process Headers
+		if cfg.verifyUserCanWrite(apiKey) {
+			c.Next()
+		}
+	}
+}
+
+func main() {
+
+	// Create new gin router
+	router := gin.Default()
+
+	// Static Routing
+	router.Static("/files", repo.rootDIR)
+
+	// GET Routing
+	readOnly := router.Group("/")
+	readOnly.Use(canRead())
+	{
+		readOnly.GET("/", serveRoot)
+		readOnly.GET("/Packages", serveFeed)
+		readOnly.GET("/nupkg", servePackage)
+	}
+
+	// PUT Routing
+	readWrite := router.Group("/")
+	readWrite.Use(canWrite())
+	{
+		readWrite.PUT("/", putPackage)
+	}
+
+	router.Run(":80")
+}
+
+func serveRoot(c *gin.Context) {
 
 	// Debug Tracking
 	log.Println("Serving Root")
 
-	// Set Headers
-	w.Header().Set("Content-Type", "application/xml;charset=utf-8")
-
 	// Create a new Service Struct
-	ns := NewNugetService(r.Host + r.RequestURI)
+	ns := NewNugetService(cfg.HostURL)
 
 	// Output Xml
-	w.Write(ns.ToBytes())
+	c.Data(200, "application/xml;charset=utf-8", ns.ToBytes())
 }
 
-func serveFeed(w http.ResponseWriter, r *http.Request) {
+func serveFeed(c *gin.Context) {
 
 	// Debug Tracking
 	log.Println("Serving Feed")
 
-	// Set Headers
-	w.Header().Set("Content-Type", "application/atom+xml;type=feed;charset=utf-8")
-
 	// Identify & process function parameters if they exist
 	var s string
 	// Get Params
-	i := strings.Index(r.URL.Path, "(") // Find opening bracket
+	i := strings.Index(c.Request.URL.Path, "(") // Find opening bracket
 	if i >= 0 {
-		j := strings.Index(r.URL.Path[i:], ")") // Find closing bracket
+		j := strings.Index(c.Request.URL.Path[i:], ")") // Find closing bracket
 		if j >= 0 {
-			s = r.URL.Path[i+1 : i+j]
+			s = c.Request.URL.Path[i+1 : i+j]
 		}
 	}
 	params := newPackageParams(s)
@@ -183,7 +159,7 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		// Process all packages
-		s := strings.SplitAfterN(r.URL.Query().Get("$filter"), " ", 3)
+		s := strings.SplitAfterN(c.Request.URL.Query().Get("$filter"), " ", 3)
 		if s[0] == "" {
 			log.Println("Serving Full Feed")
 		} else {
@@ -191,7 +167,7 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create a new Service Struct
-		nf := NewNugetFeed(c.URL.String())
+		nf := NewNugetFeed(cfg.URL.String())
 		// Loop through packages
 		for _, p := range repo.packages {
 			if s[0] != "" {
@@ -208,14 +184,14 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 		b = nf.ToBytes()
 	}
 
-	w.Header().Set("Content-Length", strconv.Itoa(len(b)))
-	w.Write(b)
+	// Set Headers
+	c.Data(200, "application/atom+xml;type=feed;charset=utf-8", b)
 
 }
 
-func servePackage(w http.ResponseWriter, r *http.Request) {
+func servePackage(c *gin.Context) {
 	// get the last two parts of the URL
-	x := strings.Split(r.URL.String(), `/`)
+	x := strings.Split(c.Request.URL.String(), `/`)
 	// construct filename of desired package
 	filename := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
 	// Debug Tracking
@@ -225,16 +201,41 @@ func servePackage(w http.ResponseWriter, r *http.Request) {
 	for _, p := range repo.packages {
 		if p.Properties.ID == x[len(x)-2] && p.Properties.Version == x[len(x)-1] {
 			// Set header to fix filename on client side
-			w.Header().Set("Cache-Control", "max-age=3600")
-			w.Header().Set("Content-Disposition", `filename=`+p.filename)
-			w.Header().Set("Content-Type", "binary/octet-stream")
+			c.Header("Cache-Control", "max-age=3600")
+			c.Header("Content-Disposition", `filename=`+p.filename)
 			// Serve up the file
-			http.ServeFile(w, r, filepath.Join(repo.rootDIR, p.Properties.ID, p.Properties.Version, p.filename))
+			b, err := ioutil.ReadFile(filepath.Join(repo.rootDIR, p.Properties.ID, p.Properties.Version, p.filename))
+			if err != nil {
+				c.AbortWithStatus(500)
+			}
+			c.Data(200, "binary/octet-stream", b)
 		}
 	}
 }
 
-func putPackage(w http.ResponseWriter, r *http.Request) {
+type profileForm struct {
+	NupkgFile *multipart.FileHeader `form:"avatar" binding:"required"`
+}
+
+func putPackage(c *gin.Context) {
+	// in this case proper binding will be automatically selected
+	var form profileForm
+	if err := c.ShouldBind(&form); err != nil {
+		c.String(http.StatusBadRequest, "bad request")
+		return
+	}
+	err := c.SaveUploadedFile(form.NupkgFile, form.NupkgFile.Filename)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "unknown error")
+		return
+	}
+
+	// db.Save(&form)
+
+	c.String(http.StatusOK, "ok")
+}
+
+func putPackage2(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Puitting Package into Store")
 
@@ -301,7 +302,7 @@ func putPackage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Test for folder, if present bail, if not make it
-	packagePath := filepath.Join(c.RepoDIR, strings.ToLower(nsf.Meta.ID), nsf.Meta.Version)
+	packagePath := filepath.Join(cfg.RepoDIR, strings.ToLower(nsf.Meta.ID), nsf.Meta.Version)
 	if _, err := os.Stat(packagePath); !os.IsNotExist(err) {
 		// Path already exists
 		w.WriteHeader(http.StatusConflict)

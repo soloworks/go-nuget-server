@@ -1,6 +1,9 @@
 package main
 
-import "net/url"
+import (
+	"log"
+	"net/url"
+)
 
 type config struct {
 	HostURL string `json:"host-url"`
@@ -22,13 +25,16 @@ func (c *config) verifyUserOpenMode() bool {
 func (c *config) verifyUserCanWrite(k string) bool {
 	// Shortcut if no api-keys are present
 	if c.verifyUserOpenMode() {
+		log.Println("Open mode!")
 		return true
 	}
 	for _, x := range c.APIKeys.ReadWrite {
 		if x == k {
+			log.Println("Found Key!")
 			return true
 		}
 	}
+	log.Println("Denied!")
 	return false
 }
 
