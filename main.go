@@ -75,6 +75,8 @@ func canRead() gin.HandlerFunc {
 		// Process Headers
 		if cfg.verifyUserCanRead(apiKey) {
 			c.Next()
+		} else {
+			c.AbortWithStatus(403)
 		}
 	}
 }
@@ -100,7 +102,7 @@ func main() {
 	router.Static("/files", repo.rootDIR)
 
 	// GET Routing
-	readOnly := router.Group("/")
+	readOnly := router.Group(cfg.URL.Path)
 	readOnly.Use(canRead())
 	{
 		readOnly.GET("/", serveRoot)
@@ -109,7 +111,7 @@ func main() {
 	}
 
 	// PUT Routing
-	readWrite := router.Group("/")
+	readWrite := router.Group("/solo-works-plugins")
 	readWrite.Use(canWrite())
 	{
 		readWrite.PUT("/", putPackage)
