@@ -2,7 +2,7 @@
     "host-url": "http://localhost/solo-works-plugins/",
     "package-directory": "./FileStore",
     "api-keys": {
-        "read-only":["abc-def"],
+        "read-only":[],
         "read-write":["123-456"]
     }
 }

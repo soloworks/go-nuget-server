@@ -68,7 +68,6 @@ func (r *nugetRepo) RefeshPackages() error {
 				if Ver.IsDir() {
 					// Create full filepath
 					fp := filepath.Join(r.rootDIR, ID.Name(), Ver.Name(), ID.Name()+"."+Ver.Name()+".nupkg")
-					log.Println("Reading: ", fp)
 					if _, err := os.Stat(fp); os.IsNotExist(err) {
 						log.Println("Not a nupkg directory")
 						break
@@ -79,13 +78,12 @@ func (r *nugetRepo) RefeshPackages() error {
 						log.Println(err)
 						break
 					}
-					println("Read: ", fp)
 				}
 			}
 		}
 	}
 
-	log.Printf("%d Packages Found", len(r.packages))
+	log.Printf("Repo Loaded with %d Packages Found", len(r.packages))
 
 	return nil
 }

@@ -3,14 +3,12 @@ package main
 import (
 	"archive/zip"
 	"bytes"
-	"encoding/json"
 	"io"
 	"io/ioutil"
 	"log"
 	"mime"
 	"mime/multipart"
 	"net/http"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -21,125 +19,171 @@ import (
 
 // Global Variables
 var repo *nugetRepo
-var c *config
+var c *Config
 
 // Global Constants
 const zuluTimeLayout = "2006-01-02T15:04:05Z"
 
 func init() {
 
-	// Create a new server structure
-	c = &config{}
-
-	// read file
-	log.Println("loading config: " + "nuget-server-config.json")
-	data, err := ioutil.ReadFile("nuget-server-config.json")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Load in the config file from the file system
-	err = json.Unmarshal(data, &c)
-	if err != nil {
-		log.Fatal("Error with json:", err)
-	}
-
-	// TODO: Remove any empty APIKeys
-
-	// Set URL
-	u, err := url.Parse(c.HostURL)
-	c.URL = u
-
-	// Warn if API Keys not present
-	if len(c.APIKeys.ReadOnly) == 0 && len(c.APIKeys.ReadWrite) == 0 {
-		log.Println("WARNING: No API Keys defined, server running in development mode")
-		log.Println("WARNING: Anyone can read or write to the server")
-	} else if len(c.APIKeys.ReadOnly) == 0 {
-		log.Println("WARNING: No read-only API Keys defined")
-		log.Println("WARNING: Anyone can read from the server")
-	}
+	c = NewConfig("nuget-server-config.json", "$metadata.xml")
 
 	// Init the file repo
-	repo, err = initRepo(c.RepoDIR)
+	r, err := initRepo(c.RepoDIR)
 	if err != nil {
 		log.Fatal(err)
 	}
+	repo = r
+}
+
+type statusWriter struct {
+	http.ResponseWriter
+	status int
+	length int
+}
+
+func (w *statusWriter) Status() int {
+	if w.status == 0 {
+		return 200
+	}
+	return w.status
+}
+
+func (w *statusWriter) WriteHeader(status int) {
+	w.status = status
+	w.ResponseWriter.WriteHeader(status)
+}
+
+func (w *statusWriter) Write(b []byte) (int, error) {
+	if w.status == 0 {
+		w.status = 200
+	}
+	n, err := w.ResponseWriter.Write(b)
+	w.length += n
+	return n, err
 }
 
 func main() {
 
 	// Handling Routing
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+
+		// Create new statusWriter
+		sw := statusWriter{ResponseWriter: w}
+
+		log.Println("Request Start:-------------------------------------------------")
+		log.Println("    Method:", r.Method)
+		log.Println("    Path:", r.URL.String())
+
 		// Local Variables
 		var apiKey string
 		// Process Headers
+		log.Println("    Headers:")
 		for name, headers := range r.Header {
-			//println("Header::", name, "::", headers[0])
-			// Find and store APIKey for this request
+			// Grab ApiKey as it passes
 			if strings.ToLower(name) == "x-nuget-apikey" {
 				apiKey = headers[0]
 			}
+			for _, h := range headers {
+				// Log Key
+				log.Println("        " + name + "::" + h)
+			}
 		}
 
-		log.Println("Routing:", r.Method, r.URL.String())
-
-		// Swicth on Method
+		// Free Access Routes
 		switch r.Method {
 		case http.MethodGet:
-			log.Println("Routing GET: " + r.URL.String())
 			switch {
 			case r.URL.String() == c.URL.Path:
-				serveRoot(w, r)
+				serveRoot(&sw, r)
+				goto End
+			case r.URL.String() == c.URL.Path+`$metadata`:
+				serveMetaData(&sw, r)
+				goto End
+			}
+		}
+
+		// Restricted Routes
+		switch r.Method {
+		case http.MethodGet:
+			// Verify API Key allows Reading
+			if !c.verifyUserCanReadOnly(apiKey) {
+				sw.WriteHeader(http.StatusForbidden)
+				goto End
+			}
+			// Perform Routing
+			switch {
 			case strings.HasPrefix(r.URL.String(), c.URL.Path+`Refresh`):
+				// ToDo: Remove as should be dynamic from mini DB
 				repo.RefeshPackages()
 			case strings.HasPrefix(r.URL.String(), c.URL.Path+`Packages`):
-				serveFeed(w, r)
+				servePackageFeed(&sw, r)
+			case strings.HasPrefix(r.URL.String(), c.URL.Path+`FindPackagesById`):
+				servePackageFeed(&sw, r)
 			case strings.HasPrefix(r.URL.String(), c.URL.Path+`nupkg`):
-				servePackage(w, r)
+				servePackageFile(&sw, r)
 			case strings.HasPrefix(r.URL.String(), c.URL.Path+`files`):
+				log.Println("Serve: Static File")
 				// Get file path and split to match local
-				http.ServeFile(w, r, filepath.Join(repo.rootDIR, r.URL.String()[len(c.URL.Path+`files`):]))
-			default:
-				w.WriteHeader(http.StatusNotFound)
-			}
-		case http.MethodPost:
-			log.Println("Routing POST:", r.URL.String())
-		case http.MethodPut:
-			log.Println("Routing PUT:", r.URL.String())
+				http.ServeFile(&sw, r, filepath.Join(repo.rootDIR, r.URL.String()[len(c.URL.Path+`files`):]))
+			case strings.HasPrefix(r.URL.String(), c.URL.Path+`files`):
+				// Catch for client forcing use of "/F/yourpath/api/v2/browse"
+				log.Println("Serve: Static File (")
 
+			default:
+				sw.WriteHeader(http.StatusNotFound)
+				goto End
+			}
+		case http.MethodPut:
 			// Verify API Key allows writing
-			if !c.verifyUserCanWrite(apiKey) {
+			if !c.verifyUserCanReadWrite(apiKey) {
 				w.WriteHeader(http.StatusForbidden)
 				return
 			}
 
-			// Directory
-			url := c.URL.Path
-			print("url::", url)
-			if url == "/" {
-				url = "/api/v2/package/"
-			}
+			// Route
 			switch {
-			case r.URL.String() == url:
+			case r.URL.String() == c.URL.Path:
 				// Process Request
-				putPackage(w, r)
+				uploadPackageFile(&sw, r)
 			default:
 				// Return 404
-				w.WriteHeader(http.StatusNotFound)
+				sw.WriteHeader(http.StatusNotFound)
+				goto End
 			}
+
 		}
 
+	End:
+		log.Println("Request Served:", r.Method, r.URL.String())
+		log.Println("Status:", sw.Status())
+		log.Println("    Headers:")
+		if len(w.Header()) == 0 {
+			log.Println("        None")
+		} else {
+			for name, headers := range w.Header() {
+				for _, h := range headers {
+					// Log Key
+					log.Println("        " + name + "::" + h)
+				}
+			}
+		}
+		log.Println("Request End:---------------------------------------------------")
 	})
 
 	// Log and start server
-	log.Println("Serving on http://localhost:80")
-	log.Fatal(http.ListenAndServe(":80", nil))
+	log.Println("Server running on ", c.URL.String())
+	p := ""
+	if c.URL.Port() != "" {
+		p = ":" + c.URL.Port()
+	}
+	log.Fatal(http.ListenAndServe(p, nil))
 }
 
 func serveRoot(w http.ResponseWriter, r *http.Request) {
 
 	// Debug Tracking
-	log.Println("Serving Root")
+	log.Println("Serve: Root")
 
 	// Set Headers
 	w.Header().Set("Content-Type", "application/xml;charset=utf-8")
@@ -151,13 +195,20 @@ func serveRoot(w http.ResponseWriter, r *http.Request) {
 	w.Write(ns.ToBytes())
 }
 
-func serveFeed(w http.ResponseWriter, r *http.Request) {
+func serveMetaData(w http.ResponseWriter, r *http.Request) {
 
 	// Debug Tracking
-	log.Println("Serving Feed")
+	log.Println("Serve: MetaData")
 
 	// Set Headers
-	w.Header().Set("Content-Type", "application/atom+xml;type=feed;charset=utf-8")
+	w.Header().Set("Content-Type", "application/xml;charset=utf-8")
+	w.Header().Set("Content-Length", strconv.Itoa(len(c.MetaDataResponse)))
+
+	// Output Xml
+	w.Write(c.MetaDataResponse)
+}
+
+func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 
 	// Identify & process function parameters if they exist
 	var s string
@@ -172,48 +223,75 @@ func serveFeed(w http.ResponseWriter, r *http.Request) {
 	params := newPackageParams(s)
 	var b []byte
 
-	if params.ID != "" && params.Version != "" {
-		log.Println("Serving Single Entry")
-		// Find the entry required
-		for _, p := range repo.packages {
-			if p.Properties.ID == params.ID && p.Properties.Version == params.Version {
-				b = p.ToBytes()
+	if strings.HasPrefix(r.URL.String(), c.URL.Path+`Packages`) {
+		if params.ID != "" && params.Version != "" {
+			// Debug Tracking
+			log.Println("Serve Package: Entry (" + params.ID + "." + params.Version + ")")
+			// Find the entry required
+			for _, p := range repo.packages {
+				if p.Properties.ID == params.ID && p.Properties.Version == params.Version {
+					b = p.ToBytes()
+				}
 			}
-		}
-	} else {
-
-		// Process all packages
-		s := strings.SplitAfterN(r.URL.Query().Get("$filter"), " ", 3)
-		if s[0] == "" {
-			log.Println("Serving Full Feed")
 		} else {
-			log.Println("Serving Filtered Feed")
+
+			// Process all packages
+			s := strings.SplitAfterN(r.URL.Query().Get("$filter"), " ", 3)
+			if s[0] == "" {
+				log.Println("Serve Package: Feed (Unfiltered)")
+			} else {
+				log.Println("Serve Package: Feed (Filtered)")
+			}
+
+			// Create a new Service Struct
+			nf := NewNugetFeed("Packages", c.URL.String())
+			// Loop through packages
+			for _, p := range repo.packages {
+				if s[0] != "" {
+					if strings.TrimSpace(s[0]) == "tolower(Id)" && strings.TrimSpace(s[1]) == "eq" {
+						if strings.ToLower(p.Properties.ID) == s[2][1:len(s[2])-1] {
+							nf.Packages = append(nf.Packages, p)
+						}
+					}
+				} else {
+					nf.Packages = append(nf.Packages, p)
+				}
+			}
+			// Output Xml
+			b = nf.ToBytes()
 		}
+	} else if strings.HasPrefix(r.URL.String(), c.URL.Path+`FindPackagesById`) {
+		log.Println("Serve Package: Feed (ById)")
+
+		id := r.URL.Query().Get("id")
+		id = id[1 : len(id)-1]
+		log.Println("id::" + id)
 
 		// Create a new Service Struct
-		nf := NewNugetFeed(c.URL.String())
+		nf := NewNugetFeed("FindPackagesById", c.URL.String())
+
 		// Loop through packages
 		for _, p := range repo.packages {
-			if s[0] != "" {
-				if strings.TrimSpace(s[0]) == "tolower(Id)" && strings.TrimSpace(s[1]) == "eq" {
-					if strings.ToLower(p.Properties.ID) == s[2][1:len(s[2])-1] {
-						nf.Packages = append(nf.Packages, p)
-					}
-				}
-			} else {
+			log.Println("p.ID =", p.Properties.ID)
+			if id == p.Properties.ID {
 				nf.Packages = append(nf.Packages, p)
 			}
 		}
-		// Output Xml
 		b = nf.ToBytes()
 	}
 
-	w.Header().Set("Content-Length", strconv.Itoa(len(b)))
-	w.Write(b)
+	if len(b) == 0 {
+		w.WriteHeader(404)
+	} else {
+		// Set Headers
+		w.Header().Set("Content-Type", "application/atom+xml;type=feed;charset=utf-8")
+		w.Header().Set("Content-Length", strconv.Itoa(len(b)))
+		w.Write(b)
+	}
 
 }
 
-func servePackage(w http.ResponseWriter, r *http.Request) {
+func servePackageFile(w http.ResponseWriter, r *http.Request) {
 	// get the last two parts of the URL
 	x := strings.Split(r.URL.String(), `/`)
 	// construct filename of desired package
@@ -234,7 +312,7 @@ func servePackage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func putPackage(w http.ResponseWriter, r *http.Request) {
+func uploadPackageFile(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Puitting Package into Store")
 

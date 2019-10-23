@@ -77,7 +77,7 @@ type NugetFeed struct {
 }
 
 // NewNugetFeed returns a populated skeleton for a Nuget Packages request (/Packages)
-func NewNugetFeed(baseURL string) *NugetFeed {
+func NewNugetFeed(title string, baseURL string) *NugetFeed {
 
 	nf := NugetFeed{}
 	// Set Feed Values
@@ -85,13 +85,13 @@ func NewNugetFeed(baseURL string) *NugetFeed {
 	nf.XMLNs = "http://www.w3.org/2005/Atom"
 	nf.XMLNsD = "http://schemas.microsoft.com/ado/2007/08/dataservices"
 	nf.XMLNsM = "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-	nf.ID = baseURL + `Packages`
-	nf.Title.Text = "Packages"
+	nf.ID = baseURL + title
+	nf.Title.Text = title
 	nf.Title.Type = "text"
 	nf.Updated = time.Now().Format(zuluTimeLayout)
 	nf.Link.Rel = "self"
-	nf.Link.Title = "Packages"
-	nf.Link.Href = "Packages"
+	nf.Link.Title = title
+	nf.Link.Href = title
 
 	return &nf
 }
