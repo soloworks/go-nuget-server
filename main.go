@@ -100,18 +100,20 @@ func main() {
 
 	// Static Routing
 	router.Static("/files", repo.rootDIR)
-
+	router.NoRoute()
 	// GET Routing
+	log.Println("Path::", cfg.URL.Path)
 	readOnly := router.Group(cfg.URL.Path)
 	readOnly.Use(canRead())
 	{
 		readOnly.GET("/", serveRoot)
-		readOnly.GET("/Packages", serveFeed)
-		readOnly.GET("/nupkg", servePackage)
+		readOnly.GET("/nupkg/", servePackage)
+		readOnly.GET("*Package", serveFeed)
+		// readOnly.NoRooute // To handle Packages?
 	}
 
 	// PUT Routing
-	readWrite := router.Group("/solo-works-plugins")
+	readWrite := router.Group(cfg.URL.Path)
 	readWrite.Use(canWrite())
 	{
 		readWrite.PUT("/", putPackage)
@@ -216,7 +218,7 @@ func servePackage(c *gin.Context) {
 }
 
 type profileForm struct {
-	NupkgFile *multipart.FileHeader `form:"avatar" binding:"required"`
+	NupkgFile *multipart.FileHeader `form:"package" binding:"required"`
 }
 
 func putPackage(c *gin.Context) {
@@ -226,11 +228,17 @@ func putPackage(c *gin.Context) {
 		c.String(http.StatusBadRequest, "bad request")
 		return
 	}
-	err := c.SaveUploadedFile(form.NupkgFile, form.NupkgFile.Filename)
-	if err != nil {
-		c.String(http.StatusInternalServerError, "unknown error")
-		return
-	}
+
+	// f, err := form.NupkgFile.Open()
+	// if err != nil {
+	// 	c.AbortWithError(500, err)
+	// }
+
+	// err := c.SaveUploadedFile(form.NupkgFile, form.NupkgFile.Filename)
+	// if err != nil {
+	// 	c.String(http.StatusInternalServerError, "unknown error")
+	// 	return
+	// }
 
 	// db.Save(&form)
 
