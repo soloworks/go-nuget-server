@@ -161,7 +161,7 @@ func (fs *fileStoreLocal) RemovePackage(fn string) {
 	os.RemoveAll(filepath.Join(fs.rootDir, `content`, fn))
 }
 
-func (fs *fileStoreLocal) StorePackage(pkg []byte) error {
+func (fs *fileStoreLocal) StorePackage(pkg []byte) (bool, error) {
 	/*
 		// Test for folder, if present bail, if not make it
 		// Fixme: Broke this to get to compile
@@ -185,7 +185,7 @@ func (fs *fileStoreLocal) StorePackage(pkg []byte) error {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}*/
-	return nil
+	return false, nil
 }
 
 func (fs *fileStoreLocal) GetPackage(id string, ver string) (*NugetPackageEntry, error) {
@@ -194,6 +194,11 @@ func (fs *fileStoreLocal) GetPackage(id string, ver string) (*NugetPackageEntry,
 }
 
 func (fs *fileStoreLocal) GetPackages(id string) ([]*NugetPackageEntry, error) {
+
+	return nil, nil
+}
+
+func (fs *fileStoreLocal) GetFile(f string) ([]byte, error) {
 
 	return nil, nil
 }

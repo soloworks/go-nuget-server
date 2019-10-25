@@ -2,14 +2,20 @@ package main
 
 import (
 	"context"
+	"crypto/sha512"
+	"encoding/hex"
+	"io/ioutil"
 	"log"
 	"path"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	"cloud.google.com/go/storage"
 	firebase "firebase.google.com/go"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/iterator"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 )
 
 type fileStoreGCP struct {
@@ -29,10 +35,10 @@ func (fs *fileStoreGCP) Init(s *Server) error {
 
 	// Connect to Storage Bucket specified in config
 	sc, err := storage.NewClient(fs.ctx)
-	fs.bucket = sc.Bucket(s.config.FileStore.BucketName)
 	if err != nil {
 		return err
 	}
+	fs.bucket = sc.Bucket(s.config.FileStore.BucketName)
 
 	// Open connection to Firestore
 	conf := &firebase.Config{ProjectID: s.config.FileStore.ProjectID}
@@ -48,12 +54,12 @@ func (fs *fileStoreGCP) Init(s *Server) error {
 	return nil
 }
 
-func (fs *fileStoreGCP) StorePackage(pkg []byte) error {
+func (fs *fileStoreGCP) StorePackage(pkg []byte) (bool, error) {
 
 	// Extract files
 	nsf, files, err := extractPackage(pkg)
 	if err != nil {
-		return err
+		return false, err
 	}
 
 	// Generate local variables for ease
@@ -61,35 +67,61 @@ func (fs *fileStoreGCP) StorePackage(pkg []byte) error {
 	pkgFileName := pkgRef + ".nupkg"                   // Package File Name
 	pkgDir := path.Join(nsf.Meta.ID, nsf.Meta.Version) // Package Directory Name
 
+	// Check to see if package already exists
+	d, err := fs.firestore.Collection("Packages").Doc(pkgRef).Get(fs.ctx)
+	if err != nil && grpc.Code(err) != codes.NotFound {
+		return false, err
+	}
+	if d.Exists() {
+		return true, nil
+	}
+
 	// Save Package
 	wc := fs.bucket.Object(path.Join(pkgDir, pkgFileName)).NewWriter(fs.ctx)
 	wc.ContentType = "application/octet-stream"
 	if _, err := wc.Write(pkg); err != nil {
-		return err
+		return false, err
 	}
 	if err := wc.Close(); err != nil {
-		return err
+		return false, err
 	}
+
 	// Save Files
 	for name, content := range files {
 		wc := fs.bucket.Object(path.Join(pkgDir, name)).NewWriter(fs.ctx)
 		wc.ContentType = "application/octet-stream"
 		if _, err := wc.Write(content); err != nil {
-			return err
+			return false, err
 		}
 		if err := wc.Close(); err != nil {
-			return err
+			return false, err
 		}
+
 	}
 
-	// Make a new Package Entry and add it to the Database
+	// Make a new Package Entry
 	npe := NewNugetPackageEntry(nsf)
+
+	// Populate additional time values
+	npe.Properties.Created.Value = time.Now().Format(zuluTimeLayout)
+	npe.Properties.LastEdited.Value = time.Now().Format(zuluTimeLayout)
+	npe.Properties.Published.Value = time.Now().Format(zuluTimeLayout)
+	npe.Updated = time.Now().Format(zuluTimeLayout)
+
+	// Populate additional package values
+	h := sha512.Sum512(pkg)
+	npe.Properties.PackageHash = hex.EncodeToString(h[:])
+	npe.Properties.PackageHashAlgorithm = `SHA512`
+	npe.Properties.PackageSize.Value = len(pkg)
+	npe.Properties.PackageSize.Type = "Edm.Int64"
+
+	// Save to Firestore
 	if _, err := fs.firestore.Collection("Packages").Doc(pkgRef).Set(fs.ctx, npe); err != nil {
-		return err
+		return false, err
 	}
 
 	// Return
-	return nil
+	return false, nil
 }
 
 func (fs *fileStoreGCP) GetPackage(id string, ver string) (*NugetPackageEntry, error) {
@@ -135,4 +167,19 @@ func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
 		pkgs = append(pkgs, p)
 	}
 	return pkgs, nil
+}
+
+func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
+
+	rc, err := fs.bucket.Object(f).NewReader(fs.ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+	b, err := ioutil.ReadAll(rc)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }

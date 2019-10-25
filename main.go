@@ -79,9 +79,7 @@ func main() {
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`nupkg`):
 				servePackageFile(&sw, r)
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`files`):
-				log.Println("Serve: Static File")
-				// FIXME - Server Local Files
-				//http.ServeFile(&sw, r, filepath.Join(fs.rootDIR, r.URL.String()[len(server.URL.Path+`files`):]))
+				serveStaticFile(&sw, r)
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`files`):
 				// Catch for client forcing use of "/F/yourpath/api/v2/browse"
 				log.Println("Serve: Static File (")
@@ -138,23 +136,19 @@ func main() {
 
 func serveRoot(w http.ResponseWriter, r *http.Request) {
 
-	// Debug Tracking
-	log.Println("Serve: Root")
+	// Create a new Service Struct
+	ns := NewNugetService(r.Host + r.RequestURI)
+	b := ns.ToBytes()
 
 	// Set Headers
 	w.Header().Set("Content-Type", "application/xml;charset=utf-8")
-
-	// Create a new Service Struct
-	ns := NewNugetService(r.Host + r.RequestURI)
+	w.Header().Set("Content-Length", strconv.Itoa(len(b)))
 
 	// Output Xml
-	w.Write(ns.ToBytes())
+	w.Write(b)
 }
 
 func serveMetaData(w http.ResponseWriter, r *http.Request) {
-
-	// Debug Tracking
-	log.Println("Serve: MetaData")
 
 	// Set Headers
 	w.Header().Set("Content-Type", "application/xml;charset=utf-8")
@@ -162,6 +156,48 @@ func serveMetaData(w http.ResponseWriter, r *http.Request) {
 
 	// Output Xml
 	w.Write(server.MetaDataResponse)
+}
+
+func serveStaticFile(w http.ResponseWriter, r *http.Request) {
+
+	// Get the file from the FileStore
+	b, err := server.fs.GetFile(r.URL.String()[len(server.URL.Path+`files`):])
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// Set Headers
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Content-Length", strconv.Itoa(len(b)))
+
+	// Output Xml
+	w.Write(b)
+}
+
+func servePackageFile(w http.ResponseWriter, r *http.Request) {
+
+	// ToDo: rebuild this section
+	/*
+		// get the last two parts of the URL
+		x := strings.Split(r.URL.String(), `/`)
+		// construct filename of desired package
+		filename := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
+		// Debug Tracking
+		log.Println("Serving Package", filename)
+
+		// Loop through packages to find the one we need
+		for _, p := range fs.packages {
+			if p.Properties.ID == x[len(x)-2] && p.Properties.Version == x[len(x)-1] {
+				// Set header to fix filename on client side
+				w.Header().Set("Cache-Control", "max-age=3600")
+				w.Header().Set("Content-Disposition", `filename=`+p.filename)
+				w.Header().Set("Content-Type", "binary/octet-stream")
+				// Serve up the file
+				http.ServeFile(w, r, filepath.Join(fs.rootDIR, p.Properties.ID, p.Properties.Version, p.filename))
+			}
+		}
+	*/
 }
 
 func servePackageFeed(w http.ResponseWriter, r *http.Request) {
@@ -249,31 +285,6 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func servePackageFile(w http.ResponseWriter, r *http.Request) {
-
-	// ToDo: rebuild this section
-	/*
-		// get the last two parts of the URL
-		x := strings.Split(r.URL.String(), `/`)
-		// construct filename of desired package
-		filename := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
-		// Debug Tracking
-		log.Println("Serving Package", filename)
-
-		// Loop through packages to find the one we need
-		for _, p := range fs.packages {
-			if p.Properties.ID == x[len(x)-2] && p.Properties.Version == x[len(x)-1] {
-				// Set header to fix filename on client side
-				w.Header().Set("Cache-Control", "max-age=3600")
-				w.Header().Set("Content-Disposition", `filename=`+p.filename)
-				w.Header().Set("Content-Type", "binary/octet-stream")
-				// Serve up the file
-				http.ServeFile(w, r, filepath.Join(fs.rootDIR, p.Properties.ID, p.Properties.Version, p.filename))
-			}
-		}
-	*/
-}
-
 func uploadPackage(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Putting Package into FileStore")
@@ -306,7 +317,16 @@ func uploadPackage(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			// Store the file
-			server.fs.StorePackage(pkgFile)
+			exists, err := server.fs.StorePackage(pkgFile)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+			if exists == true {
+				w.WriteHeader(http.StatusConflict)
+				return
+			}
+			w.WriteHeader(http.StatusCreated)
 		}
 	}
 }

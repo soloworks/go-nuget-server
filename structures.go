@@ -115,6 +115,9 @@ func (nf *NugetFeed) ToBytes() []byte {
 		output = append(output[:i], append([]byte(` /`), output[i+j+1:]...)...)
 	}
 
+	// Replace http://hosturl/ with fully qualified urls
+	output = bytes.ReplaceAll(output, []byte("http://hosturl/"), []byte(server.URL.String()))
+
 	// Write the XML Header
 	b.WriteString(xml.Header)
 	b.Write(output)
@@ -271,14 +274,14 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	})
 
 	// Match and set main values
-	e.ID = server.URL.String() + "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`
+	e.ID = "http://hosturl/" + "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`
 	e.Title.Text = nsf.Meta.Title
 	e.Title.Type = "Text"
 	e.Summary.Text = nsf.Meta.Summary
 	e.Summary.Type = "Text"
 	e.Author.Name = nsf.Meta.Authors
 	e.Content.Type = "binary/octet-stream"
-	e.Content.Src = server.URL.String() + `nupkg/` + nsf.Meta.ID + `/` + nsf.Meta.Version + ``
+	e.Content.Src = "http://hosturl/" + `nupkg/` + nsf.Meta.ID + `/` + nsf.Meta.Version + ``
 
 	// Match and set property values
 	e.Properties.ID = nsf.Meta.ID
@@ -289,7 +292,7 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 		e.Properties.Copyright.Null = true
 	}
 	e.Properties.Description = nsf.Meta.Description
-	e.Properties.GalleryDetailsURL = server.URL.String() + `feed/` + nsf.Meta.Title + `/` + nsf.Meta.Version + ``
+	e.Properties.GalleryDetailsURL = nsf.Meta.ProjectURL
 	e.Properties.IconURL = nsf.Meta.IconURL
 	e.Properties.IsLatestVersion.Value = true
 	e.Properties.IsLatestVersion.Type = "Edm.Boolean"
@@ -308,7 +311,7 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	if e.Properties.LicenseReportURL.Value == "" {
 		e.Properties.LicenseReportURL.Null = true
 	}
-	e.Properties.ReportAbuseURL = "http://localhost/"
+	e.Properties.ReportAbuseURL = "http://soloworks.co.uk/"
 	e.Properties.Tags = nsf.Meta.Tags
 	e.Properties.Title = nsf.Meta.Title
 	e.Properties.Language = "en-US"
@@ -325,8 +328,8 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	e.Properties.RequireLicenseAcceptance.Type = "Edm.Boolean"
 	e.Properties.VersionDownloadCount.Type = "Edm.Int32"
 
-	// Replace http://content/ with full links
-	pkgURL := server.URL.String() + "files/" + strings.ToLower(e.Properties.ID) + `/` + e.Properties.Version + `/content/`
+	// Replace http://content/ with internal full URLs
+	pkgURL := "http://hosturl/" + "files/" + e.Properties.ID + `/` + e.Properties.Version + `/content/`
 	e.Properties.IconURL = strings.ReplaceAll(e.Properties.IconURL, "http://content/", pkgURL)
 	e.Properties.Description = strings.ReplaceAll(e.Properties.Description, "http://content/", pkgURL)
 
@@ -364,6 +367,9 @@ func (npe *NugetPackageEntry) ToBytes() []byte {
 		j := bytes.Index(output[i+1:], []byte(`>`))
 		output = append(output[:i], append([]byte(` /`), output[i+j+1:]...)...)
 	}
+
+	// Replace http://hosturl/ with fully qualified urls
+	output = bytes.ReplaceAll(output, []byte("http://hosturl/"), []byte(server.URL.String()))
 
 	// Write the XML Header
 	b.WriteString(xml.Header)

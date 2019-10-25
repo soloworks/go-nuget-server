@@ -13,7 +13,8 @@ type fileStore interface {
 	Init(c *Server) error
 	GetPackage(id string, ver string) (*NugetPackageEntry, error)
 	GetPackages(id string) ([]*NugetPackageEntry, error)
-	StorePackage(pkg []byte) error
+	StorePackage(pkg []byte) (bool, error)
+	GetFile(f string) ([]byte, error)
 }
 
 func extractPackage(pkg []byte) (*nuspec.File, map[string][]byte, error) {
