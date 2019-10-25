@@ -1,0 +1,14 @@
+{
+    "host-url": "http://localhost/q-sys-community-plugins/",
+    "filestore": {
+        "type": "gcp",
+        "project-id": "q-sys-community",
+        "storage-bucket": "q-sys-community-nuget-packages",
+        "api-keys": {
+            "read-only": [],
+            "read-write": [
+                "123-456"
+            ]
+        }
+    }
+}
