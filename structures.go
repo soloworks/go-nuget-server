@@ -132,13 +132,15 @@ type NugetPackageLink struct {
 
 // NugetPackageEntry is a single entry in a Nuget Feed
 type NugetPackageEntry struct {
-	XMLName  xml.Name `xml:"entry"`
-	XMLBase  string   `xml:"xml:base,attr,omitempty"`
-	XMLNs    string   `xml:"xmlns,attr,omitempty"`
-	XMLNsD   string   `xml:"xmlns:d,attr,omitempty"`
-	XMLNsM   string   `xml:"xmlns:m,attr,omitempty"`
-	ID       string   `xml:"id"`
-	Category struct {
+	PackageID      string   `xml:"-"`
+	PackageVersion string   `xml:"-"`
+	XMLName        xml.Name `xml:"entry"`
+	XMLBase        string   `xml:"xml:base,attr,omitempty"`
+	XMLNs          string   `xml:"xmlns,attr,omitempty"`
+	XMLNsD         string   `xml:"xmlns:d,attr,omitempty"`
+	XMLNsM         string   `xml:"xmlns:m,attr,omitempty"`
+	ID             string   `xml:"id"`
+	Category       struct {
 		Term   string `xml:"term,attr"`
 		Scheme string `xml:"scheme,attr"`
 	} `xml:"category"`
@@ -245,6 +247,9 @@ type NugetPackageEntry struct {
 func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	// Create new entry
 	e := NugetPackageEntry{}
+	// Values for ease of reference & searching
+	e.PackageID = nsf.Meta.ID
+	e.PackageVersion = nsf.Meta.Version
 	// Set Defaults
 	e.Category.Term = `MyGet.V2FeedPackage`
 	e.Category.Scheme = `http://schemas.microsoft.com/ado/2007/08/dataservices/scheme`

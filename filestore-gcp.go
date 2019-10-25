@@ -9,6 +9,7 @@ import (
 	"cloud.google.com/go/storage"
 	firebase "firebase.google.com/go"
 	"golang.org/x/oauth2/google"
+	"google.golang.org/api/iterator"
 )
 
 type fileStoreGCP struct {
@@ -93,10 +94,45 @@ func (fs *fileStoreGCP) StorePackage(pkg []byte) error {
 
 func (fs *fileStoreGCP) GetPackage(id string, ver string) (*NugetPackageEntry, error) {
 
-	return nil, nil
+	// New array to pass back
+	var pkg *NugetPackageEntry
+
+	d, err := fs.firestore.Collection("Packages").Doc(id + "." + ver).Get(fs.ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := d.DataTo(&pkg); err != nil {
+		return nil, err
+	}
+
+	return pkg, nil
 }
 
 func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
 
-	return nil, nil
+	// New array to pass back
+	var pkgs []*NugetPackageEntry
+	var iter *firestore.DocumentIterator
+
+	if id == "" {
+		iter = fs.firestore.Collection("Packages").Documents(fs.ctx)
+	} else {
+		iter = fs.firestore.Collection("Packages").Where("PackageID", "==", id).Documents(fs.ctx)
+	}
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+		var p *NugetPackageEntry
+		if err := doc.DataTo(&p); err != nil {
+			return nil, err
+		}
+		pkgs = append(pkgs, p)
+	}
+	return pkgs, nil
 }
