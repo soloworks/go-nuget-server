@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"path"
+	"strings"
 	"time"
 
 	"cloud.google.com/go/firestore"
@@ -171,12 +172,17 @@ func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
 
 func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
 
-	rc, err := fs.bucket.Object(f).NewReader(fs.ctx)
+	if strings.HasPrefix(f, `/`) {
+		f = f[1:]
+	}
+	obj := fs.bucket.Object(f)
+
+	r, err := obj.NewReader(fs.ctx)
 	if err != nil {
 		return nil, err
 	}
-	defer rc.Close()
-	b, err := ioutil.ReadAll(rc)
+	defer r.Close()
+	b, err := ioutil.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}
