@@ -15,9 +15,6 @@ import (
 // Global Variables
 var server *Server
 
-// Global Constants
-const zuluTimeLayout = "2006-01-02T15:04:05Z"
-
 func init() {
 	// Loan config and init server
 	server = InitServer("nuget-server-config-gcp.json")

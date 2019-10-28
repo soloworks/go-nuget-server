@@ -9,6 +9,9 @@ import (
 	nuspec "github.com/soloworks/go-nuspec"
 )
 
+// Global Constant for formatting time strings
+const zuluTimeLayout = "2006-01-02T15:04:05Z"
+
 type fileStore interface {
 	Init(c *Server) error
 	GetPackage(id string, ver string) (*NugetPackageEntry, error)
