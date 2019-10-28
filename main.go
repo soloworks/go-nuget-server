@@ -156,7 +156,7 @@ func main() {
 func serveRoot(w http.ResponseWriter, r *http.Request) {
 
 	// Create a new Service Struct
-	ns := NewNugetService(r.Host + r.RequestURI)
+	ns := NewNugetService(server.URL.String())
 	b := ns.ToBytes()
 
 	// Set Headers
