@@ -261,7 +261,8 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 
 			// If relevant, repopulate id with
 			if strings.TrimSpace(s[0]) == "tolower(Id)" && strings.TrimSpace(s[1]) == "eq" {
-				id = s[2]
+				id = s[2]              // Assign to id
+				id = id[1 : len(id)-1] // Remove quote marks
 			}
 
 			// Populate Packages from FileStore
