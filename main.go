@@ -145,7 +145,7 @@ func main() {
 	}
 	// If PORT EnvVar is set (Google Cloud Run environment)
 	if os.Getenv("PORT") != "" {
-		p = os.Getenv("PORT")
+		p = ":" + os.Getenv("PORT")
 	}
 
 	// Log and Start server
