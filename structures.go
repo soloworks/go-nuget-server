@@ -329,9 +329,9 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	e.Properties.VersionDownloadCount.Type = "Edm.Int32"
 
 	// Replace http://content/ with internal full URLs
-	pkgURL := "http://hosturl/" + "files/" + e.Properties.ID + `/` + e.Properties.Version + `/content/`
-	e.Properties.IconURL = strings.ReplaceAll(e.Properties.IconURL, "http://content/", pkgURL)
-	e.Properties.Description = strings.ReplaceAll(e.Properties.Description, "http://content/", pkgURL)
+	// pkgURL := "http://hosturl/" + "files/" + e.Properties.ID + `/` + e.Properties.Version + `/content/`
+	// e.Properties.IconURL = strings.ReplaceAll(e.Properties.IconURL, "http://content/", pkgURL)
+	// e.Properties.Description = strings.ReplaceAll(e.Properties.Description, "http://content/", pkgURL)
 
 	// Return skeleton
 	return &e

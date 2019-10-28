@@ -1,47 +1,22 @@
 # go-nuget-server
 
-A minimal Nuget HTTP(s) server written in Go, primarily developed to serve the Q-Sys plugin platform
-
 [![MIT license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![LinkedIn](https://img.shields.io/badge/Contact-LinkedIn-blue)](https://www.linkedin.com/company/soloworkslondon/)
 
-## Process
+A minimal Nuget HTTP(s) server written in Go, primarily developed to serve the Q-Sys plugin platform.
 
-Useful post about file structure:
-https://stackoverflow.com/questions/9642183/how-to-create-a-nuget-package-by-hand-without-nuget-exe-or-nuget-explorer
+Tested against:
 
-On startup, Q-Sys Designer sends two queries to the plugin host Url:
+- (client) NuGet/2.14.0.832 built into QSC Q-Sys Designer 8.1.1
+- (cli tool) nuget.exe (Microsoft: 5.2.0.6090)
+- (cli tool) go-nuget
 
-```
-~UrlString~/
-~UrlString~/Packages()
-```
+## Notes
 
-The () represent an empty set of filters - when empty, they yeild the same result as not being present
+Nuget is strange. It doesn't seem to respect it's own protocols and APIs.
 
-Results from the same queries applied to the Q-Sys Plugins Server
+Irresepective of supplied paths, it will still occasionally try to find static files in `/F/<yoururl>/api/v2/browse/`.
 
-<https://qsysassets.myget.org/F/qsc-managed-plugins/>
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<service xml:base="https://qsysassets.myget.org/F/qsc-managed-plugins/" xmlns="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom">
-    <workspace>
-        <atom:title>Default</atom:title>
-        <collection href="Packages">
-            <atom:title>Packages</atom:title>
-        </collection>
-        <collection href="Screenshots">
-            <atom:title>Screenshots</atom:title>
-        </collection>
-    </workspace>
-</service>
-```
-
-<https://qsysassets.myget.org/F/qsc-managed-plugins/Packages()>
-
-```
-Contents of Q-Sys-Nuget-Packages.xml (47KB)
-```
+Documentation states `<iconURL>` is depreciated for `<icon>` which can look for files in package instead of over http. However trying to pack with latest Nuget.exe fails on this against the schema.
 
 ## Acknowledgements

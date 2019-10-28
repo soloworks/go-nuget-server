@@ -10,6 +10,7 @@ import (
 
 // Config represents the config file
 type Config struct {
+	Loglevel  int    `json:"log-level"`
 	HostURL   string `json:"host-url"`
 	FileStore struct {
 		// Type can be 'gcp'|'local'

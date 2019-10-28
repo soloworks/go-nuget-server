@@ -6,9 +6,8 @@
         "storage-bucket": "q-sys-community-nuget-packages",
         "api-keys": {
             "read-only": [],
-            "read-write": [
-                "123-456"
-            ]
+            "read-write": []
         }
-    }
+    },
+    "log-level": 0
 }

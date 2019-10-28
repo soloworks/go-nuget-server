@@ -63,3 +63,17 @@ func extractPackage(pkg []byte) (*nuspec.File, map[string][]byte, error) {
 	// return elements
 	return nsf, files, nil
 }
+
+// FileStoreError represents a FileStore Error
+type FileStoreError struct {
+	ErrorString string
+}
+
+func (fse *FileStoreError) Error() string {
+	return fse.ErrorString
+}
+
+var (
+	// ErrFileNotFound is returned when request file is not found in the store
+	ErrFileNotFound = &FileStoreError{"File Not Found"}
+)

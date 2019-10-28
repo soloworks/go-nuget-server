@@ -7,6 +7,7 @@ import (
 	"mime"
 	"mime/multipart"
 	"net/http"
+	"path"
 	"strconv"
 	"strings"
 )
@@ -30,22 +31,13 @@ func main() {
 		// Create new statusWriter
 		sw := statusWriter{ResponseWriter: w}
 
-		log.Println("Request Start:-------------------------------------------------")
-		log.Println("    Method:", r.Method)
-		log.Println("    Path:", r.URL.String())
-
 		// Local Variables
 		var apiKey string
 		// Process Headers
-		log.Println("    Headers:")
 		for name, headers := range r.Header {
 			// Grab ApiKey as it passes
 			if strings.ToLower(name) == "x-nuget-apikey" {
 				apiKey = headers[0]
-			}
-			for _, h := range headers {
-				// Log Key
-				log.Println("        " + name + "::" + h)
 			}
 		}
 
@@ -71,6 +63,7 @@ func main() {
 				goto End
 			}
 			// Perform Routing
+			altFilePath := path.Join(`/F`, server.URL.Path, `api`, `v2`, `browse`)
 			switch {
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`Packages`):
 				servePackageFeed(&sw, r)
@@ -79,18 +72,17 @@ func main() {
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`nupkg`):
 				servePackageFile(&sw, r)
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`files`):
-				serveStaticFile(&sw, r)
-			case strings.HasPrefix(r.URL.String(), server.URL.Path+`files`):
-				// Catch for client forcing use of "/F/yourpath/api/v2/browse"
-				log.Println("Serve: Static File (")
+				serveStaticFile(&sw, r, r.URL.String()[len(server.URL.Path+`files`):])
+			case strings.HasPrefix(r.URL.String(), altFilePath):
+				serveStaticFile(&sw, r, r.URL.String()[len(altFilePath):])
 			default:
-				w.WriteHeader(http.StatusNotFound)
+				sw.WriteHeader(http.StatusNotFound)
 				goto End
 			}
 		case http.MethodPut:
 			// Verify API Key allows writing
 			if !server.verifyUserCanReadWrite(apiKey) {
-				w.WriteHeader(http.StatusForbidden)
+				sw.WriteHeader(http.StatusForbidden)
 				return
 			}
 
@@ -100,29 +92,43 @@ func main() {
 				// Process Request
 				uploadPackage(&sw, r)
 			default:
-				w.WriteHeader(http.StatusNotFound)
+				sw.WriteHeader(http.StatusNotFound)
 				goto End
 			}
 		default:
-			w.WriteHeader(http.StatusNotFound)
+			sw.WriteHeader(http.StatusNotFound)
 			goto End
 		}
 
 	End:
-		log.Println("Request Served:", r.Method, r.URL.String())
-		log.Println("Status:", sw.Status())
-		log.Println("    Headers:")
-		if len(w.Header()) == 0 {
-			log.Println("        None")
-		} else {
-			for name, headers := range w.Header() {
-				for _, h := range headers {
-					// Log Key
-					log.Println("        " + name + "::" + h)
+
+		log.Println("Request::", sw.Status(), r.Method, r.URL.String())
+
+		if server.config.Loglevel > 0 {
+			log.Println("Request Headers:")
+			if len(w.Header()) == 0 {
+				log.Println("        None")
+			} else {
+				for name, headers := range r.Header {
+					for _, h := range headers {
+						// Log Key
+						log.Println("        " + name + "::" + h)
+					}
+				}
+			}
+
+			log.Println("Response Headers:")
+			if len(w.Header()) == 0 {
+				log.Println("        None")
+			} else {
+				for name, headers := range w.Header() {
+					for _, h := range headers {
+						// Log Key
+						log.Println("        " + name + "::" + h)
+					}
 				}
 			}
 		}
-		log.Println("Request End:---------------------------------------------------")
 	})
 
 	// Log and start server
@@ -158,11 +164,14 @@ func serveMetaData(w http.ResponseWriter, r *http.Request) {
 	w.Write(server.MetaDataResponse)
 }
 
-func serveStaticFile(w http.ResponseWriter, r *http.Request) {
+func serveStaticFile(w http.ResponseWriter, r *http.Request, fn string) {
 
 	// Get the file from the FileStore
-	b, err := server.fs.GetFile(r.URL.String()[len(server.URL.Path+`files`):])
-	if err != nil {
+	b, err := server.fs.GetFile(fn)
+	if err == ErrFileNotFound {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	} else if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -177,27 +186,27 @@ func serveStaticFile(w http.ResponseWriter, r *http.Request) {
 
 func servePackageFile(w http.ResponseWriter, r *http.Request) {
 
-	// ToDo: rebuild this section
-	/*
-		// get the last two parts of the URL
-		x := strings.Split(r.URL.String(), `/`)
-		// construct filename of desired package
-		filename := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
-		// Debug Tracking
-		log.Println("Serving Package", filename)
+	// get the last two parts of the URL
+	x := strings.Split(r.URL.String(), `/`)
+	// construct filename of desired package
+	fn := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
+	p := path.Join(x[len(x)-2], x[len(x)-1], fn)
+	b, err := server.fs.GetFile(p)
+	if err == ErrFileNotFound {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	} else if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 
-		// Loop through packages to find the one we need
-		for _, p := range fs.packages {
-			if p.Properties.ID == x[len(x)-2] && p.Properties.Version == x[len(x)-1] {
-				// Set header to fix filename on client side
-				w.Header().Set("Cache-Control", "max-age=3600")
-				w.Header().Set("Content-Disposition", `filename=`+p.filename)
-				w.Header().Set("Content-Type", "binary/octet-stream")
-				// Serve up the file
-				http.ServeFile(w, r, filepath.Join(fs.rootDIR, p.Properties.ID, p.Properties.Version, p.filename))
-			}
-		}
-	*/
+	}
+
+	// Set header to fix filename on client side
+	w.Header().Set("Cache-Control", "max-age=3600")
+	w.Header().Set("Content-Disposition", `filename=`+fn)
+	w.Header().Set("Content-Type", "binary/octet-stream")
+	// Serve up the file
+	w.Write(b)
 }
 
 func servePackageFeed(w http.ResponseWriter, r *http.Request) {
@@ -218,8 +227,6 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.URL.String(), server.URL.Path+`Packages`) {
 		// If params are populated then this is a single entry requests
 		if params.ID != "" && params.Version != "" {
-			// Debug Tracking
-			log.Println("Serve Package: Entry (" + params.ID + "." + params.Version + ")")
 			// Find the entry required
 			npe, err := server.fs.GetPackage(params.ID, params.Version)
 			if err != nil {

@@ -69,7 +69,7 @@ func (fs *fileStoreGCP) StorePackage(pkg []byte) (bool, error) {
 	pkgDir := path.Join(nsf.Meta.ID, nsf.Meta.Version) // Package Directory Name
 
 	// Check to see if package already exists
-	d, err := fs.firestore.Collection("Packages").Doc(pkgRef).Get(fs.ctx)
+	d, err := fs.firestore.Collection("Nuget-Packages").Doc(pkgRef).Get(fs.ctx)
 	if err != nil && grpc.Code(err) != codes.NotFound {
 		return false, err
 	}
@@ -117,7 +117,7 @@ func (fs *fileStoreGCP) StorePackage(pkg []byte) (bool, error) {
 	npe.Properties.PackageSize.Type = "Edm.Int64"
 
 	// Save to Firestore
-	if _, err := fs.firestore.Collection("Packages").Doc(pkgRef).Set(fs.ctx, npe); err != nil {
+	if _, err := fs.firestore.Collection("Nuget-Packages").Doc(pkgRef).Set(fs.ctx, npe); err != nil {
 		return false, err
 	}
 
@@ -130,7 +130,7 @@ func (fs *fileStoreGCP) GetPackage(id string, ver string) (*NugetPackageEntry, e
 	// New array to pass back
 	var pkg *NugetPackageEntry
 
-	d, err := fs.firestore.Collection("Packages").Doc(id + "." + ver).Get(fs.ctx)
+	d, err := fs.firestore.Collection("Nuget-Packages").Doc(id + "." + ver).Get(fs.ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -139,6 +139,7 @@ func (fs *fileStoreGCP) GetPackage(id string, ver string) (*NugetPackageEntry, e
 		return nil, err
 	}
 
+	// TODO: Returns 500 error when no matching package - should return 404
 	return pkg, nil
 }
 
@@ -149,9 +150,9 @@ func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
 	var iter *firestore.DocumentIterator
 
 	if id == "" {
-		iter = fs.firestore.Collection("Packages").Documents(fs.ctx)
+		iter = fs.firestore.Collection("Nuget-Packages").Documents(fs.ctx)
 	} else {
-		iter = fs.firestore.Collection("Packages").Where("PackageID", "==", id).Documents(fs.ctx)
+		iter = fs.firestore.Collection("Nuget-Packages").Where("PackageID", "==", id).Documents(fs.ctx)
 	}
 	for {
 		doc, err := iter.Next()
@@ -175,7 +176,27 @@ func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
 	if strings.HasPrefix(f, `/`) {
 		f = f[1:]
 	}
+
+	// Check for exact match
 	obj := fs.bucket.Object(f)
+	_, err := obj.Attrs(fs.ctx)
+	if err == storage.ErrObjectNotExist {
+		// Check for lowercase filename match (Due to zip file not keeping cases)
+		d := path.Dir(f)
+		fn := path.Base(f)
+		fp := path.Join(d, strings.ToLower(fn))
+		obj = fs.bucket.Object(fp)
+		_, err = obj.Attrs(fs.ctx)
+		if err == storage.ErrObjectNotExist {
+			// ToDo: Full loop of directory contents on ToLower comparison of full
+			// path looking for match
+			return nil, ErrFileNotFound
+		} else if err != nil {
+			return nil, err
+		}
+	} else if err != nil {
+		return nil, err
+	}
 
 	r, err := obj.NewReader(fs.ctx)
 	if err != nil {
