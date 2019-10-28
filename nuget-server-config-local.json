@@ -1,0 +1,13 @@
+{
+    "host-url": "http://localhost/q-sys-community-plugins/",
+    "filestore": {
+        "type": "local",
+        "local-directory": "./FileStore",
+        "api-keys": {
+            "read-only": [],
+            "read-write": [
+                "123-456"
+            ]
+        }
+    }
+}

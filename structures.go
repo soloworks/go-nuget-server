@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/xml"
+	"net/http"
 	"strings"
 	"time"
 
@@ -73,11 +74,11 @@ type NugetFeed struct {
 		Title string `xml:"title,attr"`
 		Href  string `xml:"href,attr"`
 	} `xml:"link"`
-	Packages []*NugetPackage
+	Packages []*NugetPackageEntry
 }
 
 // NewNugetFeed returns a populated skeleton for a Nuget Packages request (/Packages)
-func NewNugetFeed(baseURL string) *NugetFeed {
+func NewNugetFeed(title string, baseURL string) *NugetFeed {
 
 	nf := NugetFeed{}
 	// Set Feed Values
@@ -85,13 +86,13 @@ func NewNugetFeed(baseURL string) *NugetFeed {
 	nf.XMLNs = "http://www.w3.org/2005/Atom"
 	nf.XMLNsD = "http://schemas.microsoft.com/ado/2007/08/dataservices"
 	nf.XMLNsM = "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-	nf.ID = baseURL + `Packages`
-	nf.Title.Text = "Packages"
+	nf.ID = baseURL + title
+	nf.Title.Text = title
 	nf.Title.Type = "text"
 	nf.Updated = time.Now().Format(zuluTimeLayout)
 	nf.Link.Rel = "self"
-	nf.Link.Title = "Packages"
-	nf.Link.Href = "Packages"
+	nf.Link.Title = title
+	nf.Link.Href = title
 
 	return &nf
 }
@@ -114,6 +115,9 @@ func (nf *NugetFeed) ToBytes() []byte {
 		output = append(output[:i], append([]byte(` /`), output[i+j+1:]...)...)
 	}
 
+	// Replace http://hosturl/ with fully qualified urls
+	output = bytes.ReplaceAll(output, []byte("http://hosturl/"), []byte(server.URL.String()))
+
 	// Write the XML Header
 	b.WriteString(xml.Header)
 	b.Write(output)
@@ -129,16 +133,17 @@ type NugetPackageLink struct {
 	Href  string `xml:"href,attr"`
 }
 
-// NugetPackage is a single entry in a Nuget Feed
-type NugetPackage struct {
-	filename string
-	XMLName  xml.Name `xml:"entry"`
-	XMLBase  string   `xml:"xml:base,attr,omitempty"`
-	XMLNs    string   `xml:"xmlns,attr,omitempty"`
-	XMLNsD   string   `xml:"xmlns:d,attr,omitempty"`
-	XMLNsM   string   `xml:"xmlns:m,attr,omitempty"`
-	ID       string   `xml:"id"`
-	Category struct {
+// NugetPackageEntry is a single entry in a Nuget Feed
+type NugetPackageEntry struct {
+	PackageID      string   `xml:"-"`
+	PackageVersion string   `xml:"-"`
+	XMLName        xml.Name `xml:"entry"`
+	XMLBase        string   `xml:"xml:base,attr,omitempty"`
+	XMLNs          string   `xml:"xmlns,attr,omitempty"`
+	XMLNsD         string   `xml:"xmlns:d,attr,omitempty"`
+	XMLNsM         string   `xml:"xmlns:m,attr,omitempty"`
+	ID             string   `xml:"id"`
+	Category       struct {
 		Term   string `xml:"term,attr"`
 		Scheme string `xml:"scheme,attr"`
 	} `xml:"category"`
@@ -241,17 +246,13 @@ type NugetPackage struct {
 	} `xml:"m:properties"`
 }
 
-// NewNugetPackage returns a populated skeleton for a Nuget Packages Entry
-func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
+// NewNugetPackageEntry returns a semi populated struct for a Nuget Packages Entry
+func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	// Create new entry
-	e := NugetPackage{
-		filename: f,
-	}
-	// If this is the root object of the feed
-	e.XMLBase = baseURL
-	e.XMLNs = "http://www.w3.org/2005/Atom"
-	e.XMLNsD = "http://schemas.microsoft.com/ado/2007/08/dataservices"
-	e.XMLNsM = "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	e := NugetPackageEntry{}
+	// Values for ease of reference & searching
+	e.PackageID = nsf.Meta.ID
+	e.PackageVersion = nsf.Meta.Version
 	// Set Defaults
 	e.Category.Term = `MyGet.V2FeedPackage`
 	e.Category.Scheme = `http://schemas.microsoft.com/ado/2007/08/dataservices/scheme`
@@ -273,25 +274,21 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	})
 
 	// Match and set main values
-	e.ID = baseURL + "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`
+	e.ID = "http://hosturl/" + "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`
 	e.Title.Text = nsf.Meta.Title
 	e.Title.Type = "Text"
 	e.Summary.Text = nsf.Meta.Summary
 	e.Summary.Type = "Text"
 	e.Author.Name = nsf.Meta.Authors
 	e.Content.Type = "binary/octet-stream"
-	e.Content.Src = cfg.HostURL + `nupkg/` + nsf.Meta.ID + `/` + nsf.Meta.Version + ``
-
-	// Match and set property values
 	e.Properties.ID = nsf.Meta.ID
-	e.Properties.Version = nsf.Meta.Version
 	e.Properties.VersionNorm = nsf.Meta.Version
 	e.Properties.Copyright.Value = nsf.Meta.Copyright
 	if e.Properties.Copyright.Value == "" {
 		e.Properties.Copyright.Null = true
 	}
 	e.Properties.Description = nsf.Meta.Description
-	e.Properties.GalleryDetailsURL = cfg.HostURL + `feed/` + nsf.Meta.Title + `/` + nsf.Meta.Version + ``
+	e.Properties.GalleryDetailsURL = nsf.Meta.ProjectURL
 	e.Properties.IconURL = nsf.Meta.IconURL
 	e.Properties.IsLatestVersion.Value = true
 	e.Properties.IsLatestVersion.Type = "Edm.Boolean"
@@ -310,7 +307,7 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	if e.Properties.LicenseReportURL.Value == "" {
 		e.Properties.LicenseReportURL.Null = true
 	}
-	e.Properties.ReportAbuseURL = "http://localhost/"
+	e.Properties.ReportAbuseURL = "http://soloworks.co.uk/"
 	e.Properties.Tags = nsf.Meta.Tags
 	e.Properties.Title = nsf.Meta.Title
 	e.Properties.Language = "en-US"
@@ -327,20 +324,32 @@ func NewNugetPackage(baseURL string, nsf *nuspec.File, f string) *NugetPackage {
 	e.Properties.RequireLicenseAcceptance.Type = "Edm.Boolean"
 	e.Properties.VersionDownloadCount.Type = "Edm.Int32"
 
-	// Replace http://content/ with full links
-	pkgURL := cfg.HostURL + "files/" + strings.ToLower(e.Properties.ID) + `/` + e.Properties.Version + `/content/`
-	e.Properties.IconURL = strings.ReplaceAll(e.Properties.IconURL, "http://content/", pkgURL)
-	e.Properties.Description = strings.ReplaceAll(e.Properties.Description, "http://content/", pkgURL)
+	// Replace http://content/ with internal full URLs
+	// pkgURL := "http://hosturl/" + "files/" + e.Properties.ID + `/` + e.Properties.Version + `/content/`
+	// e.Properties.IconURL = strings.ReplaceAll(e.Properties.IconURL, "http://content/", pkgURL)
+	// e.Properties.Description = strings.ReplaceAll(e.Properties.Description, "http://content/", pkgURL)
 
 	// Return skeleton
 	return &e
 }
 
+// Filename returns the logical filename for this package
+func (npe *NugetPackageEntry) Filename() string {
+	return npe.Properties.ID + "." + npe.Properties.Version + ".nupkg"
+}
+
 // ToBytes exports structure as byte array
-func (nf *NugetPackage) ToBytes() []byte {
+func (npe *NugetPackageEntry) ToBytes() []byte {
+
+	// If this is used then this is the root object of the feed
+	npe.XMLBase = server.URL.String()
+	npe.XMLNs = "http://www.w3.org/2005/Atom"
+	npe.XMLNsD = "http://schemas.microsoft.com/ado/2007/08/dataservices"
+	npe.XMLNsM = "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+
 	var b bytes.Buffer
 	// Unmarshal into XML
-	output, err := xml.MarshalIndent(nf, "  ", "    ")
+	output, err := xml.MarshalIndent(npe, "  ", "    ")
 	if err != nil {
 
 	}
@@ -355,11 +364,13 @@ func (nf *NugetPackage) ToBytes() []byte {
 		output = append(output[:i], append([]byte(` /`), output[i+j+1:]...)...)
 	}
 
+	// Replace http://hosturl/ with fully qualified urls
+	output = bytes.ReplaceAll(output, []byte("http://hosturl/"), []byte(server.URL.String()))
+
 	// Write the XML Header
 	b.WriteString(xml.Header)
 	b.Write(output)
 	return b.Bytes()
-
 }
 
 type packageParams struct {
@@ -391,4 +402,31 @@ func newPackageParams(p string) *packageParams {
 	}
 
 	return &pp
+}
+
+type statusWriter struct {
+	http.ResponseWriter
+	status int
+	length int
+}
+
+func (w *statusWriter) Status() int {
+	if w.status == 0 {
+		return 200
+	}
+	return w.status
+}
+
+func (w *statusWriter) WriteHeader(status int) {
+	w.status = status
+	w.ResponseWriter.WriteHeader(status)
+}
+
+func (w *statusWriter) Write(b []byte) (int, error) {
+	if w.status == 0 {
+		w.status = 200
+	}
+	n, err := w.ResponseWriter.Write(b)
+	w.length += n
+	return n, err
 }
