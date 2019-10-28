@@ -65,15 +65,6 @@ func InitServer(cf string) *Server {
 	u, err := url.Parse(s.config.HostURL)
 	s.URL = u
 
-	// Todo Warn if API Keys not present
-	if len(s.config.FileStore.APIKeys.ReadOnly) == 0 && len(s.config.FileStore.APIKeys.ReadWrite) == 0 {
-		log.Println("WARNING: No API Keys defined, server running in development mode")
-		log.Println("WARNING: Anyone can read or write to the server")
-	} else if len(s.config.FileStore.APIKeys.ReadOnly) == 0 {
-		log.Println("WARNING: No read-only API Keys defined")
-		log.Println("WARNING: Anyone can read from the server")
-	}
-
 	// Init the fileStore
 	switch s.config.FileStore.Type {
 	case "gcp":
@@ -83,30 +74,15 @@ func InitServer(cf string) *Server {
 	}
 	s.fs.Init(s)
 
+	// Todo Warn if API Keys not present
+	a, err := s.fs.GetAccessLevel("")
+	if a == accessReadWrite {
+		log.Println("WARNING: No API Keys defined, server running in development mode")
+		log.Println("WARNING: Anyone can read or write to the server")
+	} else if a == accessReadOnly {
+		log.Println("WARNING: No read-only API Keys defined")
+		log.Println("WARNING: Anyone can read from the server")
+	}
+
 	return s
-}
-
-func (s *Server) verifyUserCanReadWrite(k string) bool {
-	// Shortcut if no api-keys are present
-	for _, x := range s.config.FileStore.APIKeys.ReadWrite {
-		if x == k {
-			return true
-		}
-	}
-	return false
-}
-
-func (s *Server) verifyUserCanReadOnly(k string) bool {
-	if len(s.config.FileStore.APIKeys.ReadOnly) == 0 {
-		return true
-	}
-	for _, x := range s.config.FileStore.APIKeys.ReadOnly {
-		if x == k {
-			return true
-		}
-	}
-	if s.verifyUserCanReadWrite(k) {
-		return true
-	}
-	return false
 }
