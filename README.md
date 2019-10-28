@@ -2,6 +2,7 @@
 
 [![MIT license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![LinkedIn](https://img.shields.io/badge/Contact-LinkedIn-blue)](https://www.linkedin.com/company/soloworkslondon/)
+![](https://github.com/soloworks/go-nuget-server/workflows/Build/badge.svg)
 
 A minimal Nuget HTTP(s) server written in Go, primarily developed to serve the Q-Sys plugin platform.
 
