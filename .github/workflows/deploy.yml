@@ -1,0 +1,41 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    env:
+      GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
+      GCLOUD_APP: ${{ secrets.GCLOUD_APP }}
+      GCLOUD_CONTAINER_IMAGE: eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v1
+
+      - name: Build Docker image
+        run: docker build . --file Dockerfile --tag $GCLOUD_CONTAINER_IMAGE
+
+      - name: Authenticate into Google Cloud Platform
+        uses: actions/gcloud/auth@master
+        env:
+          GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Configure Docker to use Google Cloud Platform
+        uses: actions/gcloud/cli@master
+        with:
+          args: "auth configure-docker --quiet"
+
+      - name: Push image to Google Cloud Container Registry
+        uses: actions/gcloud/cli@master
+        with:
+          entrypoint: sh
+          args: -c "docker push $GCLOUD_CONTAINER_IMAGE"
+
+      - name: Install beta commands and deploy to Google Cloud Run
+        uses: actions/gcloud/cli@master
+        with:
+          args: components install beta --quiet && gcloud beta run deploy $GCLOUD_APP --quiet --image $GCLOUD_CONTAINER_IMAGE --project $GCLOUD_PROJECT --platform managed --region europe-west1 --allow-unauthenticated
