@@ -72,10 +72,15 @@ func InitServer(cf string) *Server {
 	case "local":
 		s.fs = &fileStoreLocal{}
 	}
-	s.fs.Init(s)
+	if err := s.fs.Init(s); err != nil {
+		log.Fatal("Error starting FileStore:", err)
+	}
 
 	// Todo Warn if API Keys not present
 	a, err := s.fs.GetAccessLevel("")
+	if err != nil {
+		log.Fatal("Error getting AccessLevel", err)
+	}
 	if a == accessReadWrite {
 		log.Println("WARNING: No API Keys defined, server running in development mode")
 		log.Println("WARNING: Anyone can read or write to the server")
