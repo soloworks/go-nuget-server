@@ -202,3 +202,8 @@ func (fs *fileStoreLocal) GetFile(f string) ([]byte, error) {
 
 	return nil, nil
 }
+
+func (fs *fileStoreLocal) GetAccessLevel(key string) (access, error) {
+
+	return accessDenied, nil
+}

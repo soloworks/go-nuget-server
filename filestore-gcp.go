@@ -210,3 +210,61 @@ func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
 
 	return b, nil
 }
+
+// FirestoreAPIKey represents a ApiKey as stored in Firebase
+type FirestoreAPIKey struct {
+	Reference string
+	Access    string
+}
+
+func (fs *fileStoreGCP) GetAccessLevel(key string) (access, error) {
+
+	// Set default variables
+	var err error
+	a := accessDenied
+	var iter *firestore.DocumentIterator
+
+	// Check for case where no ReadOnly keys are in place
+	iter = fs.firestore.Collection("Nuget-APIKeys").Where("Access", "==", "ReadOnly").Documents(fs.ctx)
+	_, err = iter.Next()
+	// Attempt to advance to first in the list
+	if err == iterator.Done {
+		// No ReadWrite keys were found, default access becomes ReadOnly
+		a = accessReadOnly
+	} else if err != nil {
+		// Another error happened, return no access and error
+		return a, err
+	}
+
+	// Check for case where no keys are declared yet - dev mode
+	iter = fs.firestore.Collection("Nuget-APIKeys").Documents(fs.ctx)
+	_, err = iter.Next()
+	// Attempt to advance to first in the list
+	if err == iterator.Done {
+		// No ReadWrite keys were found, access granted as server in dev mode
+		return accessReadWrite, nil
+	} else if err != nil {
+		// Another error happened, return no access and error
+		return a, err
+	}
+
+	// Get specific APIKey entry
+	k := FirestoreAPIKey{}
+	d, err := fs.firestore.Collection("Nuget-APIKeys").Doc(key).Get(fs.ctx)
+	if err != nil {
+		return a, nil
+	}
+	// Convert to local structure
+	if err := d.DataTo(&k); err != nil {
+		return a, nil
+	}
+	// Grant access if permission present on key
+	switch k.Access {
+	case "ReadWrite":
+		a = accessReadWrite
+	case "ReadOnly":
+		a = accessReadOnly
+	}
+	// Deny access if not
+	return a, nil
+}

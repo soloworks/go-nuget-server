@@ -25,18 +25,13 @@ func main() {
 	// Handling Routing
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
+		// Local Varibles
+		var err error               // Reusable error
+		apiKey := ""                // APIKey (populated if found in headers)
+		accessLevel := accessDenied // Access Level (defaults to denied)
+
 		// Create new statusWriter
 		sw := statusWriter{ResponseWriter: w}
-
-		// Local Variables
-		var apiKey string
-		// Process Headers
-		for name, headers := range r.Header {
-			// Grab ApiKey as it passes
-			if strings.ToLower(name) == "x-nuget-apikey" {
-				apiKey = headers[0]
-			}
-		}
 
 		// Open Access Routes (No ApiKey needed)
 		switch r.Method {
@@ -51,14 +46,27 @@ func main() {
 			}
 		}
 
+		// Process Headers looking for API key (can't access direct as case may not match)
+		for name, headers := range r.Header {
+			// Grab ApiKey as it passes
+			if strings.ToLower(name) == "x-nuget-apikey" {
+				apiKey = headers[0]
+			}
+		}
+		accessLevel, err = server.fs.GetAccessLevel(apiKey)
+		if err != nil {
+			sw.WriteHeader(http.StatusInternalServerError)
+			goto End
+		}
+		// Bounce any unauthorised requests
+		if accessLevel == accessDenied {
+			sw.WriteHeader(http.StatusForbidden)
+			goto End
+		}
+
 		// Restricted Routes
 		switch r.Method {
 		case http.MethodGet:
-			// Verify API Key allows Reading
-			if !server.verifyUserCanReadOnly(apiKey) {
-				sw.WriteHeader(http.StatusForbidden)
-				goto End
-			}
 			// Perform Routing
 			altFilePath := path.Join(`/F`, server.URL.Path, `api`, `v2`, `browse`)
 			switch {
@@ -77,8 +85,8 @@ func main() {
 				goto End
 			}
 		case http.MethodPut:
-			// Verify API Key allows writing
-			if !server.verifyUserCanReadWrite(apiKey) {
+			// Bounce any request without write accees
+			if accessLevel != accessReadWrite {
 				sw.WriteHeader(http.StatusForbidden)
 				return
 			}

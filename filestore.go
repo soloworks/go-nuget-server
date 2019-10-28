@@ -18,6 +18,7 @@ type fileStore interface {
 	GetPackages(id string) ([]*NugetPackageEntry, error)
 	StorePackage(pkg []byte) (bool, error)
 	GetFile(f string) ([]byte, error)
+	GetAccessLevel(key string) (access, error)
 }
 
 func extractPackage(pkg []byte) (*nuspec.File, map[string][]byte, error) {
@@ -79,4 +80,16 @@ func (fse *FileStoreError) Error() string {
 var (
 	// ErrFileNotFound is returned when request file is not found in the store
 	ErrFileNotFound = &FileStoreError{"File Not Found"}
+)
+
+// Access Types for ease of reference
+type access int
+
+const (
+	// AccessDenied returned when no access to resource is granted
+	accessDenied access = iota
+	// AccessReadOnly returned when Read access to resouce is granted
+	accessReadOnly
+	// AccessReadWrite returned when Read and Write to resouce is granted
+	accessReadWrite
 )
