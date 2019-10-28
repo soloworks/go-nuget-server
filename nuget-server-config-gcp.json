@@ -1,5 +1,5 @@
 {
-    "host-url": "http://localhost/q-sys-community-plugins/",
+    "host-url": "https://q-sys.soloworks.co.uk/q-sys-community-plugins/",
     "filestore": {
         "type": "gcp",
         "project-id": "q-sys-community",
