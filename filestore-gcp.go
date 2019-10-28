@@ -152,7 +152,7 @@ func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
 	if id == "" {
 		iter = fs.firestore.Collection("Nuget-Packages").Documents(fs.ctx)
 	} else {
-		iter = fs.firestore.Collection("Nuget-Packages").Where("PackageID", "==", id).Documents(fs.ctx)
+		iter = fs.firestore.Collection("Nuget-Packages").Where("PackageID", "==", strings.ToLower(id)).Documents(fs.ctx)
 	}
 	for {
 		doc, err := iter.Next()

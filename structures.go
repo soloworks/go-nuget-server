@@ -251,7 +251,7 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	// Create new entry
 	e := NugetPackageEntry{}
 	// Values for ease of reference & searching
-	e.PackageID = nsf.Meta.ID
+	e.PackageID = strings.ToLower(nsf.Meta.ID)
 	e.PackageVersion = nsf.Meta.Version
 	// Set Defaults
 	e.Category.Term = `MyGet.V2FeedPackage`
