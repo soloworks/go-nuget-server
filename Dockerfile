@@ -14,6 +14,6 @@ FROM alpine:3.10
 RUN apk add --no-cache ca-certificates
 
 COPY --from=builder /app/server /server
-COPY nuget-server-config.json /
+COPY nuget-server-config-gcp.json /
 
 CMD ["/server"]
