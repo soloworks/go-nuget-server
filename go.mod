@@ -10,5 +10,4 @@ require (
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	google.golang.org/api v0.11.0
 	google.golang.org/grpc v1.21.1
-	github.com/soloworks/go-nuspec v0.1.0
 )
