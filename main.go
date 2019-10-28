@@ -149,7 +149,7 @@ func main() {
 	}
 
 	// Log and Start server
-	log.Println("Starting Server on ", server.URL.String())
+	log.Println("Starting Server on ", server.URL.String()+p)
 	log.Fatal(http.ListenAndServe(p, nil))
 }
 
