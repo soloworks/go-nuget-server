@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"io/ioutil"
 	"path/filepath"
-	"strings"
 
 	nuspec "github.com/soloworks/go-nuspec"
 )
@@ -46,14 +45,6 @@ func extractPackage(pkg []byte) (*nuspec.File, map[string][]byte, error) {
 			// Read into nuspec.File structure
 			nsf, err = nuspec.FromReader(rc)
 		}
-	}
-
-	// Nuget.exe packs and reduces to semver 2.0 (0.0.0), server still looks for x.x.x.x
-	// Check version has 2, if so pad with extra .0
-	// This is a quick fix and assumes incoming data is good enough. True fix would use regex,
-	// but that's for another day
-	if strings.Count(nsf.Meta.Version, ".") == 2 {
-		nsf.Meta.Version = nsf.Meta.Version + ".0"
 	}
 
 	// Extract contents to files
