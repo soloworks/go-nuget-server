@@ -44,6 +44,10 @@ func main() {
 			case r.URL.String() == server.URL.Path+`$metadata`:
 				serveMetaData(&sw, r)
 				goto End
+			case r.URL.Path == "" || r.URL.Path == "/":
+				serveStaticFile(&sw, r, "/index.html")
+			case !strings.HasPrefix(r.URL.String(), server.URL.String()):
+				serveStaticFile(&sw, r, r.URL.Path)
 			}
 		}
 
@@ -101,15 +105,6 @@ func main() {
 		default:
 			sw.WriteHeader(http.StatusNotFound)
 			goto End
-		}
-
-		// Serve website files
-		if r.Method == http.MethodGet {
-			if r.URL.Path == "" || r.URL.Path == "/" {
-				serveStaticFile(&sw, r, "/index.html")
-			} else {
-				serveStaticFile(&sw, r, r.URL.Path)
-			}
 		}
 
 	End:
