@@ -17,7 +17,7 @@ type fileStore interface {
 	GetPackage(id string, ver string) (*NugetPackageEntry, error)
 	GetPackages(id string) ([]*NugetPackageEntry, error)
 	StorePackage(pkg []byte) (bool, error)
-	GetFile(f string) ([]byte, error)
+	GetFile(f string) ([]byte, string, error)
 	GetAccessLevel(key string) (access, error)
 }
 

@@ -198,9 +198,9 @@ func (fs *fileStoreLocal) GetPackages(id string) ([]*NugetPackageEntry, error) {
 	return nil, nil
 }
 
-func (fs *fileStoreLocal) GetFile(f string) ([]byte, error) {
+func (fs *fileStoreLocal) GetFile(f string) ([]byte, string, error) {
 
-	return nil, nil
+	return nil, "", nil
 }
 
 func (fs *fileStoreLocal) GetAccessLevel(key string) (access, error) {

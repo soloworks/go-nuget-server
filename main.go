@@ -27,12 +27,23 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		// Local Varibles
-		var err error               // Reusable error
-		apiKey := ""                // APIKey (populated if found in headers)
-		accessLevel := accessDenied // Access Level (defaults to denied)
+		var err error                                                          // Reusable error
+		apiKey := ""                                                           // APIKey (populated if found in headers)
+		accessLevel := accessDenied                                            // Access Level (defaults to denied)
+		altFilePath := path.Join(`/F`, server.URL.Path, `api`, `v2`, `browse`) // Alternative API called by client
 
 		// Create new statusWriter
 		sw := statusWriter{ResponseWriter: w}
+
+		// Check if this is NOT part of the Api Routing
+		if !strings.HasPrefix(r.URL.Path, server.URL.Path) && !strings.HasPrefix(r.URL.Path, altFilePath) {
+			f := path.Base(r.URL.Path)
+			if f == "/" {
+				f = "index.html"
+			}
+			serveStaticFile(&sw, r, path.Join("_www", f))
+			goto End
+		}
 
 		// Open Access Routes (No ApiKey needed)
 		switch r.Method {
@@ -43,12 +54,6 @@ func main() {
 				goto End
 			case r.URL.String() == server.URL.Path+`$metadata`:
 				serveMetaData(&sw, r)
-				goto End
-			case r.URL.Path == "" || r.URL.Path == "/":
-				serveStaticFile(&sw, r, "/index.html")
-				goto End
-			case !strings.HasPrefix(r.URL.String(), server.URL.String()):
-				serveStaticFile(&sw, r, r.URL.Path)
 				goto End
 			}
 		}
@@ -75,7 +80,6 @@ func main() {
 		switch r.Method {
 		case http.MethodGet:
 			// Perform Routing
-			altFilePath := path.Join(`/F`, server.URL.Path, `api`, `v2`, `browse`)
 			switch {
 			case strings.HasPrefix(r.URL.String(), server.URL.Path+`Packages`):
 				servePackageFeed(&sw, r)
@@ -183,7 +187,7 @@ func serveMetaData(w http.ResponseWriter, r *http.Request) {
 func serveStaticFile(w http.ResponseWriter, r *http.Request, fn string) {
 
 	// Get the file from the FileStore
-	b, err := server.fs.GetFile(fn)
+	b, c, err := server.fs.GetFile(fn)
 	if err == ErrFileNotFound {
 		w.WriteHeader(http.StatusNotFound)
 		return
@@ -193,7 +197,7 @@ func serveStaticFile(w http.ResponseWriter, r *http.Request, fn string) {
 	}
 
 	// Set Headers
-	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Content-Type", c)
 	w.Header().Set("Content-Length", strconv.Itoa(len(b)))
 
 	// Output Xml
@@ -207,7 +211,7 @@ func servePackageFile(w http.ResponseWriter, r *http.Request) {
 	// construct filename of desired package
 	fn := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
 	p := path.Join(x[len(x)-2], x[len(x)-1], fn)
-	b, err := server.fs.GetFile(p)
+	b, _, err := server.fs.GetFile(p)
 	if err == ErrFileNotFound {
 		w.WriteHeader(http.StatusNotFound)
 		return

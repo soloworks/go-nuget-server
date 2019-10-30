@@ -171,7 +171,7 @@ func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
 	return pkgs, nil
 }
 
-func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
+func (fs *fileStoreGCP) GetFile(f string) ([]byte, string, error) {
 
 	if strings.HasPrefix(f, `/`) {
 		f = f[1:]
@@ -179,7 +179,7 @@ func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
 
 	// Check for exact match
 	obj := fs.bucket.Object(f)
-	_, err := obj.Attrs(fs.ctx)
+	a, err := obj.Attrs(fs.ctx)
 	if err == storage.ErrObjectNotExist {
 		// Check for lowercase filename match (Due to zip file not keeping cases)
 		d := path.Dir(f)
@@ -190,25 +190,25 @@ func (fs *fileStoreGCP) GetFile(f string) ([]byte, error) {
 		if err == storage.ErrObjectNotExist {
 			// ToDo: Full loop of directory contents on ToLower comparison of full
 			// path looking for match
-			return nil, ErrFileNotFound
+			return nil, "", ErrFileNotFound
 		} else if err != nil {
-			return nil, err
+			return nil, "", err
 		}
 	} else if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
 	r, err := obj.NewReader(fs.ctx)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 	defer r.Close()
 	b, err := ioutil.ReadAll(r)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
-	return b, nil
+	return b, a.ContentType, nil
 }
 
 // FirestoreAPIKey represents a ApiKey as stored in Firebase
