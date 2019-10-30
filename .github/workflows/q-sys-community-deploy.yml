@@ -13,7 +13,7 @@ jobs:
       GCLOUD_APP: ${{ secrets.GCLOUD_APP }}
       GCLOUD_CONTAINER_IMAGE: eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP }}
     steps:
-      - name: Checkout the repository
+      - name: Check out the repository
         uses: actions/checkout@v1
 
       - name: Build Docker image
