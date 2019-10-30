@@ -10,7 +10,7 @@ Tested against:
 
 - (client) NuGet/2.14.0.832 built into QSC Q-Sys Designer 8.1.1
 - (cli tool) nuget.exe (Microsoft: 5.2.0.6090)
-- (cli tool) go-nuget
+- (cli tool) go-nuget <https://github.com/soloworks/go-nuget/>
 
 ## Getting Started
 
