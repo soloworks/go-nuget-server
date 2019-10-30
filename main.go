@@ -81,9 +81,6 @@ func main() {
 				serveStaticFile(&sw, r, r.URL.String()[len(server.URL.Path+`files`):])
 			case strings.HasPrefix(r.URL.String(), altFilePath):
 				serveStaticFile(&sw, r, r.URL.String()[len(altFilePath):])
-			default:
-				sw.WriteHeader(http.StatusNotFound)
-				goto End
 			}
 		case http.MethodPut:
 			// Bounce any request without write accees
