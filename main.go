@@ -46,8 +46,10 @@ func main() {
 				goto End
 			case r.URL.Path == "" || r.URL.Path == "/":
 				serveStaticFile(&sw, r, "/index.html")
+				goto End
 			case !strings.HasPrefix(r.URL.String(), server.URL.String()):
 				serveStaticFile(&sw, r, r.URL.Path)
+				goto End
 			}
 		}
 
