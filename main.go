@@ -106,6 +106,15 @@ func main() {
 			goto End
 		}
 
+		// Serve website files
+		if r.Method == http.MethodGet {
+			if r.URL.Path == "" || r.URL.Path == "/" {
+				serveStaticFile(&sw, r, "/index.html")
+			} else {
+				serveStaticFile(&sw, r, r.URL.Path)
+			}
+		}
+
 	End:
 
 		log.Println("Request::", sw.Status(), r.Method, r.URL.String())
