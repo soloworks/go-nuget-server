@@ -279,7 +279,7 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 			startAfter = strings.ReplaceAll(startAfter, `,`, `.`)
 
 			// Populate Packages from FileStore (100 max)
-			nf.Packages, err = server.fs.GetPackageFeedEntries(id, startAfter, 5)
+			nf.Packages, err = server.fs.GetPackageFeedEntries(id, startAfter, 100)
 
 			// Add link to next page if relevant
 			if r.URL.Query().Get("$top") != "" {
