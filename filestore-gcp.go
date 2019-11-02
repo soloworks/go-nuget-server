@@ -210,8 +210,10 @@ func (fs *fileStoreGCP) GetPackageEntry(id string, ver string) (*NugetPackageEnt
 	return npe, nil
 }
 
-func (fs *fileStoreGCP) GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, error) {
+func (fs *fileStoreGCP) GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, bool, error) {
 
+	// Increment max to get one more than we need, to use to detect if another page exists
+	max = max + 1
 	// Create new empty feed
 	var f []*NugetPackageEntry
 	// Create new itterator
@@ -223,7 +225,7 @@ func (fs *fileStoreGCP) GetPackageFeedEntries(id string, startAfter string, max 
 		// Get specific APIKey entry
 		d, err := fs.firestore.Collection("Nuget-Packages").Doc(startAfter).Get(fs.ctx)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		iter = fs.firestore.Collection("Nuget-Packages").StartAfter(d).Limit(max).Documents(fs.ctx)
 	} else if id != "" {
@@ -240,18 +242,18 @@ func (fs *fileStoreGCP) GetPackageFeedEntries(id string, startAfter string, max 
 			break
 		}
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		// Cast document into structure
 		var e *NugetPackageEntry
 		if err := doc.DataTo(&e); err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		// Get extras if not in map already
 		if _, ok := extras[e.Properties.ID]; !ok {
 			extra, err := fs.getPackageExtras(e.Properties.ID)
 			if err != nil {
-				return nil, err
+				return nil, false, err
 			}
 			extras[e.Properties.ID] = extra
 		}
@@ -262,7 +264,14 @@ func (fs *fileStoreGCP) GetPackageFeedEntries(id string, startAfter string, max 
 		// Add in to list
 		f = append(f, e)
 	}
-	return f, nil
+
+	// Check array has no more
+	if len(f) < max {
+		return f, false, nil
+	}
+	// Remove end
+	f = f[:len(f)-1]
+	return f, true, nil
 }
 
 func (fs *fileStoreGCP) GetPackageFile(id string, ver string) ([]byte, string, error) {

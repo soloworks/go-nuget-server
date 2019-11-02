@@ -236,6 +236,7 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var b []byte
 	var params = &packageParams{}
+	var isMore bool
 
 	// Identify & process function parameters if they exist
 	if i := strings.Index(r.URL.Path, "("); i >= 0 { // Find opening bracket
@@ -279,10 +280,14 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 			startAfter = strings.ReplaceAll(startAfter, `,`, `.`)
 
 			// Populate Packages from FileStore (100 max)
-			nf.Packages, err = server.fs.GetPackageFeedEntries(id, startAfter, 100)
+			nf.Packages, isMore, err = server.fs.GetPackageFeedEntries(id, startAfter, 100)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
 
 			// Add link to next page if relevant
-			if r.URL.Query().Get("$top") != "" {
+			if r.URL.Query().Get("$top") != "" && isMore {
 				// Get the current $top, cast to Int
 				t, err := strconv.Atoi(r.URL.Query().Get("$top"))
 				if err != nil {
@@ -333,7 +338,7 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 		nf := NewNugetFeed("FindPackagesById", server.URL.String())
 
 		// Populate Packages from FileStore
-		nf.Packages, err = server.fs.GetPackageFeedEntries(id, "", 100)
+		nf.Packages, isMore, err = server.fs.GetPackageFeedEntries(id, "", 100)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return

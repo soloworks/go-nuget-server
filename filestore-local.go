@@ -193,9 +193,9 @@ func (fs *fileStoreLocal) GetPackageEntry(id string, ver string) (*NugetPackageE
 	return nil, nil
 }
 
-func (fs *fileStoreLocal) GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, error) {
+func (fs *fileStoreLocal) GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, bool, error) {
 
-	return nil, nil
+	return nil, false, nil
 }
 
 func (fs *fileStoreLocal) GetPackageFile(id string, ver string) ([]byte, string, error) {
