@@ -56,6 +56,14 @@ func (ns *NugetService) ToBytes() []byte {
 
 }
 
+// NugetLink is used in NugetPackage
+type NugetLink struct {
+	Rel   string `xml:"rel,attr"`
+	Title string `xml:"title,attr,omitempty"`
+	Type  string `xml:"type,attr,omitempty"`
+	Href  string `xml:"href,attr"`
+}
+
 // NugetFeed represents the XML of a NugetFeed response
 type NugetFeed struct {
 	XMLName xml.Name `xml:"feed"`
@@ -68,12 +76,8 @@ type NugetFeed struct {
 		Text string `xml:",chardata"`
 		Type string `xml:"type,attr"`
 	} `xml:"title"`
-	Updated string `xml:"updated"`
-	Link    struct {
-		Rel   string `xml:"rel,attr"`
-		Title string `xml:"title,attr"`
-		Href  string `xml:"href,attr"`
-	} `xml:"link"`
+	Updated  string       `xml:"updated"`
+	Link     []*NugetLink `xml:"link"`
 	Packages []*NugetPackageEntry
 }
 
@@ -90,9 +94,11 @@ func NewNugetFeed(title string, baseURL string) *NugetFeed {
 	nf.Title.Text = title
 	nf.Title.Type = "text"
 	nf.Updated = time.Now().Format(zuluTimeLayout)
-	nf.Link.Rel = "self"
-	nf.Link.Title = title
-	nf.Link.Href = title
+	nf.Link = append(nf.Link, &NugetLink{
+		Rel:   "self",
+		Title: title,
+		Href:  title,
+	})
 
 	return &nf
 }
@@ -125,29 +131,19 @@ func (nf *NugetFeed) ToBytes() []byte {
 
 }
 
-// NugetPackageLink is used in NugetPackage
-type NugetPackageLink struct {
-	Rel   string `xml:"rel,attr"`
-	Title string `xml:"title,attr"`
-	Type  string `xml:"type,attr,omitempty"`
-	Href  string `xml:"href,attr"`
-}
-
 // NugetPackageEntry is a single entry in a Nuget Feed
 type NugetPackageEntry struct {
-	PackageID      string   `xml:"-"`
-	PackageVersion string   `xml:"-"`
-	XMLName        xml.Name `xml:"entry"`
-	XMLBase        string   `xml:"xml:base,attr,omitempty"`
-	XMLNs          string   `xml:"xmlns,attr,omitempty"`
-	XMLNsD         string   `xml:"xmlns:d,attr,omitempty"`
-	XMLNsM         string   `xml:"xmlns:m,attr,omitempty"`
-	ID             string   `xml:"id"`
-	Category       struct {
+	XMLName  xml.Name `xml:"entry"`
+	XMLBase  string   `xml:"xml:base,attr,omitempty"`
+	XMLNs    string   `xml:"xmlns,attr,omitempty"`
+	XMLNsD   string   `xml:"xmlns:d,attr,omitempty"`
+	XMLNsM   string   `xml:"xmlns:m,attr,omitempty"`
+	ID       string   `xml:"id"`
+	Category struct {
 		Term   string `xml:"term,attr"`
 		Scheme string `xml:"scheme,attr"`
 	} `xml:"category"`
-	Link  []NugetPackageLink `xml:"link"`
+	Link  []*NugetLink `xml:"link"`
 	Title struct {
 		Text string `xml:",chardata"`
 		Type string `xml:"type,attr"`
@@ -166,6 +162,7 @@ type NugetPackageEntry struct {
 	} `xml:"content"`
 	Properties struct {
 		ID          string `xml:"d:Id"`
+		IDLowerCase string
 		Version     string `xml:"d:Version"`
 		VersionNorm string `xml:"d:NormalizedVersion"`
 		Copyright   struct {
@@ -250,24 +247,21 @@ type NugetPackageEntry struct {
 func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	// Create new entry
 	e := NugetPackageEntry{}
-	// Values for ease of reference & searching
-	e.PackageID = strings.ToLower(nsf.Meta.ID)
-	e.PackageVersion = nsf.Meta.Version
 	// Set Defaults
 	e.Category.Term = `MyGet.V2FeedPackage`
 	e.Category.Scheme = `http://schemas.microsoft.com/ado/2007/08/dataservices/scheme`
-	e.Link = append(e.Link, NugetPackageLink{
+	e.Link = append(e.Link, &NugetLink{
 		Rel:   "edit",
 		Title: "V2FeedPackage",
 		Href:  "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')`,
 	})
-	e.Link = append(e.Link, NugetPackageLink{
+	e.Link = append(e.Link, &NugetLink{
 		Rel:   "http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots",
 		Type:  "application/atom+xml;type=feed",
 		Title: "Screenshots",
 		Href:  "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')/Screenshots`,
 	})
-	e.Link = append(e.Link, NugetPackageLink{
+	e.Link = append(e.Link, &NugetLink{
 		Rel:   "edit-media",
 		Title: "V2FeedPackage",
 		Href:  "Packages(Id='" + nsf.Meta.ID + `',Version='` + nsf.Meta.Version + `')/$value`,
@@ -285,6 +279,7 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 
 	// Match and set property values
 	e.Properties.ID = nsf.Meta.ID
+	e.Properties.IDLowerCase = strings.ToLower(e.Properties.ID)
 	e.Properties.Version = nsf.Meta.Version
 	e.Properties.VersionNorm = nsf.Meta.Version
 	e.Properties.Copyright.Value = nsf.Meta.Copyright
@@ -294,9 +289,7 @@ func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
 	e.Properties.Description = nsf.Meta.Description
 	e.Properties.GalleryDetailsURL = nsf.Meta.ProjectURL
 	e.Properties.IconURL = nsf.Meta.IconURL
-	e.Properties.IsLatestVersion.Value = true
 	e.Properties.IsLatestVersion.Type = "Edm.Boolean"
-	e.Properties.IsAbsoluteLatestVersion.Value = true
 	e.Properties.IsAbsoluteLatestVersion.Type = "Edm.Boolean"
 	e.Properties.ProjectURL = nsf.Meta.ProjectURL
 	if e.Properties.ReleaseNotes.Value == "" {
