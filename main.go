@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
 	"mime"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"strconv"
@@ -208,10 +210,9 @@ func servePackageFile(w http.ResponseWriter, r *http.Request) {
 
 	// get the last two parts of the URL
 	x := strings.Split(r.URL.String(), `/`)
-	// construct filename of desired package
-	fn := x[len(x)-2] + "." + x[len(x)-1] + ".nupkg"
-	p := path.Join(x[len(x)-2], x[len(x)-1], fn)
-	b, _, err := server.fs.GetFile(p)
+
+	// Get the file
+	b, t, err := server.fs.GetPackageFile(x[len(x)-2], x[len(x)-1])
 	if err == ErrFileNotFound {
 		w.WriteHeader(http.StatusNotFound)
 		return
@@ -223,8 +224,8 @@ func servePackageFile(w http.ResponseWriter, r *http.Request) {
 
 	// Set header to fix filename on client side
 	w.Header().Set("Cache-Control", "max-age=3600")
-	w.Header().Set("Content-Disposition", `filename=`+fn)
-	w.Header().Set("Content-Type", "binary/octet-stream")
+	w.Header().Set("Content-Disposition", `filename=`+x[len(x)-2]+x[len(x)-1]+".nupkg")
+	w.Header().Set("Content-Type", t)
 	// Serve up the file
 	w.Write(b)
 }
@@ -248,7 +249,7 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 		// If params are populated then this is a single entry requests
 		if params.ID != "" && params.Version != "" {
 			// Find the entry required
-			npe, err := server.fs.GetPackage(params.ID, params.Version)
+			npe, err := server.fs.GetPackageEntry(params.ID, params.Version)
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
@@ -272,8 +273,48 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 				id = id[1 : len(id)-1] // Remove quote marks
 			}
 
-			// Populate Packages from FileStore
-			nf.Packages, err = server.fs.GetPackages(id)
+			// If $skiptoke is supplied, form it into a package name
+			startAfter := r.URL.Query().Get("$skiptoken")
+			startAfter = strings.ReplaceAll(startAfter, `'`, ``)
+			startAfter = strings.ReplaceAll(startAfter, `,`, `.`)
+
+			// Populate Packages from FileStore (100 max)
+			nf.Packages, err = server.fs.GetPackageFeedEntries(id, startAfter, 5)
+
+			// Add link to next page if relevant
+			if r.URL.Query().Get("$top") != "" {
+				// Get the current $top, cast to Int
+				t, err := strconv.Atoi(r.URL.Query().Get("$top"))
+				if err != nil {
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				}
+				// Get a copy of the request URL
+				u, err := url.Parse(r.URL.String())
+				u.Host = server.URL.Hostname()
+				u.Scheme = server.URL.Scheme
+				// Get working copy of Query
+				q := u.Query()
+				// Update Values
+				q.Del("$skip")
+				q.Set("$top", strconv.Itoa(t-100))
+				q.Set("$skiptoken", fmt.Sprintf(`'%s','%s'`, nf.Packages[len(nf.Packages)-1].Properties.ID, nf.Packages[len(nf.Packages)-1].Properties.Version))
+				//Re-assign
+				u.RawQuery = q.Encode()
+				// Get un-encoded URL
+				cleanURL, err := url.PathUnescape(u.String())
+				if err != nil {
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				}
+				log.Println()
+				// Add to feed
+				nf.Link = append(nf.Link, &NugetLink{
+					Rel:  "next",
+					Href: cleanURL,
+				})
+			}
+
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
@@ -292,7 +333,7 @@ func servePackageFeed(w http.ResponseWriter, r *http.Request) {
 		nf := NewNugetFeed("FindPackagesById", server.URL.String())
 
 		// Populate Packages from FileStore
-		nf.Packages, err = server.fs.GetPackages(id)
+		nf.Packages, err = server.fs.GetPackageFeedEntries(id, "", 100)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return

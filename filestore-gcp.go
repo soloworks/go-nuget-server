@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha512"
 	"encoding/hex"
+	"errors"
 	"io/ioutil"
 	"log"
 	"path"
@@ -121,54 +122,178 @@ func (fs *fileStoreGCP) StorePackage(pkg []byte) (bool, error) {
 		return false, err
 	}
 
+	// Local Extras object
+	pe := &packagesExtra{}
+
+	// Cycle through all packages with this ID to get the latest version
+	iter := fs.firestore.Collection("Nuget-Packages").Where("Properties.ID", "==", npe.Properties.ID).Documents(fs.ctx)
+	// Cycle Iterator
+	for {
+		d, err = iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return false, err
+		}
+		// Marshall into structure
+		var npe *NugetPackageEntry
+		if err := d.DataTo(&npe); err != nil {
+			return false, err
+		}
+		// Check against latest and overrite if higher
+		if npe.Properties.Version > pe.Latest {
+			pe.Latest = npe.Properties.Version
+		}
+	}
+
+	// Ensure Extras is created for this id
+	if _, err := fs.firestore.Collection("Nuget-Packages-Extra").Doc(npe.Properties.ID).Set(fs.ctx,
+		pe,
+		firestore.Merge([]string{"Latest"}),
+	); err != nil {
+		return false, err
+	}
 	// Return
 	return false, nil
 }
 
-func (fs *fileStoreGCP) GetPackage(id string, ver string) (*NugetPackageEntry, error) {
+type packagesExtra struct {
+	Downloads int
+	Latest    string
+}
 
-	// New array to pass back
-	var pkg *NugetPackageEntry
+func (fs *fileStoreGCP) getPackageExtras(id string) (*packagesExtra, error) {
 
+	// Get additional data - Download counts and check if latest version
+	// Fetch the additional data document for this ID
+	d, err := fs.firestore.Collection("Nuget-Packages-Extra").Doc(id).Get(fs.ctx)
+	if err != nil {
+		return nil, err
+	}
+	if d.Exists() {
+		// Marshall into structure
+		var pe *packagesExtra
+		if err := d.DataTo(&pe); err != nil {
+			return nil, err
+		}
+		return pe, nil
+	}
+	return nil, errors.New("Can't Find Nuget-Package-Extra")
+}
+
+func (fs *fileStoreGCP) GetPackageEntry(id string, ver string) (*NugetPackageEntry, error) {
+
+	// Fetch this document
 	d, err := fs.firestore.Collection("Nuget-Packages").Doc(id + "." + ver).Get(fs.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := d.DataTo(&pkg); err != nil {
+	// Marshall into structure
+	var npe *NugetPackageEntry
+	if err := d.DataTo(&npe); err != nil {
 		return nil, err
 	}
 
+	pe, err := fs.getPackageExtras(id)
+	if err != nil {
+		return nil, err
+	}
+	// Get download count for this id all versions
+	npe.Properties.DownloadCount.Value = pe.Downloads
+	// Get latest version and compare to this
+	npe.Properties.IsLatestVersion.Value = pe.Latest == ver
+	npe.Properties.IsAbsoluteLatestVersion.Value = pe.Latest == ver
+
 	// TODO: Returns 500 error when no matching package - should return 404
-	return pkg, nil
+	return npe, nil
 }
 
-func (fs *fileStoreGCP) GetPackages(id string) ([]*NugetPackageEntry, error) {
+func (fs *fileStoreGCP) GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, error) {
 
-	// New array to pass back
-	var pkgs []*NugetPackageEntry
+	// Create new empty feed
+	var f []*NugetPackageEntry
+	// Create new itterator
 	var iter *firestore.DocumentIterator
-
-	if id == "" {
-		iter = fs.firestore.Collection("Nuget-Packages").Documents(fs.ctx)
+	// Create map of extra details so only looked up once per id
+	extras := make(map[string]*packagesExtra)
+	// Populate Itterator
+	if startAfter != "" {
+		// Get specific APIKey entry
+		d, err := fs.firestore.Collection("Nuget-Packages").Doc(startAfter).Get(fs.ctx)
+		if err != nil {
+			return nil, err
+		}
+		iter = fs.firestore.Collection("Nuget-Packages").StartAfter(d).Limit(max).Documents(fs.ctx)
+	} else if id != "" {
+		iter = fs.firestore.Collection("Nuget-Packages").Limit(max).Where("Properties.IDLowerCase", "==", strings.ToLower(id)).Documents(fs.ctx)
 	} else {
-		iter = fs.firestore.Collection("Nuget-Packages").Where("PackageID", "==", strings.ToLower(id)).Documents(fs.ctx)
+		iter = fs.firestore.Collection("Nuget-Packages").Limit(max).Documents(fs.ctx)
 	}
+	// Cycle Iterator
 	for {
+		// Get next
 		doc, err := iter.Next()
+		// If done, break from loop
 		if err == iterator.Done {
 			break
 		}
 		if err != nil {
 			return nil, err
 		}
-		var p *NugetPackageEntry
-		if err := doc.DataTo(&p); err != nil {
+		// Cast document into structure
+		var e *NugetPackageEntry
+		if err := doc.DataTo(&e); err != nil {
 			return nil, err
 		}
-		pkgs = append(pkgs, p)
+		// Get extras if not in map already
+		if _, ok := extras[e.Properties.ID]; !ok {
+			extra, err := fs.getPackageExtras(e.Properties.ID)
+			if err != nil {
+				return nil, err
+			}
+			extras[e.Properties.ID] = extra
+		}
+		// Add extra details to entry
+		e.Properties.DownloadCount.Value = extras[e.Properties.ID].Downloads
+		e.Properties.IsLatestVersion.Value = extras[e.Properties.ID].Latest == e.Properties.Version
+		e.Properties.IsAbsoluteLatestVersion.Value = extras[e.Properties.ID].Latest == e.Properties.Version
+		// Add in to list
+		f = append(f, e)
 	}
-	return pkgs, nil
+	return f, nil
+}
+
+func (fs *fileStoreGCP) GetPackageFile(id string, ver string) ([]byte, string, error) {
+
+	// Set the filename
+	key := id + "." + ver
+
+	// Get the file
+	b, _, err := fs.GetFile(path.Join(id, ver, key+".nupkg"))
+	if err != nil {
+		return nil, "", err
+	}
+
+	// Increment this verson's download count
+	_, err = fs.firestore.Collection("Nuget-Packages").Doc(key).Update(fs.ctx, []firestore.Update{
+		{Path: "Properties.VersionDownloadCount.Value", Value: firestore.Increment(1)},
+	})
+	if err != nil {
+		return nil, "", err
+	}
+
+	// Increment this ID's download count
+	_, err = fs.firestore.Collection("Nuget-Packages-Extra").Doc(id).Update(fs.ctx, []firestore.Update{
+		{Path: "Downloads", Value: firestore.Increment(1)},
+	})
+	if err != nil {
+		return nil, "", err
+	}
+
+	// Return it
+	return b, "binary/octet-stream", nil
 }
 
 func (fs *fileStoreGCP) GetFile(f string) ([]byte, string, error) {

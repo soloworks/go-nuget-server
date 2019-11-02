@@ -188,16 +188,20 @@ func (fs *fileStoreLocal) StorePackage(pkg []byte) (bool, error) {
 	return false, nil
 }
 
-func (fs *fileStoreLocal) GetPackage(id string, ver string) (*NugetPackageEntry, error) {
+func (fs *fileStoreLocal) GetPackageEntry(id string, ver string) (*NugetPackageEntry, error) {
 
 	return nil, nil
 }
 
-func (fs *fileStoreLocal) GetPackages(id string) ([]*NugetPackageEntry, error) {
+func (fs *fileStoreLocal) GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, error) {
 
 	return nil, nil
 }
 
+func (fs *fileStoreLocal) GetPackageFile(id string, ver string) ([]byte, string, error) {
+
+	return nil, "", nil
+}
 func (fs *fileStoreLocal) GetFile(f string) ([]byte, string, error) {
 
 	return nil, "", nil

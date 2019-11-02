@@ -14,10 +14,11 @@ const zuluTimeLayout = "2006-01-02T15:04:05Z"
 
 type fileStore interface {
 	Init(c *Server) error
-	GetPackage(id string, ver string) (*NugetPackageEntry, error)
-	GetPackages(id string) ([]*NugetPackageEntry, error)
+	GetPackageEntry(id string, ver string) (*NugetPackageEntry, error)
+	GetPackageFeedEntries(id string, startAfter string, max int) ([]*NugetPackageEntry, error)
 	StorePackage(pkg []byte) (bool, error)
 	GetFile(f string) ([]byte, string, error)
+	GetPackageFile(id string, ver string) ([]byte, string, error)
 	GetAccessLevel(key string) (access, error)
 }
 
