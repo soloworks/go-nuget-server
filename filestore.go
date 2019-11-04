@@ -4,7 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"io/ioutil"
-	"path/filepath"
+	"path"
 
 	nuspec "github.com/soloworks/go-nuspec"
 )
@@ -22,7 +22,7 @@ type fileStore interface {
 	GetAccessLevel(key string) (access, error)
 }
 
-func extractPackage(pkg []byte) (*nuspec.File, map[string][]byte, error) {
+func extractPackage(pkg []byte) (*nuspec.NuSpec, map[string][]byte, error) {
 
 	// Open package data as zipfile
 	zipReader, err := zip.NewReader(bytes.NewReader(pkg), int64(len(pkg)))
@@ -31,13 +31,13 @@ func extractPackage(pkg []byte) (*nuspec.File, map[string][]byte, error) {
 	}
 
 	// values to be returned
-	var nsf *nuspec.File
+	var nsf *nuspec.NuSpec
 	files := make(map[string][]byte)
 
 	// Find and Process the .nuspec file within the zip
 	for _, zippedFile := range zipReader.File {
 		// If this is the root .nuspec file read it into a NewspecFile structure
-		if filepath.Dir(zippedFile.Name) == "." && filepath.Ext(zippedFile.Name) == ".nuspec" {
+		if path.Dir(zippedFile.Name) == "." && path.Ext(zippedFile.Name) == ".nuspec" {
 			// Get a reader for this file
 			rc, err := zippedFile.Open()
 			if err != nil {

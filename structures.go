@@ -244,7 +244,7 @@ type NugetPackageEntry struct {
 }
 
 // NewNugetPackageEntry returns a semi populated struct for a Nuget Packages Entry
-func NewNugetPackageEntry(nsf *nuspec.File) *NugetPackageEntry {
+func NewNugetPackageEntry(nsf *nuspec.NuSpec) *NugetPackageEntry {
 	// Create new entry
 	e := NugetPackageEntry{}
 	// Set Defaults
